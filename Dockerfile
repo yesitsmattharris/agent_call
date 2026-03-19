@@ -3,13 +3,14 @@ FROM node:22-slim
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
 COPY tsconfig.json ./
 COPY src/ ./src/
 COPY config/ ./config/
 
 RUN npx tsc
+RUN npm prune --omit=dev
 
 EXPOSE ${PORT:-3001}
 
