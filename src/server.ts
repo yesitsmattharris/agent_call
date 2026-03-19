@@ -3,6 +3,7 @@ import Fastify from "fastify";
 import formbody from "@fastify/formbody";
 import websocket from "@fastify/websocket";
 import { registerWebhookRoutes } from "./telephony/webhooks.js";
+import { registerMediaStreamRoute } from "./telephony/media-stream.js";
 import { loadBusinessConfig } from "./config/loader.js";
 
 const port = Number(process.env["PORT"] ?? 3001);
@@ -26,20 +27,8 @@ app.get("/", async () => {
 // Twilio webhook routes
 registerWebhookRoutes(app);
 
-// Placeholder WebSocket route for Twilio Media Streams
-app.register(async (fastify) => {
-  fastify.get(
-    "/media-stream",
-    { websocket: true },
-    (socket, _request) => {
-      app.log.info("WebSocket client connected to /media-stream");
-
-      socket.on("close", () => {
-        app.log.info("WebSocket client disconnected from /media-stream");
-      });
-    }
-  );
-});
+// Twilio Media Streams WebSocket route (bridges to OpenAI Realtime API)
+registerMediaStreamRoute(app, businessConfig);
 
 try {
   await app.listen({ port, host });
