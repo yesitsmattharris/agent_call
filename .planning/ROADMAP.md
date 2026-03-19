@@ -32,7 +32,12 @@
 4. When no resolution path is available, the agent offers to take a message or call back rather than going silent or looping
 5. The voice server is deployed to Railway or Render with a valid WSS endpoint and handles calls without packet loss
 
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 1-01-PLAN.md -- Project scaffolding, config system, Fastify server with incoming call webhook
+- [ ] 1-02-PLAN.md -- Core audio bridge (Twilio <-> OpenAI Realtime), barge-in handling, agent tools, session lifecycle
+- [ ] 1-03-PLAN.md -- Railway deployment, Twilio number provisioning, end-to-end call verification
 
 ---
 
@@ -77,7 +82,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Working Call | 0/? | Not started | - |
+| 1. Working Call | 0/3 | Planned | - |
 | 2. Tenant Identity | 0/? | Not started | - |
 | 3. Call Resolution + Visibility | 0/? | Not started | - |
 
@@ -115,4 +120,4 @@
 ---
 
 *Roadmap created: 2026-03-19*
-*Last updated: 2026-03-19 after initial creation*
+*Last updated: 2026-03-19 after Phase 1 planning*
