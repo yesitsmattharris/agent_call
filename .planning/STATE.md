@@ -17,13 +17,13 @@
 ## Current Position
 
 **Current phase:** Phase 1 - Working Call
-**Current plan:** None started
-**Status:** Not started
-**Progress:** Phase 0/3 complete
+**Current plan:** 1-02 (next)
+**Status:** In progress
+**Progress:** Phase 0/3 complete (1-01 done)
 
 ```
-[          ] 0%
-Phase 1: Working Call      [Not started]
+[==        ] 11%
+Phase 1: Working Call      [1/3 plans complete]
 Phase 2: Tenant Identity   [Not started]
 Phase 3: Call Resolution   [Not started]
 ```
@@ -46,6 +46,8 @@ Phase 3: Call Resolution   [Not started]
 
 | Decision | Rationale |
 |----------|-----------|
+| Template literal TwiML over Twilio VoiceResponse builder | Simpler, fewer deps, sufficient for Connect > Stream use case |
+| Twilio signature validation skipped in dev when auth token unset | Dev convenience; logged as warning so it's visible |
 | Dual WebSocket bridge (Twilio Media Streams <-> Fastify <-> OpenAI Realtime) | Sub-400ms latency; the chained STT+LLM+TTS pipeline hits 1200-2000ms which breaks conversational feel |
 | `@openai/agents` + `@openai/agents-extensions` with TwilioRealtimeTransportLayer | Handles codec bridging, interrupt handling, and tool dispatch; avoids significant custom work |
 | Fastify over Express | Twilio reference implementations use Fastify; `@fastify/websocket` integrates cleanly |
@@ -82,15 +84,15 @@ None currently.
 ### Last Session
 
 **Date:** 2026-03-19
-**Completed:** Project initialization, requirements definition, research, roadmap creation
-**Left off:** Ready to plan Phase 1
+**Completed:** Phase 1 Plan 01 (scaffolding, config system, Fastify server, incoming call webhook)
+**Left off:** Completed 1-01-PLAN.md, ready for 1-02-PLAN.md
 
 ### Next Session Should
 
-1. Run `/gsd:plan-phase 1` to decompose Phase 1 into executable plans
-2. Phase 1 plans should cover: Fastify server setup with `@fastify/formbody` and `@fastify/websocket`, Twilio webhook handler (`/incoming-call`), dual WebSocket bridge to OpenAI Realtime, barge-in handling (INFRA-02), Twilio number provisioning (INFRA-01), Railway/Render deployment (INFRA-03)
+1. Execute 1-02-PLAN.md: Core audio bridge (Twilio <-> OpenAI Realtime), barge-in handling, agent tools, session lifecycle
+2. Then 1-03-PLAN.md: Railway deployment, Twilio number provisioning, end-to-end call verification
 
 ---
 
 *State initialized: 2026-03-19*
-*Last updated: 2026-03-19 after roadmap creation*
+*Last updated: 2026-03-19 after completing 1-01-PLAN.md*
