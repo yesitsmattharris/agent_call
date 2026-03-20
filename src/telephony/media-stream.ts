@@ -141,8 +141,11 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
 
         // Use transport events to track Twilio session metadata and
         // initialize the agent once we have the callSid for config lookup.
-        transport.on("event", (event: Record<string, unknown>) => {
-          const msg = event as Record<string, unknown>;
+        // The transport emits all Twilio messages on the "*" handler with
+        // { type: "twilio_message", message: <twilio-data> } structure.
+        transport.on("*", (event: Record<string, unknown>) => {
+          if (event["type"] !== "twilio_message") return;
+          const msg = event["message"] as Record<string, unknown>;
           if (!msg) return;
 
           switch (msg["event"]) {
