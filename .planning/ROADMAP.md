@@ -9,7 +9,7 @@
 
 ## Phases
 
-- [ ] **Phase 1: Working Call** - A real caller can reach the AI agent via a dedicated phone number, have a bidirectional voice conversation, and the call ends cleanly
+- [x] **Phase 1: Working Call** - A real caller can reach the AI agent via a dedicated phone number, have a bidirectional voice conversation, and the call ends cleanly
 - [ ] **Phase 2: Tenant Identity** - The agent knows who it's working for, answers FAQs correctly, respects business hours, and can be reconfigured without redeployment
 - [ ] **Phase 3: Call Resolution + Visibility** - The agent can book appointments, take messages, and business owners can review every call in the admin UI
 
@@ -36,8 +36,8 @@
 
 Plans:
 - [x] 1-01-PLAN.md -- Project scaffolding, config system, Fastify server with incoming call webhook
-- [ ] 1-02-PLAN.md -- Core audio bridge (Twilio <-> OpenAI Realtime), barge-in handling, agent tools, session lifecycle
-- [ ] 1-03-PLAN.md -- Railway deployment, Twilio number provisioning, end-to-end call verification
+- [x] 1-02-PLAN.md -- Core audio bridge (Twilio <-> OpenAI Realtime), barge-in handling, agent tools, session lifecycle
+- [x] 1-03-PLAN.md -- Render deployment, Twilio number provisioning, end-to-end call verification
 
 ---
 
@@ -82,7 +82,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Working Call | 1/3 | In progress | - |
+| 1. Working Call | 3/3 | Complete | 2026-03-20 |
 | 2. Tenant Identity | 0/? | Not started | - |
 | 3. Call Resolution + Visibility | 0/? | Not started | - |
 
