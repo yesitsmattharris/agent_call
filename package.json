@@ -5,23 +5,28 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
-    "fastify": "5.8.2",
-    "@fastify/websocket": "11.2.0",
     "@fastify/formbody": "^8.0.0",
+    "@fastify/websocket": "11.2.0",
     "@openai/agents": "0.7.2",
     "@openai/agents-extensions": "0.7.2",
-    "twilio": "5.13.0",
-    "zod": "4.3.6",
+    "@prisma/adapter-pg": "^7.5.0",
+    "@prisma/client": "^7.5.0",
     "dotenv": "^16.4.0",
-    "ws": "8.19.0"
+    "fastify": "5.8.2",
+    "pg": "^8.20.0",
+    "prisma": "^7.5.0",
+    "twilio": "5.13.0",
+    "ws": "8.19.0",
+    "zod": "4.3.6"
   },
   "devDependencies": {
-    "typescript": "^5.8.0",
-    "tsx": "^4.19.0",
     "@types/node": "^22.0.0",
-    "@types/ws": "^8.5.0"
+    "@types/ws": "^8.5.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
   }
 }
