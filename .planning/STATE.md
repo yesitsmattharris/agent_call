@@ -17,14 +17,14 @@
 ## Current Position
 
 **Current phase:** Phase 2 - Tenant Identity
-**Current plan:** Plan 02 (next)
+**Current plan:** Plan 04 (next)
 **Status:** Executing
-**Progress:** Phase 1 complete, Phase 2 plan 1/4 complete
+**Progress:** Phase 1 complete, Phase 2 plan 3/4 complete
 
 ```
-[====      ] 42%
+[=======   ] 67%
 Phase 1: Working Call      [COMPLETE]
-Phase 2: Tenant Identity   [1/4 plans complete]
+Phase 2: Tenant Identity   [3/4 plans complete]
 Phase 3: Call Resolution   [Not started]
 ```
 
@@ -62,6 +62,7 @@ Phase 3: Call Resolution   [Not started]
 | Explicit greeting trigger via sendMessage after connect | OpenAI Realtime does not auto-generate a greeting; must send a prompt to trigger it |
 | PrismaPg PoolConfig object over pg.Pool instance | Avoids @types/pg version conflict between devDependency and @prisma/adapter-pg bundled types |
 | Prisma 7 datasource block: provider only, no url/directUrl | Prisma 7 moved connection config to prisma.config.ts; url/directUrl in schema.prisma is an error |
+| prisma.config.ts uses process.env fallback, not Prisma env() | env() throws if var is unset, breaking prisma generate in CI/Vercel postinstall without DIRECT_URL |
 
 ### Critical Implementation Notes
 
@@ -93,15 +94,14 @@ None currently.
 ### Last Session
 
 **Date:** 2026-03-20
-**Completed:** Plan 2-01 (Prisma schema, vitest setup, test scaffolds). 2 tasks, 2 commits.
-**Left off:** Plan 2-01 complete, ready for Plan 2-02
+**Completed:** Plan 2-03 (Admin UI scaffold with Supabase magic link auth). 1 task, 1 commit (8fc9759).
+**Left off:** Plan 2-03 complete, ready for Plan 2-04
 
 ### Next Session Should
 
-1. Execute Plan 2-02: Voice server DB integration (per-call config loading, prompt builder with FAQs/services/hours)
-2. Un-skip and implement the test scaffolds created in Plan 2-01
+1. Execute Plan 2-04: Admin UI config forms (business info, hours, services, FAQs)
 
 ---
 
 *State initialized: 2026-03-19*
-*Last updated: 2026-03-20 after completing Plan 2-01*
+*Last updated: 2026-03-20 after completing Plan 2-03*
