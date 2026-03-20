@@ -55,7 +55,13 @@ Plans:
 3. When a caller calls outside configured business hours, the agent acknowledges being closed and offers the appropriate after-hours response
 4. After a business owner updates their configuration, the next inbound call reflects those changes without any server restart
 
-**Plans**: TBD
+**Plans:** 4 plans
+
+Plans:
+- [ ] 2-01-PLAN.md -- Prisma schema, database models, vitest setup, test scaffolds
+- [ ] 2-02-PLAN.md -- Voice server DB integration: per-call config loading, prompt builder with FAQs/services/hours
+- [ ] 2-03-PLAN.md -- Admin UI scaffold: Next.js project, Supabase magic link auth, dashboard shell
+- [ ] 2-04-PLAN.md -- Admin UI config forms: business info, hours, FAQs, services, calendar placeholder
 
 ---
 
@@ -83,7 +89,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Working Call | 3/3 | Complete | 2026-03-20 |
-| 2. Tenant Identity | 0/? | Not started | - |
+| 2. Tenant Identity | 0/4 | Planning complete | - |
 | 3. Call Resolution + Visibility | 0/? | Not started | - |
 
 ---
@@ -120,4 +126,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-19*
-*Last updated: 2026-03-19 after Phase 1 planning*
+*Last updated: 2026-03-20 after Phase 2 planning*
