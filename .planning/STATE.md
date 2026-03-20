@@ -17,14 +17,14 @@
 ## Current Position
 
 **Current phase:** Phase 2 - Tenant Identity
-**Current plan:** Plan 04 (next)
-**Status:** Executing
-**Progress:** Phase 1 complete, Phase 2 plan 3/4 complete
+**Current plan:** Plan 04 (awaiting human verification)
+**Status:** Checkpoint - human-verify
+**Progress:** Phase 1 complete, Phase 2 plan 4/4 code complete (pending verification)
 
 ```
-[=======   ] 67%
+[========  ] 80%
 Phase 1: Working Call      [COMPLETE]
-Phase 2: Tenant Identity   [3/4 plans complete]
+Phase 2: Tenant Identity   [4/4 plans code complete, awaiting verification]
 Phase 3: Call Resolution   [Not started]
 ```
 
@@ -66,6 +66,8 @@ Phase 3: Call Resolution   [Not started]
 | transport.on("*") for Twilio events in media-stream | TwilioRealtimeTransportLayer emits on "*" handler, not "event"; session.on("transport_event") requires session to exist first |
 | Defer session/agent creation to Twilio start event | Per-call config requires callSid from start event to look up tenant; transport created at connect time, session after start |
 | vi.hoisted() for vitest mock declarations | vi.mock factory is hoisted above variable declarations; vi.hoisted() ensures mock fns are available during hoisting |
+| Separate delete/save forms to avoid nested HTML forms | Nested forms are invalid HTML; delete form placed as sibling after save form |
+| Controlled state for business hours grid | Closed checkbox toggles disable and clear time inputs; submitted values reflect visual state |
 
 ### Critical Implementation Notes
 
@@ -99,14 +101,15 @@ None currently.
 ### Last Session
 
 **Date:** 2026-03-20
-**Completed:** Plan 2-03 (Admin UI scaffold with Supabase magic link auth). 1 task, 1 commit (8fc9759).
-**Left off:** Plan 2-03 complete, ready for Plan 2-04
+**Completed:** Plan 2-04 code tasks (Admin UI config forms). 2 tasks, 2 commits (7712dc5, eba85ce).
+**Left off:** Plan 2-04 checkpoint: awaiting human verification of config forms
 
 ### Next Session Should
 
-1. Execute Plan 2-04: Admin UI config forms (business info, hours, services, FAQs)
+1. Complete Plan 2-04 human verification checkpoint (test all config forms in browser)
+2. If approved, mark Phase 2 complete and begin Phase 3 planning
 
 ---
 
 *State initialized: 2026-03-19*
-*Last updated: 2026-03-20 after completing Plan 2-03*
+*Last updated: 2026-03-20 after completing Plan 2-04 code tasks*
