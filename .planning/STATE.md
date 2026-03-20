@@ -63,6 +63,9 @@ Phase 3: Call Resolution   [Not started]
 | PrismaPg PoolConfig object over pg.Pool instance | Avoids @types/pg version conflict between devDependency and @prisma/adapter-pg bundled types |
 | Prisma 7 datasource block: provider only, no url/directUrl | Prisma 7 moved connection config to prisma.config.ts; url/directUrl in schema.prisma is an error |
 | prisma.config.ts uses process.env fallback, not Prisma env() | env() throws if var is unset, breaking prisma generate in CI/Vercel postinstall without DIRECT_URL |
+| transport.on("*") for Twilio events in media-stream | TwilioRealtimeTransportLayer emits on "*" handler, not "event"; session.on("transport_event") requires session to exist first |
+| Defer session/agent creation to Twilio start event | Per-call config requires callSid from start event to look up tenant; transport created at connect time, session after start |
+| vi.hoisted() for vitest mock declarations | vi.mock factory is hoisted above variable declarations; vi.hoisted() ensures mock fns are available during hoisting |
 
 ### Critical Implementation Notes
 
@@ -73,6 +76,8 @@ Phase 3: Call Resolution   [Not started]
 - **Package version lockstep:** `@openai/agents` and `@openai/agents-extensions` must stay at the same version (0.7.2 at project start).
 - **Silence timers:** 10s silence -> agent asks "are you still there?", 15s more -> goodbye. Reset on any media event.
 - **end_call tool:** Triggers `client.calls(callSid).update({ status: 'completed' })` via Twilio REST API.
+- **pendingConfigs Map pattern:** Webhook stores tenant config by CallSid, media-stream retrieves and deletes on start event. No module-level config caching.
+- **vitest mock hoisting:** Use `vi.hoisted()` to declare mock functions that are referenced inside `vi.mock()` factory functions. The factory is hoisted above all imports.
 
 ### Research Flags
 
