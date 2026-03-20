@@ -1,114 +1,207 @@
 import { describe, it, expect } from "vitest";
-import type { TenantConfig, Faq, Service, BusinessHoursEntry } from "./schema.js";
+import type { TenantConfig, BusinessHoursEntry } from "./schema.js";
+import { buildSystemPrompt, isCurrentlyOpen } from "./prompt-builder.js";
 
-// Remove .skip when Plan 02 implements TenantConfig support in prompt-builder
-describe.skip("buildSystemPrompt with TenantConfig", () => {
-  const baseTenant: TenantConfig = {
-    id: "tenant-1",
-    email: "owner@example.com",
-    businessName: "Test Salon",
-    agentName: "Luna",
-    greeting: "Thanks for calling Test Salon!",
-    description: "A full-service hair salon.",
-    escalationMessage: "I'll have someone call you back.",
-    afterHoursMessage: "We're currently closed. Leave a message!",
-    voiceId: "ash",
-    twilioPhoneNumber: "+15551234567",
-    googleCalendarId: null,
-    googleCredentials: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    faqs: [],
-    services: [],
-    businessHours: [],
-  };
+const baseTenant: TenantConfig = {
+  id: "tenant-1",
+  email: "owner@example.com",
+  businessName: "Test Salon",
+  agentName: "Luna",
+  greeting: "Thanks for calling Test Salon!",
+  description: "A full-service hair salon.",
+  escalationMessage: "I'll have someone call you back.",
+  afterHoursMessage: "We're currently closed. Leave a message!",
+  voiceId: "ash",
+  twilioPhoneNumber: "+15551234567",
+  googleCalendarId: null,
+  googleCredentials: null,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  faqs: [],
+  services: [],
+  businessHours: [],
+};
 
+describe("buildSystemPrompt with TenantConfig", () => {
   it("injects FAQ content into prompt string (CALL-03)", () => {
-    const faqs: Faq[] = [
-      { id: "faq-1", tenantId: "tenant-1", question: "Do you accept walk-ins?", answer: "Yes, walk-ins are welcome!", createdAt: new Date() },
-      { id: "faq-2", tenantId: "tenant-1", question: "What are your prices?", answer: "Haircuts start at $30.", createdAt: new Date() },
-    ];
-    const config = { ...baseTenant, faqs };
+    const config: TenantConfig = {
+      ...baseTenant,
+      faqs: [
+        { id: "faq-1", tenantId: "tenant-1", question: "Do you accept walk-ins?", answer: "Yes, walk-ins are welcome!", createdAt: new Date() },
+        { id: "faq-2", tenantId: "tenant-1", question: "What are your prices?", answer: "Haircuts start at $30.", createdAt: new Date() },
+      ],
+      // Make it "open" so we get the normal greeting path
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
 
-    // buildSystemPrompt will be imported from prompt-builder once updated
-    // const prompt = buildSystemPrompt(config);
-    // expect(prompt).toContain("Do you accept walk-ins?");
-    // expect(prompt).toContain("Yes, walk-ins are welcome!");
-    // expect(prompt).toContain("What are your prices?");
-    // expect(prompt).toContain("Haircuts start at $30.");
-    expect(true).toBe(true); // placeholder
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toContain("FREQUENTLY ASKED QUESTIONS");
+    expect(prompt).toContain("Do you accept walk-ins?");
+    expect(prompt).toContain("Yes, walk-ins are welcome!");
+    expect(prompt).toContain("What are your prices?");
+    expect(prompt).toContain("Haircuts start at $30.");
   });
 
   it("injects service names and prices into prompt string (CALL-03)", () => {
-    const services: Service[] = [
-      { id: "svc-1", tenantId: "tenant-1", name: "Haircut", description: "Standard haircut", startingAt: "$30", createdAt: new Date() },
-      { id: "svc-2", tenantId: "tenant-1", name: "Color", description: "Full color treatment", startingAt: null, createdAt: new Date() },
-    ];
-    const config = { ...baseTenant, services };
+    const config: TenantConfig = {
+      ...baseTenant,
+      services: [
+        { id: "svc-1", tenantId: "tenant-1", name: "Haircut", description: "Standard haircut", startingAt: "$30", createdAt: new Date() },
+        { id: "svc-2", tenantId: "tenant-1", name: "Color", description: "Full color treatment", startingAt: null, createdAt: new Date() },
+      ],
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
 
-    // const prompt = buildSystemPrompt(config);
-    // expect(prompt).toContain("Haircut");
-    // expect(prompt).toContain("$30");
-    // expect(prompt).toContain("Color");
-    // expect(prompt).toContain("Full color treatment");
-    expect(true).toBe(true); // placeholder
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toContain("SERVICES OFFERED");
+    expect(prompt).toContain("Haircut");
+    expect(prompt).toContain("$30");
+    expect(prompt).toContain("Color");
+    expect(prompt).toContain("Full color treatment");
   });
 
   it("excludes FAQ section when FAQs are empty", () => {
-    const config = { ...baseTenant, faqs: [] };
+    const config: TenantConfig = {
+      ...baseTenant,
+      faqs: [],
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
 
-    // const prompt = buildSystemPrompt(config);
-    // expect(prompt).not.toContain("FREQUENTLY ASKED QUESTIONS");
-    expect(true).toBe(true); // placeholder
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).not.toContain("FREQUENTLY ASKED QUESTIONS");
   });
 
   it("includes after-hours messaging when closed (CALL-04)", () => {
-    const config = { ...baseTenant, businessHours: [] };
+    const config: TenantConfig = {
+      ...baseTenant,
+      businessHours: [], // No hours = closed
+    };
 
-    // When no hours are configured, business is considered closed
-    // const prompt = buildSystemPrompt(config);
-    // expect(prompt).toContain("currently closed");
-    // expect(prompt).toContain(baseTenant.afterHoursMessage);
-    expect(true).toBe(true); // placeholder
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toContain("currently closed");
+    expect(prompt).toContain(baseTenant.afterHoursMessage!);
+  });
+
+  it("includes after-hours messaging with custom afterHoursMessage when closed (CALL-04)", () => {
+    const config: TenantConfig = {
+      ...baseTenant,
+      afterHoursMessage: "Please call back during business hours.",
+      businessHours: [],
+    };
+
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toContain("currently closed");
+    expect(prompt).toContain("Please call back during business hours.");
+  });
+
+  it("generates after-hours message from hours when afterHoursMessage is null (CALL-04)", () => {
+    const config: TenantConfig = {
+      ...baseTenant,
+      afterHoursMessage: null,
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: 1, openTime: "09:00", closeTime: "17:00" },
+      ],
+    };
+
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toContain("currently closed");
+    // Should mention next opening
+    expect(prompt).toMatch(/Monday/i);
+  });
+
+  it("excludes services section when services are empty", () => {
+    const config: TenantConfig = {
+      ...baseTenant,
+      services: [],
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
+
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).not.toContain("SERVICES OFFERED");
+  });
+
+  it("includes hallucination guardrail instruction", () => {
+    const config: TenantConfig = {
+      ...baseTenant,
+      faqs: [
+        { id: "faq-1", tenantId: "tenant-1", question: "Q?", answer: "A!", createdAt: new Date() },
+      ],
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
+
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toContain("Only use facts from");
+  });
+
+  it("includes 'schedule a visit' guidance for services without prices", () => {
+    const config: TenantConfig = {
+      ...baseTenant,
+      services: [
+        { id: "svc-1", tenantId: "tenant-1", name: "Color", description: "Full color treatment", startingAt: null, createdAt: new Date() },
+      ],
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
+
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toMatch(/contact us for pricing/i);
   });
 });
 
-// Remove .skip when Plan 02 implements isCurrentlyOpen
-describe.skip("isCurrentlyOpen", () => {
+describe("isCurrentlyOpen", () => {
   it("returns true during open hours (CALL-04)", () => {
-    const now = new Date();
-    const dayOfWeek = now.getDay();
-    const earlyOpen = "00:00";
-    const lateClose = "23:59";
+    // Use a fixed date: Wednesday at 10:00 AM
+    const now = new Date("2026-03-18T10:00:00");
+    const dayOfWeek = now.getDay(); // 3 = Wednesday
 
     const hours: BusinessHoursEntry[] = [
-      { id: "bh-1", tenantId: "tenant-1", dayOfWeek, openTime: earlyOpen, closeTime: lateClose },
+      { id: "bh-1", tenantId: "tenant-1", dayOfWeek, openTime: "09:00", closeTime: "17:00" },
     ];
 
-    // const result = isCurrentlyOpen(hours);
-    // expect(result).toBe(true);
-    expect(true).toBe(true); // placeholder
+    const result = isCurrentlyOpen(hours, now);
+    expect(result).toBe(true);
   });
 
   it("returns false outside hours (CALL-04)", () => {
-    const now = new Date();
-    const dayOfWeek = now.getDay();
-    // Set hours to a window that has already passed
+    // Use a fixed date: Wednesday at 18:00 (6 PM)
+    const now = new Date("2026-03-18T18:00:00");
+    const dayOfWeek = now.getDay(); // 3 = Wednesday
+
     const hours: BusinessHoursEntry[] = [
-      { id: "bh-2", tenantId: "tenant-1", dayOfWeek, openTime: "00:00", closeTime: "00:01" },
+      { id: "bh-1", tenantId: "tenant-1", dayOfWeek, openTime: "09:00", closeTime: "17:00" },
     ];
 
-    // const result = isCurrentlyOpen(hours);
-    // If current time is past 00:01, this should be false
-    // expect(result).toBe(false);
-    expect(true).toBe(true); // placeholder
+    const result = isCurrentlyOpen(hours, now);
+    expect(result).toBe(false);
   });
 
   it("returns false when no hours configured for today (CALL-04)", () => {
     const hours: BusinessHoursEntry[] = [];
 
-    // const result = isCurrentlyOpen(hours);
-    // expect(result).toBe(false);
-    expect(true).toBe(true); // placeholder
+    const result = isCurrentlyOpen(hours);
+    expect(result).toBe(false);
+  });
+
+  it("returns false when openTime or closeTime is null", () => {
+    const now = new Date("2026-03-18T10:00:00");
+    const dayOfWeek = now.getDay();
+
+    const hours: BusinessHoursEntry[] = [
+      { id: "bh-1", tenantId: "tenant-1", dayOfWeek, openTime: null, closeTime: null },
+    ];
+
+    const result = isCurrentlyOpen(hours, now);
+    expect(result).toBe(false);
   });
 });

@@ -1,7 +1,22 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 
-// Remove .skip when Plan 02 implements loadTenantConfig with DB backing
-describe.skip("loadTenantConfig", () => {
+const mockFindUnique = vi.fn();
+
+vi.mock("../db/prisma.js", () => ({
+  prisma: {
+    tenant: {
+      findUnique: mockFindUnique,
+    },
+  },
+}));
+
+import { loadTenantConfig } from "./loader.js";
+
+describe("loadTenantConfig", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("returns tenant with all relations for valid phone number (CFG-06)", async () => {
     const mockTenant = {
       id: "tenant-1",
@@ -29,35 +44,25 @@ describe.skip("loadTenantConfig", () => {
       ],
     };
 
-    // vi.mock("../db/prisma.js", () => ({
-    //   prisma: {
-    //     tenant: {
-    //       findUnique: vi.fn().mockResolvedValue(mockTenant),
-    //     },
-    //   },
-    // }));
-    //
-    // const { loadTenantConfig } = await import("./loader.js");
-    // const result = await loadTenantConfig("+15551234567");
-    //
-    // expect(result).toEqual(mockTenant);
-    // expect(result.faqs).toHaveLength(1);
-    // expect(result.services).toHaveLength(1);
-    // expect(result.businessHours).toHaveLength(1);
-    expect(true).toBe(true); // placeholder
+    mockFindUnique.mockResolvedValue(mockTenant);
+
+    const result = await loadTenantConfig("+15551234567");
+
+    expect(result).toEqual(mockTenant);
+    expect(result.faqs).toHaveLength(1);
+    expect(result.services).toHaveLength(1);
+    expect(result.businessHours).toHaveLength(1);
+    expect(mockFindUnique).toHaveBeenCalledWith({
+      where: { twilioPhoneNumber: "+15551234567" },
+      include: { faqs: true, services: true, businessHours: true },
+    });
   });
 
   it("throws for unknown phone number (CFG-06)", async () => {
-    // vi.mock("../db/prisma.js", () => ({
-    //   prisma: {
-    //     tenant: {
-    //       findUnique: vi.fn().mockResolvedValue(null),
-    //     },
-    //   },
-    // }));
-    //
-    // const { loadTenantConfig } = await import("./loader.js");
-    // await expect(loadTenantConfig("+10000000000")).rejects.toThrow("No tenant for number");
-    expect(true).toBe(true); // placeholder
+    mockFindUnique.mockResolvedValue(null);
+
+    await expect(loadTenantConfig("+10000000000")).rejects.toThrow(
+      "No tenant for number: +10000000000"
+    );
   });
 });
