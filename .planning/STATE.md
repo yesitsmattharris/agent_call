@@ -17,14 +17,14 @@
 ## Current Position
 
 **Current phase:** Phase 2 - Tenant Identity
-**Current plan:** Not started
-**Status:** Ready to plan
-**Progress:** Phase 1/3 complete
+**Current plan:** Plan 02 (next)
+**Status:** Executing
+**Progress:** Phase 1 complete, Phase 2 plan 1/4 complete
 
 ```
-[===       ] 33%
+[====      ] 42%
 Phase 1: Working Call      [COMPLETE]
-Phase 2: Tenant Identity   [Not started]
+Phase 2: Tenant Identity   [1/4 plans complete]
 Phase 3: Call Resolution   [Not started]
 ```
 
@@ -60,6 +60,8 @@ Phase 3: Call Resolution   [Not started]
 | TwilioRealtimeTransportLayer handles barge-in automatically | Verified in SDK; uses mark events for audio truncation, no manual truncate+clear needed |
 | Render over Railway for voice server hosting | User did not have Railway account; Render free tier works equivalently |
 | Explicit greeting trigger via sendMessage after connect | OpenAI Realtime does not auto-generate a greeting; must send a prompt to trigger it |
+| PrismaPg PoolConfig object over pg.Pool instance | Avoids @types/pg version conflict between devDependency and @prisma/adapter-pg bundled types |
+| Prisma 7 datasource block: provider only, no url/directUrl | Prisma 7 moved connection config to prisma.config.ts; url/directUrl in schema.prisma is an error |
 
 ### Critical Implementation Notes
 
@@ -91,15 +93,15 @@ None currently.
 ### Last Session
 
 **Date:** 2026-03-20
-**Completed:** Phase 1 complete. All 3 plans executed. Deployed to Render, Twilio number provisioned, e2e call verified.
-**Left off:** Phase 1 done, ready for Phase 2
+**Completed:** Plan 2-01 (Prisma schema, vitest setup, test scaffolds). 2 tasks, 2 commits.
+**Left off:** Plan 2-01 complete, ready for Plan 2-02
 
 ### Next Session Should
 
-1. Run `/gsd:plan-phase 2` to decompose Phase 2 (Tenant Identity) into executable plans
-2. Phase 2 covers: admin UI, database, tenant config CRUD, business hours, FAQs, dynamic config reload
+1. Execute Plan 2-02: Voice server DB integration (per-call config loading, prompt builder with FAQs/services/hours)
+2. Un-skip and implement the test scaffolds created in Plan 2-01
 
 ---
 
 *State initialized: 2026-03-19*
-*Last updated: 2026-03-19 after completing Plans 1-01, 1-02, 1-03 Task 1*
+*Last updated: 2026-03-20 after completing Plan 2-01*
