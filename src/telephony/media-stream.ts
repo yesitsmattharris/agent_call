@@ -5,7 +5,7 @@ import { realtime } from "@openai/agents";
 import { TwilioRealtimeTransportLayer } from "@openai/agents-extensions";
 import { createRealtimeAgent } from "../ai/realtime.js";
 import { SessionManager } from "../ai/session.js";
-import type { BusinessConfig } from "../config/schema.js";
+import { pendingConfigs } from "./webhooks.js";
 
 const { RealtimeSession } = realtime;
 
@@ -14,10 +14,7 @@ const SILENCE_GOODBYE_MS = 15_000;
 
 const sessionManager = new SessionManager();
 
-export function registerMediaStreamRoute(
-  app: FastifyInstance,
-  config: BusinessConfig,
-): void {
+export function registerMediaStreamRoute(app: FastifyInstance): void {
   app.register(async (fastify) => {
     fastify.get(
       "/media-stream",
@@ -31,17 +28,16 @@ export function registerMediaStreamRoute(
         let goodbyeTimer: ReturnType<typeof setTimeout> | null = null;
         let isCleanedUp = false;
 
-        // Create transport and session immediately so the transport's message
-        // listener is registered BEFORE any Twilio events arrive. The transport
-        // needs to see the `start` event to extract the streamSid for outgoing audio.
-        const agent = createRealtimeAgent(config);
+        // Create transport immediately so its message listener is registered
+        // BEFORE any Twilio events arrive. The transport needs to see the
+        // `start` event to extract the streamSid for outgoing audio.
         const transport = new TwilioRealtimeTransportLayer({
           twilioWebSocket: socket,
         });
-        const session = new RealtimeSession(agent, {
-          transport,
-          model: "gpt-realtime",
-        });
+
+        // Session and agent are created after we get the callSid from the
+        // start event, since we need the tenant config from pendingConfigs.
+        let session: InstanceType<typeof RealtimeSession> | null = null;
 
         function resetSilenceTimers() {
           if (silenceTimer) {
@@ -58,7 +54,7 @@ export function registerMediaStreamRoute(
               { streamSid },
               "Silence detected (10s), asking if still there",
             );
-            session.sendMessage(
+            session?.sendMessage(
               "The caller has been silent for 10 seconds. Ask if they are still there.",
               {},
             );
@@ -68,7 +64,7 @@ export function registerMediaStreamRoute(
                 { streamSid },
                 "Extended silence (15s more), saying goodbye",
               );
-              session.sendMessage(
+              session?.sendMessage(
                 "The caller is still silent. Say goodbye and end the call.",
                 {},
               );
@@ -84,7 +80,7 @@ export function registerMediaStreamRoute(
           if (goodbyeTimer) clearTimeout(goodbyeTimer);
 
           try {
-            session.close();
+            session?.close();
           } catch (err) {
             app.log.warn({ err }, "Error closing realtime session");
           }
@@ -99,51 +95,54 @@ export function registerMediaStreamRoute(
           );
         }
 
-        // Listen for tool calls to handle end_call
-        session.on("agent_tool_end", (_ctx, _agent, toolDef, _result) => {
-          if (toolDef.name === "end_call" && callSid) {
-            app.log.info({ callSid }, "Ending call via Twilio API");
-            const accountSid = process.env["TWILIO_ACCOUNT_SID"] ?? "";
-            const authToken = process.env["TWILIO_AUTH_TOKEN"] ?? "";
-            if (accountSid && authToken) {
-              const client = twilio(accountSid, authToken);
-              client
-                .calls(callSid)
-                .update({ status: "completed" })
-                .catch((err: unknown) => {
-                  app.log.error(
-                    { err, callSid },
-                    "Failed to end call via Twilio API",
-                  );
-                });
+        function setupSessionListeners(
+          sess: InstanceType<typeof RealtimeSession>,
+        ) {
+          // Listen for tool calls to handle end_call
+          sess.on("agent_tool_end", (_ctx, _agent, toolDef, _result) => {
+            if (toolDef.name === "end_call" && callSid) {
+              app.log.info({ callSid }, "Ending call via Twilio API");
+              const accountSid = process.env["TWILIO_ACCOUNT_SID"] ?? "";
+              const authToken = process.env["TWILIO_AUTH_TOKEN"] ?? "";
+              if (accountSid && authToken) {
+                const client = twilio(accountSid, authToken);
+                client
+                  .calls(callSid)
+                  .update({ status: "completed" })
+                  .catch((err: unknown) => {
+                    app.log.error(
+                      { err, callSid },
+                      "Failed to end call via Twilio API",
+                    );
+                  });
+              }
             }
-          }
-        });
+          });
 
-        // Log transcripts
-        session.on("history_updated", (history) => {
-          if (!streamSid) return;
-          for (const item of history) {
-            if (item.type === "message" && item.role && item.content) {
-              const content =
-                typeof item.content === "string"
-                  ? item.content
-                  : JSON.stringify(item.content);
-              sessionManager.logMessage(streamSid, item.role, content);
+          // Log transcripts
+          sess.on("history_updated", (history) => {
+            if (!streamSid) return;
+            for (const item of history) {
+              if (item.type === "message" && item.role && item.content) {
+                const content =
+                  typeof item.content === "string"
+                    ? item.content
+                    : JSON.stringify(item.content);
+                sessionManager.logMessage(streamSid, item.role, content);
+              }
             }
-          }
-        });
+          });
 
-        // Handle errors
-        session.on("error", (error) => {
-          app.log.error({ error, streamSid }, "Realtime session error");
-        });
+          // Handle errors
+          sess.on("error", (error) => {
+            app.log.error({ error, streamSid }, "Realtime session error");
+          });
+        }
 
-        // Use transport events to track Twilio session metadata.
-        // The transport handles all audio bridging, we just need streamSid/callSid.
-        session.on("transport_event", (event: Record<string, unknown>) => {
-          if (event["type"] !== "twilio_message") return;
-          const msg = event["message"] as Record<string, unknown>;
+        // Use transport events to track Twilio session metadata and
+        // initialize the agent once we have the callSid for config lookup.
+        transport.on("event", (event: Record<string, unknown>) => {
+          const msg = event as Record<string, unknown>;
           if (!msg) return;
 
           switch (msg["event"]) {
@@ -160,6 +159,49 @@ export function registerMediaStreamRoute(
                 "Twilio media stream started",
               );
               sessionManager.createSession(streamSid, callSid, from, to);
+
+              // Retrieve tenant config stored by the incoming-call webhook
+              const config = pendingConfigs.get(callSid);
+              pendingConfigs.delete(callSid);
+
+              if (!config) {
+                app.log.error(
+                  { callSid },
+                  "No pending config found for call, closing socket",
+                );
+                socket.close();
+                return;
+              }
+
+              // Now create the agent and session with tenant-specific config
+              const agent = createRealtimeAgent(config);
+              session = new RealtimeSession(agent, {
+                transport,
+                model: "gpt-realtime",
+              });
+
+              setupSessionListeners(session);
+
+              // Connect to OpenAI and trigger greeting
+              const apiKey = process.env["OPENAI_API_KEY"] ?? "";
+              session
+                .connect({ apiKey })
+                .then(() => {
+                  app.log.info("Realtime session connected to OpenAI");
+                  session!.sendMessage(
+                    "A new caller has just connected. Greet them now.",
+                    {},
+                  );
+                  app.log.info("Sent greeting trigger to agent");
+                })
+                .catch((err: unknown) => {
+                  app.log.error(
+                    { err },
+                    "Failed to connect realtime session",
+                  );
+                  cleanup();
+                });
+
               resetSilenceTimers();
               break;
             }
@@ -174,25 +216,6 @@ export function registerMediaStreamRoute(
             }
           }
         });
-
-        // Connect to OpenAI immediately. The transport will queue events
-        // until the OpenAI connection is ready.
-        const apiKey = process.env["OPENAI_API_KEY"] ?? "";
-        session
-          .connect({ apiKey })
-          .then(() => {
-            app.log.info("Realtime session connected to OpenAI");
-            // Trigger the agent to greet the caller
-            session.sendMessage(
-              "A new caller has just connected. Greet them now.",
-              {},
-            );
-            app.log.info("Sent greeting trigger to agent");
-          })
-          .catch((err: unknown) => {
-            app.log.error({ err }, "Failed to connect realtime session");
-            cleanup();
-          });
 
         socket.on("close", () => {
           app.log.info({ streamSid }, "WebSocket client disconnected");

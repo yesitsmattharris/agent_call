@@ -1,6 +1,8 @@
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import twilio from "twilio";
 import { buildStreamResponse } from "./twiml.js";
+import { loadTenantConfig } from "../config/loader.js";
+import type { TenantConfig } from "../config/schema.js";
 
 interface IncomingCallBody {
   CallSid: string;
@@ -14,6 +16,8 @@ interface CallStatusBody {
   CallStatus: string;
   [key: string]: string;
 }
+
+export const pendingConfigs = new Map<string, TenantConfig>();
 
 function getTwilioSignatureHook(authToken: string) {
   return async function validateTwilioSignature(
@@ -59,11 +63,24 @@ export function registerWebhookRoutes(app: FastifyInstance): void {
 
       request.log.info({ CallSid, From, To }, "Incoming call received");
 
-      const publicUrl = process.env["PUBLIC_URL"] ?? "http://localhost:3001";
-      const wsUrl = `${publicUrl.replace(/^http/, "ws")}/media-stream`;
-      const twiml = buildStreamResponse(wsUrl);
+      try {
+        const tenantConfig = await loadTenantConfig(To);
+        pendingConfigs.set(CallSid, tenantConfig);
 
-      reply.type("text/xml").send(twiml);
+        const publicUrl = process.env["PUBLIC_URL"] ?? "http://localhost:3001";
+        const wsUrl = `${publicUrl.replace(/^http/, "ws")}/media-stream`;
+        const twiml = buildStreamResponse(wsUrl);
+
+        reply.type("text/xml").send(twiml);
+      } catch (err) {
+        request.log.error({ err, To }, "Failed to load tenant config");
+        const twiml = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say>We're sorry, this number is not configured. Please try again later.</Say>
+  <Hangup/>
+</Response>`;
+        reply.type("text/xml").send(twiml);
+      }
     }
   );
 
