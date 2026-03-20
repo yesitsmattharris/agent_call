@@ -139,6 +139,14 @@ export function registerMediaStreamRoute(
           app.log.error({ error, streamSid }, "Realtime session error");
         });
 
+        // Debug: log all transport events to diagnose audio flow
+        session.on("transport_event", (event: Record<string, unknown>) => {
+          const type = event["type"] as string;
+          if (type !== "twilio_message") {
+            app.log.info({ eventType: type }, "Transport event from OpenAI");
+          }
+        });
+
         // Use transport events to track Twilio session metadata.
         // The transport handles all audio bridging, we just need streamSid/callSid.
         session.on("transport_event", (event: Record<string, unknown>) => {
@@ -182,6 +190,12 @@ export function registerMediaStreamRoute(
           .connect({ apiKey })
           .then(() => {
             app.log.info("Realtime session connected to OpenAI");
+            // Trigger the agent to greet the caller
+            session.sendMessage(
+              "A new caller has just connected. Greet them now.",
+              {},
+            );
+            app.log.info("Sent greeting trigger to agent");
           })
           .catch((err: unknown) => {
             app.log.error({ err }, "Failed to connect realtime session");
