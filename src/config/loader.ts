@@ -1,18 +1,17 @@
-import fs from "node:fs";
-import path from "node:path";
-import { businessConfigSchema, type BusinessConfig } from "./schema.js";
+import { prisma } from "../db/prisma.js";
+import type { TenantConfig } from "./schema.js";
 
-export function loadBusinessConfig(): BusinessConfig {
-  const configPath = path.join(process.cwd(), "config", "business.json");
-  const raw = fs.readFileSync(configPath, "utf-8");
-  const parsed: unknown = JSON.parse(raw);
+export async function loadTenantConfig(
+  twilioNumber: string,
+): Promise<TenantConfig> {
+  const tenant = await prisma.tenant.findUnique({
+    where: { twilioPhoneNumber: twilioNumber },
+    include: { faqs: true, services: true, businessHours: true },
+  });
 
-  const result = businessConfigSchema.safeParse(parsed);
-  if (!result.success) {
-    throw new Error(
-      `Invalid business config at ${configPath}: ${result.error.message}`
-    );
+  if (!tenant) {
+    throw new Error(`No tenant for number: ${twilioNumber}`);
   }
 
-  return result.data;
+  return tenant as unknown as TenantConfig;
 }
