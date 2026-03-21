@@ -5,11 +5,13 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY tsconfig.json ./
+COPY tsconfig.json prisma.config.ts ./
+COPY prisma/ ./prisma/
 COPY src/ ./src/
 COPY config/ ./config/
 
-RUN npx tsc
+RUN npx prisma generate
+RUN npx tsc --build
 RUN npm prune --omit=dev
 
 EXPOSE ${PORT:-3001}
