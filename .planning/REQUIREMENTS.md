@@ -17,9 +17,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Booking
 
-- [ ] **BOOK-01**: Agent checks real-time availability on Google Calendar during a live call
-- [ ] **BOOK-02**: Agent books an appointment on Google Calendar with caller's name and contact info
-- [ ] **BOOK-03**: Agent confirms booking details back to the caller before finalizing
+- [x] **BOOK-01**: Agent checks real-time availability on Google Calendar during a live call
+- [x] **BOOK-02**: Agent books an appointment on Google Calendar with caller's name and contact info
+- [x] **BOOK-03**: Agent confirms booking details back to the caller before finalizing
 
 ### Message Taking
 
@@ -93,9 +93,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CALL-03 | Phase 2 | Complete |
 | CALL-04 | Phase 2 | Complete |
 | CALL-05 | Phase 1 | Complete |
-| BOOK-01 | Phase 3 | Pending |
-| BOOK-02 | Phase 3 | Pending |
-| BOOK-03 | Phase 3 | Pending |
+| BOOK-01 | Phase 3 | Complete |
+| BOOK-02 | Phase 3 | Complete |
+| BOOK-03 | Phase 3 | Complete |
 | MSG-01 | Phase 3 | Pending |
 | MSG-02 | Phase 3 | Pending |
 | CFG-01 | Phase 2 | Complete |
@@ -118,4 +118,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-19*
-*Last updated: 2026-03-21 after Phase 2 completion*
+*Last updated: 2026-03-21 after Plan 3-02 completion*

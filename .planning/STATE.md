@@ -17,15 +17,15 @@
 ## Current Position
 
 **Current phase:** Phase 3 - Call Resolution + Visibility
-**Current plan:** 3-04 (next)
-**Status:** Plan 3-03 complete, proceeding to next plan
-**Progress:** Phases 1-2 complete, Phase 3 in progress (20/22 requirements delivered)
+**Current plan:** 3-02 complete
+**Status:** Plans 3-01, 3-02, 3-03 complete
+**Progress:** Phases 1-2 complete, Phase 3 in progress (22/22 requirements delivered)
 
 ```
-[===============     ] 91%
+[====================] 100%
 Phase 1: Working Call      [COMPLETE]
 Phase 2: Tenant Identity   [COMPLETE]
-Phase 3: Call Resolution   [In Progress - 3/4 plans done]
+Phase 3: Call Resolution   [In Progress - 3/3 plans done (pending verification)]
 ```
 
 ---
@@ -73,6 +73,8 @@ Phase 3: Call Resolution   [In Progress - 3/4 plans done]
 | Create CallLog at call start, finalize on cleanup | Tools need callLogId mid-call; placeholder record created on start event, updated with duration/outcome/transcript on cleanup |
 | Mutable outcomeFlagsRef shared between tools and cleanup | Simple boolean flags object passed by reference via CallContext; tools set flags, cleanup reads them to determine outcome |
 | Admin Prisma schema must stay synced with voice server schema | Both apps share the same database; models added in voice server (CallLog, Message) must be replicated in admin schema for Prisma client generation |
+| vi.clearAllMocks vs mockReset for vitest | clearAllMocks does NOT reset mockResolvedValue/mockReturnValue; use mockReset() per-mock when tests need clean implementation state |
+| Extract tool execute logic into exported functions for testing | FunctionTool.invoke wraps execute in closure; export bare functions for direct unit testing |
 
 ### Critical Implementation Notes
 
@@ -88,6 +90,8 @@ Phase 3: Call Resolution   [In Progress - 3/4 plans done]
 - **Tool context accessor:** In `@openai/agents` realtime, tool execute handlers receive `RunContext<RealtimeContextData<TContext>>`. Access custom context via `context!.context` (not `.state.context` as some docs suggest). Cast with `as unknown as CallContext`.
 - **CallLog lifecycle:** Created at call start (start event) with outcome="in_progress", finalized in cleanup() with actual duration, outcome, and transcript. DB errors in cleanup are caught and logged but don't prevent session teardown.
 - **Admin Prisma schema sync:** The admin app has its own `admin/prisma/schema.prisma` with output to `admin/app/generated/prisma`. When adding models to the voice server schema, the admin schema must be updated too and `npx prisma generate` re-run in the admin directory.
+- **vitest mockReset vs clearAllMocks:** `vi.clearAllMocks()` does NOT clear `mockResolvedValue`/`mockReturnValue` implementation. Use `mockFn.mockReset()` per-mock when tests need a clean slate between test cases.
+- **Nullish coalescing (??) with intentional null:** `null ?? "default"` yields `"default"`. When test helpers need to preserve explicit `null`, use `"key" in overrides ? overrides.key : default` instead.
 
 ### Research Flags
 
@@ -109,15 +113,16 @@ None currently.
 ### Last Session
 
 **Date:** 2026-03-21
-**Completed:** Plan 3-03 (Admin UI Call History + Messages). Dashboard navigation, call history list with search, call detail with transcript viewer, messages list page.
-**Left off:** Plan 3-03 complete, ready for next plan
+**Completed:** Plan 3-02 (Google Calendar Integration). Calendar client with JWT auth, check_availability and book_appointment tools, booking instructions in prompt builder, all 42 tests passing.
+**Left off:** Plan 3-02 complete, all Phase 3 plans done
 
 ### Next Session Should
 
-1. Execute remaining Phase 3 plans (3-02 Google Calendar integration, 3-04 if exists)
-2. Run prisma db push when database is available to apply schema changes
+1. Run prisma db push when database is available to apply schema changes
+2. Verify full Phase 3 end-to-end with live call testing
+3. Consider Phase 3 verification and close-out
 
 ---
 
 *State initialized: 2026-03-19*
-*Last updated: 2026-03-21 after completing Plan 3-03*
+*Last updated: 2026-03-21 after completing Plan 3-02*
