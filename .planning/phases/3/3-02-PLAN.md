@@ -2,8 +2,8 @@
 phase: 3-call-resolution
 plan: 02
 type: execute
-wave: 1
-depends_on: []
+wave: 2
+depends_on: ["3-01"]
 files_modified:
   - src/calendar/client.ts
   - src/calendar/client.test.ts
@@ -12,7 +12,6 @@ files_modified:
   - src/config/prompt-builder.ts
   - src/config/prompt-builder.test.ts
   - src/ai/tools.ts
-  - src/ai/realtime.ts
   - package.json
 autonomous: true
 requirements: [BOOK-01, BOOK-02, BOOK-03]

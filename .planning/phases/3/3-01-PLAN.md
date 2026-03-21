@@ -148,6 +148,7 @@ execute: async (input, context) => { /* context!.state.context has T */ }
    - Add Message model exactly as specified in 3-RESEARCH.md (id, tenantId, callLogId optional, callerName, callbackNumber, reason, preferredTime optional, createdAt, indexes)
    - Add `callLogs CallLog[]` and `messages Message[]` relations to Tenant model
    - Run `npx prisma generate` to regenerate the client
+   - Run `npx prisma db push` to apply schema changes to the database
 
 2. Update `src/config/schema.ts`:
    - Add `timezone` field to `tenantConfigSchema`: `timezone: z.string()`
