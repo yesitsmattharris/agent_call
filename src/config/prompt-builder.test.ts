@@ -160,6 +160,52 @@ describe("buildSystemPrompt with TenantConfig", () => {
   });
 });
 
+describe("buildSystemPrompt booking instructions", () => {
+  it("includes booking instructions when googleCalendarId is set", () => {
+    const config: TenantConfig = {
+      ...baseTenant,
+      googleCalendarId: "cal-123@group.calendar.google.com",
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
+
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toContain("APPOINTMENT BOOKING");
+    expect(prompt).toContain("check_availability");
+    expect(prompt).toContain("book_appointment");
+  });
+
+  it("does NOT include booking instructions when googleCalendarId is null", () => {
+    const config: TenantConfig = {
+      ...baseTenant,
+      googleCalendarId: null,
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
+
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).not.toContain("APPOINTMENT BOOKING");
+    expect(prompt).not.toContain("check_availability");
+    expect(prompt).not.toContain("book_appointment");
+  });
+
+  it("booking instructions include confirmation requirement (BOOK-03)", () => {
+    const config: TenantConfig = {
+      ...baseTenant,
+      googleCalendarId: "cal-123@group.calendar.google.com",
+      businessHours: [
+        { id: "bh-1", tenantId: "tenant-1", dayOfWeek: new Date().getDay(), openTime: "00:00", closeTime: "23:59" },
+      ],
+    };
+
+    const prompt = buildSystemPrompt(config);
+    expect(prompt).toContain("CONFIRM");
+    expect(prompt).toContain("AFTER the caller confirms");
+  });
+});
+
 describe("isCurrentlyOpen", () => {
   it("returns true during open hours (CALL-04)", () => {
     // Use a fixed date: Wednesday at 10:00 AM

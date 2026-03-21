@@ -50,6 +50,20 @@ function buildServicesBlock(services: Service[]): string {
   return `\nSERVICES OFFERED:\n${entries}\n`;
 }
 
+function buildBookingBlock(config: TenantConfig): string {
+  if (!config.googleCalendarId) return "";
+
+  return `
+APPOINTMENT BOOKING:
+- You can check available appointment slots and book appointments for callers.
+- ALWAYS use the check_availability tool first to find open times before offering slots.
+- After the caller selects a time, CONFIRM the details verbally: repeat the date, time, and their name back to them.
+- Only call book_appointment AFTER the caller confirms the details are correct.
+- All appointments are 60 minutes long.
+- If no slots are available on the requested date, suggest checking another day.
+`;
+}
+
 function findNextOpeningMessage(hours: BusinessHoursEntry[]): string {
   // Find the next day with configured hours
   const sorted = hours
@@ -81,6 +95,7 @@ Then offer to take a message for a callback.`;
 
   const faqBlock = buildFaqBlock(config.faqs);
   const servicesBlock = buildServicesBlock(config.services);
+  const bookingBlock = buildBookingBlock(config);
 
   const guardrail =
     faqBlock || servicesBlock
@@ -98,7 +113,7 @@ PERSONALITY:
 - Use natural speech patterns (contractions, brief acknowledgments like "sure", "got it", "absolutely")
 - Do not use technical jargon or robotic phrasing
 - If asked whether you are a robot or AI, be truthful: "Yes, I'm an AI assistant for ${config.businessName}. How can I help you today?"
-${faqBlock}${servicesBlock}${guardrail}
+${faqBlock}${servicesBlock}${bookingBlock}${guardrail}
 HANDLING UNKNOWN QUESTIONS:
 - If you do not have the information to answer a question, say: "I don't have that information right now."
 - Then offer a callback: "${config.escalationMessage}"

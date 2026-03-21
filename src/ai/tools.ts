@@ -3,6 +3,7 @@ import { tool } from "@openai/agents";
 import type { FunctionTool } from "@openai/agents";
 import { prisma } from "../db/prisma.js";
 import type { CallContext } from "../config/schema.js";
+import { checkAvailabilityTool, bookAppointmentTool } from "./tools/calendar.js";
 
 const takeMessageTool = tool({
   name: "take_message",
@@ -55,4 +56,6 @@ const endCallTool = tool({
 export const agentTools: FunctionTool<any, any, any>[] = [
   takeMessageTool,
   endCallTool,
+  checkAvailabilityTool,
+  bookAppointmentTool,
 ];

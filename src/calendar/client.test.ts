@@ -73,7 +73,7 @@ describe("checkAvailability", () => {
       },
     });
 
-    await checkAvailability(mockCalendar, "cal-123", "2026-03-25", "America/New_York");
+    await checkAvailability(mockCalendar as any, "cal-123", "2026-03-25", "America/New_York");
 
     expect(mockCalendar.freebusy.query).toHaveBeenCalledWith({
       requestBody: {
@@ -99,7 +99,7 @@ describe("checkAvailability", () => {
       },
     });
 
-    const result = await checkAvailability(mockCalendar, "cal-123", "2026-03-25", "America/New_York");
+    const result = await checkAvailability(mockCalendar as any, "cal-123", "2026-03-25", "America/New_York");
     expect(result).toEqual(busySlots);
   });
 
@@ -112,7 +112,7 @@ describe("checkAvailability", () => {
       },
     });
 
-    const result = await checkAvailability(mockCalendar, "cal-123", "2026-03-25", "America/New_York");
+    const result = await checkAvailability(mockCalendar as any, "cal-123", "2026-03-25", "America/New_York");
     expect(result).toEqual([]);
   });
 });
@@ -131,7 +131,7 @@ describe("bookAppointment", () => {
     });
 
     await bookAppointment(
-      mockCalendar,
+      mockCalendar as any,
       "cal-123",
       "2026-03-25T10:00:00-04:00",
       "2026-03-25T11:00:00-04:00",
@@ -160,7 +160,7 @@ describe("bookAppointment", () => {
     });
 
     const result = await bookAppointment(
-      mockCalendar,
+      mockCalendar as any,
       "cal-123",
       "2026-03-25T10:00:00-04:00",
       "2026-03-25T11:00:00-04:00",
@@ -181,7 +181,7 @@ describe("bookAppointment", () => {
     });
 
     const result = await bookAppointment(
-      mockCalendar,
+      mockCalendar as any,
       "cal-123",
       "2026-03-25T10:00:00-04:00",
       "2026-03-25T11:00:00-04:00",
