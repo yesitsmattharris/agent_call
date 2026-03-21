@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { tool } from "@openai/agents";
 import type { FunctionTool } from "@openai/agents";
+import { prisma } from "../db/prisma.js";
+import type { CallContext } from "../config/schema.js";
 
 const takeMessageTool = tool({
   name: "take_message",
@@ -11,16 +13,30 @@ const takeMessageTool = tool({
     reason: z.string(),
     preferredTime: z.string().optional(),
   }),
-  execute: async (input) => {
-    const record = {
+  execute: async (input, context) => {
+    const { tenantId, callLogId, outcomeFlagsRef } =
+      context!.context as unknown as CallContext;
+
+    await prisma.message.create({
+      data: {
+        tenantId,
+        callLogId: callLogId ?? null,
+        callerName: input.callerName,
+        callbackNumber: input.callbackNumber,
+        reason: input.reason,
+        preferredTime: input.preferredTime ?? null,
+      },
+    });
+
+    outcomeFlagsRef.messageTaken = true;
+    console.log("[tool:take_message]", JSON.stringify({
       type: "message_taken",
       callerName: input.callerName,
       callbackNumber: input.callbackNumber,
-      reason: input.reason,
-      preferredTime: input.preferredTime ?? null,
-      timestamp: new Date().toISOString(),
-    };
-    console.log("[tool:take_message]", JSON.stringify(record));
+      tenantId,
+      callLogId,
+    }));
+
     return `Message recorded for ${input.callerName}. We will call back at ${input.callbackNumber}.`;
   },
 });

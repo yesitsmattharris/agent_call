@@ -6,6 +6,13 @@ import { TwilioRealtimeTransportLayer } from "@openai/agents-extensions";
 import { createRealtimeAgent } from "../ai/realtime.js";
 import { SessionManager } from "../ai/session.js";
 import { pendingConfigs } from "./webhooks.js";
+import {
+  createCallLog,
+  finalizeCallLog,
+  extractTranscript,
+  determineOutcome,
+} from "../ai/call-logger.js";
+import type { CallContext } from "../config/schema.js";
 
 const { RealtimeSession } = realtime;
 
@@ -27,6 +34,9 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
         let silenceTimer: ReturnType<typeof setTimeout> | null = null;
         let goodbyeTimer: ReturnType<typeof setTimeout> | null = null;
         let isCleanedUp = false;
+        let callLogId: string | null = null;
+        const outcomeFlags = { messageTaken: false, bookingMade: false };
+        let lastHistory: unknown[] = [];
 
         // Create transport immediately so its message listener is registered
         // BEFORE any Twilio events arrive. The transport needs to see the
@@ -72,7 +82,7 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
           }, SILENCE_CHECK_MS);
         }
 
-        function cleanup() {
+        async function cleanup() {
           if (isCleanedUp) return;
           isCleanedUp = true;
 
@@ -83,6 +93,26 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
             session?.close();
           } catch (err) {
             app.log.warn({ err }, "Error closing realtime session");
+          }
+
+          if (callLogId && streamSid) {
+            const callSession = sessionManager.getSession(streamSid);
+            if (callSession) {
+              const durationSec = Math.round(
+                (Date.now() - callSession.startedAt.getTime()) / 1000,
+              );
+              const transcript = extractTranscript(lastHistory);
+              const outcome = determineOutcome(outcomeFlags);
+              try {
+                await finalizeCallLog(callLogId, durationSec, outcome, transcript);
+                app.log.info(
+                  { callLogId, durationSec, outcome },
+                  "Call log finalized",
+                );
+              } catch (err) {
+                app.log.error({ err, callLogId }, "Failed to finalize call log");
+              }
+            }
           }
 
           if (streamSid) {
@@ -119,18 +149,9 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
             }
           });
 
-          // Log transcripts
+          // Capture latest history snapshot for persistence on cleanup
           sess.on("history_updated", (history) => {
-            if (!streamSid) return;
-            for (const item of history) {
-              if (item.type === "message" && item.role && item.content) {
-                const content =
-                  typeof item.content === "string"
-                    ? item.content
-                    : JSON.stringify(item.content);
-                sessionManager.logMessage(streamSid, item.role, content);
-              }
-            }
+            lastHistory = history;
           });
 
           // Handle errors
@@ -143,7 +164,7 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
         // initialize the agent once we have the callSid for config lookup.
         // The transport emits all Twilio messages on the "*" handler with
         // { type: "twilio_message", message: <twilio-data> } structure.
-        transport.on("*", (event: Record<string, unknown>) => {
+        transport.on("*", async (event: Record<string, unknown>) => {
           if (event["type"] !== "twilio_message") return;
           const msg = event["message"] as Record<string, unknown>;
           if (!msg) return;
@@ -176,11 +197,29 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
                 return;
               }
 
+              // Create the call log record at call start
+              try {
+                const callLog = await createCallLog(config.id, callSid, from);
+                callLogId = callLog.id;
+              } catch (err) {
+                app.log.error({ err, callSid }, "Failed to create call log");
+              }
+
               // Now create the agent and session with tenant-specific config
               const agent = createRealtimeAgent(config);
               session = new RealtimeSession(agent, {
                 transport,
                 model: "gpt-realtime",
+                context: {
+                  tenantId: config.id,
+                  callLogId: callLogId!,
+                  googleCalendarId: config.googleCalendarId,
+                  googleCredentials: config.googleCredentials,
+                  timezone: config.timezone ?? "America/New_York",
+                  callSid: callSid!,
+                  streamSid: streamSid!,
+                  outcomeFlagsRef: outcomeFlags,
+                } satisfies CallContext,
               });
 
               setupSessionListeners(session);

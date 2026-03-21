@@ -15,6 +15,7 @@ const baseTenant: TenantConfig = {
   twilioPhoneNumber: "+15551234567",
   googleCalendarId: null,
   googleCredentials: null,
+  timezone: "America/New_York",
   createdAt: new Date(),
   updatedAt: new Date(),
   faqs: [],
