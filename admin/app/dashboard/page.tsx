@@ -30,7 +30,8 @@ export default async function DashboardPage() {
         services: true,
       },
     });
-  } catch {
+  } catch (e) {
+    console.error("Database error:", e);
     dbError = true;
   }
 
