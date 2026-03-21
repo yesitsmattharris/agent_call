@@ -37,24 +37,24 @@ export default async function DashboardPage() {
 
   if (dbError) {
     return (
-      <main style={{ maxWidth: 600, margin: "60px auto", padding: "0 20px" }}>
+      <div>
         <h1>Dashboard</h1>
         <p>Database not configured. Set DATABASE_URL to connect.</p>
-      </main>
+      </div>
     );
   }
 
   if (!tenant) {
     return (
-      <main style={{ maxWidth: 600, margin: "60px auto", padding: "0 20px" }}>
+      <div>
         <h1>Dashboard</h1>
         <p>No business configured for this account.</p>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main style={{ maxWidth: 600, margin: "60px auto", padding: "0 20px 60px" }}>
+    <div style={{ paddingBottom: 60 }}>
       <h1>{tenant.businessName}</h1>
 
       <CollapsibleSection heading="Business Info">
@@ -76,6 +76,6 @@ export default async function DashboardPage() {
       <CollapsibleSection heading="Calendar Connection">
         <CalendarSection tenantId={tenant.id} googleCalendarId={tenant.googleCalendarId} />
       </CollapsibleSection>
-    </main>
+    </div>
   );
 }
