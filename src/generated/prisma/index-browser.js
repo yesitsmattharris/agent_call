@@ -133,6 +133,7 @@ exports.Prisma.TenantScalarFieldEnum = {
   twilioPhoneNumber: 'twilioPhoneNumber',
   googleCalendarId: 'googleCalendarId',
   googleCredentials: 'googleCredentials',
+  timezone: 'timezone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -162,6 +163,29 @@ exports.Prisma.ServiceScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.CallLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  callSid: 'callSid',
+  callerNumber: 'callerNumber',
+  startedAt: 'startedAt',
+  durationSeconds: 'durationSeconds',
+  outcome: 'outcome',
+  transcript: 'transcript',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  callLogId: 'callLogId',
+  callerName: 'callerName',
+  callbackNumber: 'callbackNumber',
+  reason: 'reason',
+  preferredTime: 'preferredTime',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -169,6 +193,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -193,7 +221,9 @@ exports.Prisma.ModelName = {
   Tenant: 'Tenant',
   BusinessHours: 'BusinessHours',
   Faq: 'Faq',
-  Service: 'Service'
+  Service: 'Service',
+  CallLog: 'CallLog',
+  Message: 'Message'
 };
 
 /**

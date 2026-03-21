@@ -33,6 +33,16 @@ export type Faq = $Result.DefaultSelection<Prisma.$FaqPayload>
  * 
  */
 export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
+/**
+ * Model CallLog
+ * 
+ */
+export type CallLog = $Result.DefaultSelection<Prisma.$CallLogPayload>
+/**
+ * Model Message
+ * 
+ */
+export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -194,6 +204,26 @@ export class PrismaClient<
     * ```
     */
   get service(): Prisma.ServiceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.callLog`: Exposes CRUD operations for the **CallLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CallLogs
+    * const callLogs = await prisma.callLog.findMany()
+    * ```
+    */
+  get callLog(): Prisma.CallLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.message`: Exposes CRUD operations for the **Message** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Messages
+    * const messages = await prisma.message.findMany()
+    * ```
+    */
+  get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -631,7 +661,9 @@ export namespace Prisma {
     Tenant: 'Tenant',
     BusinessHours: 'BusinessHours',
     Faq: 'Faq',
-    Service: 'Service'
+    Service: 'Service',
+    CallLog: 'CallLog',
+    Message: 'Message'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -647,7 +679,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tenant" | "businessHours" | "faq" | "service"
+      modelProps: "tenant" | "businessHours" | "faq" | "service" | "callLog" | "message"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -947,6 +979,154 @@ export namespace Prisma {
           }
         }
       }
+      CallLog: {
+        payload: Prisma.$CallLogPayload<ExtArgs>
+        fields: Prisma.CallLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CallLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CallLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>
+          }
+          findFirst: {
+            args: Prisma.CallLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CallLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>
+          }
+          findMany: {
+            args: Prisma.CallLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>[]
+          }
+          create: {
+            args: Prisma.CallLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>
+          }
+          createMany: {
+            args: Prisma.CallLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CallLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>[]
+          }
+          delete: {
+            args: Prisma.CallLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>
+          }
+          update: {
+            args: Prisma.CallLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.CallLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CallLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CallLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.CallLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CallLogPayload>
+          }
+          aggregate: {
+            args: Prisma.CallLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCallLog>
+          }
+          groupBy: {
+            args: Prisma.CallLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CallLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CallLogCountArgs<ExtArgs>
+            result: $Utils.Optional<CallLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      Message: {
+        payload: Prisma.$MessagePayload<ExtArgs>
+        fields: Prisma.MessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findMany: {
+            args: Prisma.MessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          create: {
+            args: Prisma.MessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          createMany: {
+            args: Prisma.MessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          delete: {
+            args: Prisma.MessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          update: {
+            args: Prisma.MessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MessageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          upsert: {
+            args: Prisma.MessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessage>
+          }
+          groupBy: {
+            args: Prisma.MessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1059,6 +1239,8 @@ export namespace Prisma {
     businessHours?: BusinessHoursOmit
     faq?: FaqOmit
     service?: ServiceOmit
+    callLog?: CallLogOmit
+    message?: MessageOmit
   }
 
   /* Types for Logging */
@@ -1140,13 +1322,17 @@ export namespace Prisma {
 
   export type TenantCountOutputType = {
     businessHours: number
+    callLogs: number
     faqs: number
+    messages: number
     services: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     businessHours?: boolean | TenantCountOutputTypeCountBusinessHoursArgs
+    callLogs?: boolean | TenantCountOutputTypeCountCallLogsArgs
     faqs?: boolean | TenantCountOutputTypeCountFaqsArgs
+    messages?: boolean | TenantCountOutputTypeCountMessagesArgs
     services?: boolean | TenantCountOutputTypeCountServicesArgs
   }
 
@@ -1171,6 +1357,13 @@ export namespace Prisma {
   /**
    * TenantCountOutputType without action
    */
+  export type TenantCountOutputTypeCountCallLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CallLogWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
   export type TenantCountOutputTypeCountFaqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FaqWhereInput
   }
@@ -1178,8 +1371,46 @@ export namespace Prisma {
   /**
    * TenantCountOutputType without action
    */
+  export type TenantCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
   export type TenantCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ServiceWhereInput
+  }
+
+
+  /**
+   * Count Type CallLogCountOutputType
+   */
+
+  export type CallLogCountOutputType = {
+    messages: number
+  }
+
+  export type CallLogCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    messages?: boolean | CallLogCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CallLogCountOutputType without action
+   */
+  export type CallLogCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLogCountOutputType
+     */
+    select?: CallLogCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CallLogCountOutputType without action
+   */
+  export type CallLogCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
   }
 
 
@@ -1209,6 +1440,7 @@ export namespace Prisma {
     voiceId: string | null
     twilioPhoneNumber: string | null
     googleCalendarId: string | null
+    timezone: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1225,6 +1457,7 @@ export namespace Prisma {
     voiceId: string | null
     twilioPhoneNumber: string | null
     googleCalendarId: string | null
+    timezone: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1242,6 +1475,7 @@ export namespace Prisma {
     twilioPhoneNumber: number
     googleCalendarId: number
     googleCredentials: number
+    timezone: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1260,6 +1494,7 @@ export namespace Prisma {
     voiceId?: true
     twilioPhoneNumber?: true
     googleCalendarId?: true
+    timezone?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1276,6 +1511,7 @@ export namespace Prisma {
     voiceId?: true
     twilioPhoneNumber?: true
     googleCalendarId?: true
+    timezone?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1293,6 +1529,7 @@ export namespace Prisma {
     twilioPhoneNumber?: true
     googleCalendarId?: true
     googleCredentials?: true
+    timezone?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1383,6 +1620,7 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId: string | null
     googleCredentials: JsonValue | null
+    timezone: string
     createdAt: Date
     updatedAt: Date
     _count: TenantCountAggregateOutputType | null
@@ -1417,10 +1655,13 @@ export namespace Prisma {
     twilioPhoneNumber?: boolean
     googleCalendarId?: boolean
     googleCredentials?: boolean
+    timezone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     businessHours?: boolean | Tenant$businessHoursArgs<ExtArgs>
+    callLogs?: boolean | Tenant$callLogsArgs<ExtArgs>
     faqs?: boolean | Tenant$faqsArgs<ExtArgs>
+    messages?: boolean | Tenant$messagesArgs<ExtArgs>
     services?: boolean | Tenant$servicesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
@@ -1438,6 +1679,7 @@ export namespace Prisma {
     twilioPhoneNumber?: boolean
     googleCalendarId?: boolean
     googleCredentials?: boolean
+    timezone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["tenant"]>
@@ -1455,6 +1697,7 @@ export namespace Prisma {
     twilioPhoneNumber?: boolean
     googleCalendarId?: boolean
     googleCredentials?: boolean
+    timezone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["tenant"]>
@@ -1472,14 +1715,17 @@ export namespace Prisma {
     twilioPhoneNumber?: boolean
     googleCalendarId?: boolean
     googleCredentials?: boolean
+    timezone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "businessName" | "agentName" | "greeting" | "description" | "escalationMessage" | "afterHoursMessage" | "voiceId" | "twilioPhoneNumber" | "googleCalendarId" | "googleCredentials" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "businessName" | "agentName" | "greeting" | "description" | "escalationMessage" | "afterHoursMessage" | "voiceId" | "twilioPhoneNumber" | "googleCalendarId" | "googleCredentials" | "timezone" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     businessHours?: boolean | Tenant$businessHoursArgs<ExtArgs>
+    callLogs?: boolean | Tenant$callLogsArgs<ExtArgs>
     faqs?: boolean | Tenant$faqsArgs<ExtArgs>
+    messages?: boolean | Tenant$messagesArgs<ExtArgs>
     services?: boolean | Tenant$servicesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1490,7 +1736,9 @@ export namespace Prisma {
     name: "Tenant"
     objects: {
       businessHours: Prisma.$BusinessHoursPayload<ExtArgs>[]
+      callLogs: Prisma.$CallLogPayload<ExtArgs>[]
       faqs: Prisma.$FaqPayload<ExtArgs>[]
+      messages: Prisma.$MessagePayload<ExtArgs>[]
       services: Prisma.$ServicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -1506,6 +1754,7 @@ export namespace Prisma {
       twilioPhoneNumber: string
       googleCalendarId: string | null
       googleCredentials: Prisma.JsonValue | null
+      timezone: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["tenant"]>
@@ -1903,7 +2152,9 @@ export namespace Prisma {
   export interface Prisma__TenantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     businessHours<T extends Tenant$businessHoursArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$businessHoursArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessHoursPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    callLogs<T extends Tenant$callLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$callLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     faqs<T extends Tenant$faqsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FaqPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messages<T extends Tenant$messagesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     services<T extends Tenant$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1946,6 +2197,7 @@ export namespace Prisma {
     readonly twilioPhoneNumber: FieldRef<"Tenant", 'String'>
     readonly googleCalendarId: FieldRef<"Tenant", 'String'>
     readonly googleCredentials: FieldRef<"Tenant", 'Json'>
+    readonly timezone: FieldRef<"Tenant", 'String'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
     readonly updatedAt: FieldRef<"Tenant", 'DateTime'>
   }
@@ -2365,6 +2617,30 @@ export namespace Prisma {
   }
 
   /**
+   * Tenant.callLogs
+   */
+  export type Tenant$callLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    where?: CallLogWhereInput
+    orderBy?: CallLogOrderByWithRelationInput | CallLogOrderByWithRelationInput[]
+    cursor?: CallLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CallLogScalarFieldEnum | CallLogScalarFieldEnum[]
+  }
+
+  /**
    * Tenant.faqs
    */
   export type Tenant$faqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2386,6 +2662,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FaqScalarFieldEnum | FaqScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.messages
+   */
+  export type Tenant$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
   }
 
   /**
@@ -5668,6 +5968,2310 @@ export namespace Prisma {
 
 
   /**
+   * Model CallLog
+   */
+
+  export type AggregateCallLog = {
+    _count: CallLogCountAggregateOutputType | null
+    _avg: CallLogAvgAggregateOutputType | null
+    _sum: CallLogSumAggregateOutputType | null
+    _min: CallLogMinAggregateOutputType | null
+    _max: CallLogMaxAggregateOutputType | null
+  }
+
+  export type CallLogAvgAggregateOutputType = {
+    durationSeconds: number | null
+  }
+
+  export type CallLogSumAggregateOutputType = {
+    durationSeconds: number | null
+  }
+
+  export type CallLogMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    callSid: string | null
+    callerNumber: string | null
+    startedAt: Date | null
+    durationSeconds: number | null
+    outcome: string | null
+    createdAt: Date | null
+  }
+
+  export type CallLogMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    callSid: string | null
+    callerNumber: string | null
+    startedAt: Date | null
+    durationSeconds: number | null
+    outcome: string | null
+    createdAt: Date | null
+  }
+
+  export type CallLogCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    callSid: number
+    callerNumber: number
+    startedAt: number
+    durationSeconds: number
+    outcome: number
+    transcript: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CallLogAvgAggregateInputType = {
+    durationSeconds?: true
+  }
+
+  export type CallLogSumAggregateInputType = {
+    durationSeconds?: true
+  }
+
+  export type CallLogMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    callSid?: true
+    callerNumber?: true
+    startedAt?: true
+    durationSeconds?: true
+    outcome?: true
+    createdAt?: true
+  }
+
+  export type CallLogMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    callSid?: true
+    callerNumber?: true
+    startedAt?: true
+    durationSeconds?: true
+    outcome?: true
+    createdAt?: true
+  }
+
+  export type CallLogCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    callSid?: true
+    callerNumber?: true
+    startedAt?: true
+    durationSeconds?: true
+    outcome?: true
+    transcript?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CallLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CallLog to aggregate.
+     */
+    where?: CallLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CallLogs to fetch.
+     */
+    orderBy?: CallLogOrderByWithRelationInput | CallLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CallLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CallLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CallLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CallLogs
+    **/
+    _count?: true | CallLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CallLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CallLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CallLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CallLogMaxAggregateInputType
+  }
+
+  export type GetCallLogAggregateType<T extends CallLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateCallLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCallLog[P]>
+      : GetScalarType<T[P], AggregateCallLog[P]>
+  }
+
+
+
+
+  export type CallLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CallLogWhereInput
+    orderBy?: CallLogOrderByWithAggregationInput | CallLogOrderByWithAggregationInput[]
+    by: CallLogScalarFieldEnum[] | CallLogScalarFieldEnum
+    having?: CallLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CallLogCountAggregateInputType | true
+    _avg?: CallLogAvgAggregateInputType
+    _sum?: CallLogSumAggregateInputType
+    _min?: CallLogMinAggregateInputType
+    _max?: CallLogMaxAggregateInputType
+  }
+
+  export type CallLogGroupByOutputType = {
+    id: string
+    tenantId: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date
+    durationSeconds: number
+    outcome: string
+    transcript: JsonValue
+    createdAt: Date
+    _count: CallLogCountAggregateOutputType | null
+    _avg: CallLogAvgAggregateOutputType | null
+    _sum: CallLogSumAggregateOutputType | null
+    _min: CallLogMinAggregateOutputType | null
+    _max: CallLogMaxAggregateOutputType | null
+  }
+
+  type GetCallLogGroupByPayload<T extends CallLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CallLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CallLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CallLogGroupByOutputType[P]>
+            : GetScalarType<T[P], CallLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CallLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    callSid?: boolean
+    callerNumber?: boolean
+    startedAt?: boolean
+    durationSeconds?: boolean
+    outcome?: boolean
+    transcript?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    messages?: boolean | CallLog$messagesArgs<ExtArgs>
+    _count?: boolean | CallLogCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["callLog"]>
+
+  export type CallLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    callSid?: boolean
+    callerNumber?: boolean
+    startedAt?: boolean
+    durationSeconds?: boolean
+    outcome?: boolean
+    transcript?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["callLog"]>
+
+  export type CallLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    callSid?: boolean
+    callerNumber?: boolean
+    startedAt?: boolean
+    durationSeconds?: boolean
+    outcome?: boolean
+    transcript?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["callLog"]>
+
+  export type CallLogSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    callSid?: boolean
+    callerNumber?: boolean
+    startedAt?: boolean
+    durationSeconds?: boolean
+    outcome?: boolean
+    transcript?: boolean
+    createdAt?: boolean
+  }
+
+  export type CallLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "callSid" | "callerNumber" | "startedAt" | "durationSeconds" | "outcome" | "transcript" | "createdAt", ExtArgs["result"]["callLog"]>
+  export type CallLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    messages?: boolean | CallLog$messagesArgs<ExtArgs>
+    _count?: boolean | CallLogCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CallLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type CallLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $CallLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CallLog"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      messages: Prisma.$MessagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      callSid: string
+      callerNumber: string
+      startedAt: Date
+      durationSeconds: number
+      outcome: string
+      transcript: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["callLog"]>
+    composites: {}
+  }
+
+  type CallLogGetPayload<S extends boolean | null | undefined | CallLogDefaultArgs> = $Result.GetResult<Prisma.$CallLogPayload, S>
+
+  type CallLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CallLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CallLogCountAggregateInputType | true
+    }
+
+  export interface CallLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CallLog'], meta: { name: 'CallLog' } }
+    /**
+     * Find zero or one CallLog that matches the filter.
+     * @param {CallLogFindUniqueArgs} args - Arguments to find a CallLog
+     * @example
+     * // Get one CallLog
+     * const callLog = await prisma.callLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CallLogFindUniqueArgs>(args: SelectSubset<T, CallLogFindUniqueArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CallLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CallLogFindUniqueOrThrowArgs} args - Arguments to find a CallLog
+     * @example
+     * // Get one CallLog
+     * const callLog = await prisma.callLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CallLogFindUniqueOrThrowArgs>(args: SelectSubset<T, CallLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CallLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CallLogFindFirstArgs} args - Arguments to find a CallLog
+     * @example
+     * // Get one CallLog
+     * const callLog = await prisma.callLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CallLogFindFirstArgs>(args?: SelectSubset<T, CallLogFindFirstArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CallLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CallLogFindFirstOrThrowArgs} args - Arguments to find a CallLog
+     * @example
+     * // Get one CallLog
+     * const callLog = await prisma.callLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CallLogFindFirstOrThrowArgs>(args?: SelectSubset<T, CallLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CallLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CallLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CallLogs
+     * const callLogs = await prisma.callLog.findMany()
+     * 
+     * // Get first 10 CallLogs
+     * const callLogs = await prisma.callLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const callLogWithIdOnly = await prisma.callLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CallLogFindManyArgs>(args?: SelectSubset<T, CallLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CallLog.
+     * @param {CallLogCreateArgs} args - Arguments to create a CallLog.
+     * @example
+     * // Create one CallLog
+     * const CallLog = await prisma.callLog.create({
+     *   data: {
+     *     // ... data to create a CallLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends CallLogCreateArgs>(args: SelectSubset<T, CallLogCreateArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CallLogs.
+     * @param {CallLogCreateManyArgs} args - Arguments to create many CallLogs.
+     * @example
+     * // Create many CallLogs
+     * const callLog = await prisma.callLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CallLogCreateManyArgs>(args?: SelectSubset<T, CallLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CallLogs and returns the data saved in the database.
+     * @param {CallLogCreateManyAndReturnArgs} args - Arguments to create many CallLogs.
+     * @example
+     * // Create many CallLogs
+     * const callLog = await prisma.callLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CallLogs and only return the `id`
+     * const callLogWithIdOnly = await prisma.callLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CallLogCreateManyAndReturnArgs>(args?: SelectSubset<T, CallLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CallLog.
+     * @param {CallLogDeleteArgs} args - Arguments to delete one CallLog.
+     * @example
+     * // Delete one CallLog
+     * const CallLog = await prisma.callLog.delete({
+     *   where: {
+     *     // ... filter to delete one CallLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CallLogDeleteArgs>(args: SelectSubset<T, CallLogDeleteArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CallLog.
+     * @param {CallLogUpdateArgs} args - Arguments to update one CallLog.
+     * @example
+     * // Update one CallLog
+     * const callLog = await prisma.callLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CallLogUpdateArgs>(args: SelectSubset<T, CallLogUpdateArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CallLogs.
+     * @param {CallLogDeleteManyArgs} args - Arguments to filter CallLogs to delete.
+     * @example
+     * // Delete a few CallLogs
+     * const { count } = await prisma.callLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CallLogDeleteManyArgs>(args?: SelectSubset<T, CallLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CallLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CallLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CallLogs
+     * const callLog = await prisma.callLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CallLogUpdateManyArgs>(args: SelectSubset<T, CallLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CallLogs and returns the data updated in the database.
+     * @param {CallLogUpdateManyAndReturnArgs} args - Arguments to update many CallLogs.
+     * @example
+     * // Update many CallLogs
+     * const callLog = await prisma.callLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CallLogs and only return the `id`
+     * const callLogWithIdOnly = await prisma.callLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CallLogUpdateManyAndReturnArgs>(args: SelectSubset<T, CallLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CallLog.
+     * @param {CallLogUpsertArgs} args - Arguments to update or create a CallLog.
+     * @example
+     * // Update or create a CallLog
+     * const callLog = await prisma.callLog.upsert({
+     *   create: {
+     *     // ... data to create a CallLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CallLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CallLogUpsertArgs>(args: SelectSubset<T, CallLogUpsertArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CallLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CallLogCountArgs} args - Arguments to filter CallLogs to count.
+     * @example
+     * // Count the number of CallLogs
+     * const count = await prisma.callLog.count({
+     *   where: {
+     *     // ... the filter for the CallLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends CallLogCountArgs>(
+      args?: Subset<T, CallLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CallLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CallLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CallLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CallLogAggregateArgs>(args: Subset<T, CallLogAggregateArgs>): Prisma.PrismaPromise<GetCallLogAggregateType<T>>
+
+    /**
+     * Group by CallLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CallLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CallLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CallLogGroupByArgs['orderBy'] }
+        : { orderBy?: CallLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CallLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCallLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CallLog model
+   */
+  readonly fields: CallLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CallLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CallLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    messages<T extends CallLog$messagesArgs<ExtArgs> = {}>(args?: Subset<T, CallLog$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CallLog model
+   */
+  interface CallLogFieldRefs {
+    readonly id: FieldRef<"CallLog", 'String'>
+    readonly tenantId: FieldRef<"CallLog", 'String'>
+    readonly callSid: FieldRef<"CallLog", 'String'>
+    readonly callerNumber: FieldRef<"CallLog", 'String'>
+    readonly startedAt: FieldRef<"CallLog", 'DateTime'>
+    readonly durationSeconds: FieldRef<"CallLog", 'Int'>
+    readonly outcome: FieldRef<"CallLog", 'String'>
+    readonly transcript: FieldRef<"CallLog", 'Json'>
+    readonly createdAt: FieldRef<"CallLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CallLog findUnique
+   */
+  export type CallLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CallLog to fetch.
+     */
+    where: CallLogWhereUniqueInput
+  }
+
+  /**
+   * CallLog findUniqueOrThrow
+   */
+  export type CallLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CallLog to fetch.
+     */
+    where: CallLogWhereUniqueInput
+  }
+
+  /**
+   * CallLog findFirst
+   */
+  export type CallLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CallLog to fetch.
+     */
+    where?: CallLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CallLogs to fetch.
+     */
+    orderBy?: CallLogOrderByWithRelationInput | CallLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CallLogs.
+     */
+    cursor?: CallLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CallLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CallLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CallLogs.
+     */
+    distinct?: CallLogScalarFieldEnum | CallLogScalarFieldEnum[]
+  }
+
+  /**
+   * CallLog findFirstOrThrow
+   */
+  export type CallLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CallLog to fetch.
+     */
+    where?: CallLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CallLogs to fetch.
+     */
+    orderBy?: CallLogOrderByWithRelationInput | CallLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CallLogs.
+     */
+    cursor?: CallLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CallLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CallLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CallLogs.
+     */
+    distinct?: CallLogScalarFieldEnum | CallLogScalarFieldEnum[]
+  }
+
+  /**
+   * CallLog findMany
+   */
+  export type CallLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CallLogs to fetch.
+     */
+    where?: CallLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CallLogs to fetch.
+     */
+    orderBy?: CallLogOrderByWithRelationInput | CallLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CallLogs.
+     */
+    cursor?: CallLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CallLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CallLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CallLogs.
+     */
+    distinct?: CallLogScalarFieldEnum | CallLogScalarFieldEnum[]
+  }
+
+  /**
+   * CallLog create
+   */
+  export type CallLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CallLog.
+     */
+    data: XOR<CallLogCreateInput, CallLogUncheckedCreateInput>
+  }
+
+  /**
+   * CallLog createMany
+   */
+  export type CallLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CallLogs.
+     */
+    data: CallLogCreateManyInput | CallLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CallLog createManyAndReturn
+   */
+  export type CallLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many CallLogs.
+     */
+    data: CallLogCreateManyInput | CallLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CallLog update
+   */
+  export type CallLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CallLog.
+     */
+    data: XOR<CallLogUpdateInput, CallLogUncheckedUpdateInput>
+    /**
+     * Choose, which CallLog to update.
+     */
+    where: CallLogWhereUniqueInput
+  }
+
+  /**
+   * CallLog updateMany
+   */
+  export type CallLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CallLogs.
+     */
+    data: XOR<CallLogUpdateManyMutationInput, CallLogUncheckedUpdateManyInput>
+    /**
+     * Filter which CallLogs to update
+     */
+    where?: CallLogWhereInput
+    /**
+     * Limit how many CallLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CallLog updateManyAndReturn
+   */
+  export type CallLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * The data used to update CallLogs.
+     */
+    data: XOR<CallLogUpdateManyMutationInput, CallLogUncheckedUpdateManyInput>
+    /**
+     * Filter which CallLogs to update
+     */
+    where?: CallLogWhereInput
+    /**
+     * Limit how many CallLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CallLog upsert
+   */
+  export type CallLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CallLog to update in case it exists.
+     */
+    where: CallLogWhereUniqueInput
+    /**
+     * In case the CallLog found by the `where` argument doesn't exist, create a new CallLog with this data.
+     */
+    create: XOR<CallLogCreateInput, CallLogUncheckedCreateInput>
+    /**
+     * In case the CallLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CallLogUpdateInput, CallLogUncheckedUpdateInput>
+  }
+
+  /**
+   * CallLog delete
+   */
+  export type CallLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    /**
+     * Filter which CallLog to delete.
+     */
+    where: CallLogWhereUniqueInput
+  }
+
+  /**
+   * CallLog deleteMany
+   */
+  export type CallLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CallLogs to delete
+     */
+    where?: CallLogWhereInput
+    /**
+     * Limit how many CallLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CallLog.messages
+   */
+  export type CallLog$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * CallLog without action
+   */
+  export type CallLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Message
+   */
+
+  export type AggregateMessage = {
+    _count: MessageCountAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  export type MessageMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    callLogId: string | null
+    callerName: string | null
+    callbackNumber: string | null
+    reason: string | null
+    preferredTime: string | null
+    createdAt: Date | null
+  }
+
+  export type MessageMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    callLogId: string | null
+    callerName: string | null
+    callbackNumber: string | null
+    reason: string | null
+    preferredTime: string | null
+    createdAt: Date | null
+  }
+
+  export type MessageCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    callLogId: number
+    callerName: number
+    callbackNumber: number
+    reason: number
+    preferredTime: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MessageMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    callLogId?: true
+    callerName?: true
+    callbackNumber?: true
+    reason?: true
+    preferredTime?: true
+    createdAt?: true
+  }
+
+  export type MessageMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    callLogId?: true
+    callerName?: true
+    callbackNumber?: true
+    reason?: true
+    preferredTime?: true
+    createdAt?: true
+  }
+
+  export type MessageCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    callLogId?: true
+    callerName?: true
+    callbackNumber?: true
+    reason?: true
+    preferredTime?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Message to aggregate.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Messages
+    **/
+    _count?: true | MessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type GetMessageAggregateType<T extends MessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessage[P]>
+      : GetScalarType<T[P], AggregateMessage[P]>
+  }
+
+
+
+
+  export type MessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithAggregationInput | MessageOrderByWithAggregationInput[]
+    by: MessageScalarFieldEnum[] | MessageScalarFieldEnum
+    having?: MessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageCountAggregateInputType | true
+    _min?: MessageMinAggregateInputType
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type MessageGroupByOutputType = {
+    id: string
+    tenantId: string
+    callLogId: string | null
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime: string | null
+    createdAt: Date
+    _count: MessageCountAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  type GetMessageGroupByPayload<T extends MessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    callLogId?: boolean
+    callerName?: boolean
+    callbackNumber?: boolean
+    reason?: boolean
+    preferredTime?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    callLog?: boolean | Message$callLogArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    callLogId?: boolean
+    callerName?: boolean
+    callbackNumber?: boolean
+    reason?: boolean
+    preferredTime?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    callLog?: boolean | Message$callLogArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    callLogId?: boolean
+    callerName?: boolean
+    callbackNumber?: boolean
+    reason?: boolean
+    preferredTime?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    callLog?: boolean | Message$callLogArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    callLogId?: boolean
+    callerName?: boolean
+    callbackNumber?: boolean
+    reason?: boolean
+    preferredTime?: boolean
+    createdAt?: boolean
+  }
+
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "callLogId" | "callerName" | "callbackNumber" | "reason" | "preferredTime" | "createdAt", ExtArgs["result"]["message"]>
+  export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    callLog?: boolean | Message$callLogArgs<ExtArgs>
+  }
+  export type MessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    callLog?: boolean | Message$callLogArgs<ExtArgs>
+  }
+  export type MessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    callLog?: boolean | Message$callLogArgs<ExtArgs>
+  }
+
+  export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Message"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      callLog: Prisma.$CallLogPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      callLogId: string | null
+      callerName: string
+      callbackNumber: string
+      reason: string
+      preferredTime: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["message"]>
+    composites: {}
+  }
+
+  type MessageGetPayload<S extends boolean | null | undefined | MessageDefaultArgs> = $Result.GetResult<Prisma.$MessagePayload, S>
+
+  type MessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessageCountAggregateInputType | true
+    }
+
+  export interface MessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Message'], meta: { name: 'Message' } }
+    /**
+     * Find zero or one Message that matches the filter.
+     * @param {MessageFindUniqueArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageFindUniqueArgs>(args: SelectSubset<T, MessageFindUniqueArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Message that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessageFindUniqueOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageFindFirstArgs>(args?: SelectSubset<T, MessageFindFirstArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Messages
+     * const messages = await prisma.message.findMany()
+     * 
+     * // Get first 10 Messages
+     * const messages = await prisma.message.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messageWithIdOnly = await prisma.message.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MessageFindManyArgs>(args?: SelectSubset<T, MessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Message.
+     * @param {MessageCreateArgs} args - Arguments to create a Message.
+     * @example
+     * // Create one Message
+     * const Message = await prisma.message.create({
+     *   data: {
+     *     // ... data to create a Message
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageCreateArgs>(args: SelectSubset<T, MessageCreateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Messages.
+     * @param {MessageCreateManyArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageCreateManyArgs>(args?: SelectSubset<T, MessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Messages and returns the data saved in the database.
+     * @param {MessageCreateManyAndReturnArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Messages and only return the `id`
+     * const messageWithIdOnly = await prisma.message.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Message.
+     * @param {MessageDeleteArgs} args - Arguments to delete one Message.
+     * @example
+     * // Delete one Message
+     * const Message = await prisma.message.delete({
+     *   where: {
+     *     // ... filter to delete one Message
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageDeleteArgs>(args: SelectSubset<T, MessageDeleteArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Message.
+     * @param {MessageUpdateArgs} args - Arguments to update one Message.
+     * @example
+     * // Update one Message
+     * const message = await prisma.message.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageUpdateArgs>(args: SelectSubset<T, MessageUpdateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Messages.
+     * @param {MessageDeleteManyArgs} args - Arguments to filter Messages to delete.
+     * @example
+     * // Delete a few Messages
+     * const { count } = await prisma.message.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageDeleteManyArgs>(args?: SelectSubset<T, MessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Messages
+     * const message = await prisma.message.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageUpdateManyArgs>(args: SelectSubset<T, MessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages and returns the data updated in the database.
+     * @param {MessageUpdateManyAndReturnArgs} args - Arguments to update many Messages.
+     * @example
+     * // Update many Messages
+     * const message = await prisma.message.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Messages and only return the `id`
+     * const messageWithIdOnly = await prisma.message.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MessageUpdateManyAndReturnArgs>(args: SelectSubset<T, MessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Message.
+     * @param {MessageUpsertArgs} args - Arguments to update or create a Message.
+     * @example
+     * // Update or create a Message
+     * const message = await prisma.message.upsert({
+     *   create: {
+     *     // ... data to create a Message
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Message we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageUpsertArgs>(args: SelectSubset<T, MessageUpsertArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageCountArgs} args - Arguments to filter Messages to count.
+     * @example
+     * // Count the number of Messages
+     * const count = await prisma.message.count({
+     *   where: {
+     *     // ... the filter for the Messages we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageCountArgs>(
+      args?: Subset<T, MessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageAggregateArgs>(args: Subset<T, MessageAggregateArgs>): Prisma.PrismaPromise<GetMessageAggregateType<T>>
+
+    /**
+     * Group by Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageGroupByArgs['orderBy'] }
+        : { orderBy?: MessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Message model
+   */
+  readonly fields: MessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Message.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    callLog<T extends Message$callLogArgs<ExtArgs> = {}>(args?: Subset<T, Message$callLogArgs<ExtArgs>>): Prisma__CallLogClient<$Result.GetResult<Prisma.$CallLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Message model
+   */
+  interface MessageFieldRefs {
+    readonly id: FieldRef<"Message", 'String'>
+    readonly tenantId: FieldRef<"Message", 'String'>
+    readonly callLogId: FieldRef<"Message", 'String'>
+    readonly callerName: FieldRef<"Message", 'String'>
+    readonly callbackNumber: FieldRef<"Message", 'String'>
+    readonly reason: FieldRef<"Message", 'String'>
+    readonly preferredTime: FieldRef<"Message", 'String'>
+    readonly createdAt: FieldRef<"Message", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Message findUnique
+   */
+  export type MessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findUniqueOrThrow
+   */
+  export type MessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findFirst
+   */
+  export type MessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findFirstOrThrow
+   */
+  export type MessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findMany
+   */
+  export type MessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message create
+   */
+  export type MessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Message.
+     */
+    data: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+  }
+
+  /**
+   * Message createMany
+   */
+  export type MessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Message createManyAndReturn
+   */
+  export type MessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Message update
+   */
+  export type MessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Message.
+     */
+    data: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+    /**
+     * Choose, which Message to update.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message updateMany
+   */
+  export type MessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Message updateManyAndReturn
+   */
+  export type MessageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Message upsert
+   */
+  export type MessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Message to update in case it exists.
+     */
+    where: MessageWhereUniqueInput
+    /**
+     * In case the Message found by the `where` argument doesn't exist, create a new Message with this data.
+     */
+    create: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+    /**
+     * In case the Message was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+  }
+
+  /**
+   * Message delete
+   */
+  export type MessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter which Message to delete.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message deleteMany
+   */
+  export type MessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Messages to delete
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Message.callLog
+   */
+  export type Message$callLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallLog
+     */
+    select?: CallLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallLog
+     */
+    omit?: CallLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallLogInclude<ExtArgs> | null
+    where?: CallLogWhereInput
+  }
+
+  /**
+   * Message without action
+   */
+  export type MessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5694,6 +8298,7 @@ export namespace Prisma {
     twilioPhoneNumber: 'twilioPhoneNumber',
     googleCalendarId: 'googleCalendarId',
     googleCredentials: 'googleCredentials',
+    timezone: 'timezone',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5735,6 +8340,35 @@ export namespace Prisma {
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
+  export const CallLogScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    callSid: 'callSid',
+    callerNumber: 'callerNumber',
+    startedAt: 'startedAt',
+    durationSeconds: 'durationSeconds',
+    outcome: 'outcome',
+    transcript: 'transcript',
+    createdAt: 'createdAt'
+  };
+
+  export type CallLogScalarFieldEnum = (typeof CallLogScalarFieldEnum)[keyof typeof CallLogScalarFieldEnum]
+
+
+  export const MessageScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    callLogId: 'callLogId',
+    callerName: 'callerName',
+    callbackNumber: 'callbackNumber',
+    reason: 'reason',
+    preferredTime: 'preferredTime',
+    createdAt: 'createdAt'
+  };
+
+  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -5749,6 +8383,13 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -5870,10 +8511,13 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFilter<"Tenant"> | string
     googleCalendarId?: StringNullableFilter<"Tenant"> | string | null
     googleCredentials?: JsonNullableFilter<"Tenant">
+    timezone?: StringFilter<"Tenant"> | string
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
     businessHours?: BusinessHoursListRelationFilter
+    callLogs?: CallLogListRelationFilter
     faqs?: FaqListRelationFilter
+    messages?: MessageListRelationFilter
     services?: ServiceListRelationFilter
   }
 
@@ -5890,10 +8534,13 @@ export namespace Prisma {
     twilioPhoneNumber?: SortOrder
     googleCalendarId?: SortOrderInput | SortOrder
     googleCredentials?: SortOrderInput | SortOrder
+    timezone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     businessHours?: BusinessHoursOrderByRelationAggregateInput
+    callLogs?: CallLogOrderByRelationAggregateInput
     faqs?: FaqOrderByRelationAggregateInput
+    messages?: MessageOrderByRelationAggregateInput
     services?: ServiceOrderByRelationAggregateInput
   }
 
@@ -5913,10 +8560,13 @@ export namespace Prisma {
     voiceId?: StringFilter<"Tenant"> | string
     googleCalendarId?: StringNullableFilter<"Tenant"> | string | null
     googleCredentials?: JsonNullableFilter<"Tenant">
+    timezone?: StringFilter<"Tenant"> | string
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
     businessHours?: BusinessHoursListRelationFilter
+    callLogs?: CallLogListRelationFilter
     faqs?: FaqListRelationFilter
+    messages?: MessageListRelationFilter
     services?: ServiceListRelationFilter
   }, "id" | "email" | "twilioPhoneNumber">
 
@@ -5933,6 +8583,7 @@ export namespace Prisma {
     twilioPhoneNumber?: SortOrder
     googleCalendarId?: SortOrderInput | SortOrder
     googleCredentials?: SortOrderInput | SortOrder
+    timezone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TenantCountOrderByAggregateInput
@@ -5956,6 +8607,7 @@ export namespace Prisma {
     twilioPhoneNumber?: StringWithAggregatesFilter<"Tenant"> | string
     googleCalendarId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     googleCredentials?: JsonNullableWithAggregatesFilter<"Tenant">
+    timezone?: StringWithAggregatesFilter<"Tenant"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   }
@@ -6133,6 +8785,159 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
   }
 
+  export type CallLogWhereInput = {
+    AND?: CallLogWhereInput | CallLogWhereInput[]
+    OR?: CallLogWhereInput[]
+    NOT?: CallLogWhereInput | CallLogWhereInput[]
+    id?: StringFilter<"CallLog"> | string
+    tenantId?: StringFilter<"CallLog"> | string
+    callSid?: StringFilter<"CallLog"> | string
+    callerNumber?: StringFilter<"CallLog"> | string
+    startedAt?: DateTimeFilter<"CallLog"> | Date | string
+    durationSeconds?: IntFilter<"CallLog"> | number
+    outcome?: StringFilter<"CallLog"> | string
+    transcript?: JsonFilter<"CallLog">
+    createdAt?: DateTimeFilter<"CallLog"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    messages?: MessageListRelationFilter
+  }
+
+  export type CallLogOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callSid?: SortOrder
+    callerNumber?: SortOrder
+    startedAt?: SortOrder
+    durationSeconds?: SortOrder
+    outcome?: SortOrder
+    transcript?: SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    messages?: MessageOrderByRelationAggregateInput
+  }
+
+  export type CallLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    callSid?: string
+    AND?: CallLogWhereInput | CallLogWhereInput[]
+    OR?: CallLogWhereInput[]
+    NOT?: CallLogWhereInput | CallLogWhereInput[]
+    tenantId?: StringFilter<"CallLog"> | string
+    callerNumber?: StringFilter<"CallLog"> | string
+    startedAt?: DateTimeFilter<"CallLog"> | Date | string
+    durationSeconds?: IntFilter<"CallLog"> | number
+    outcome?: StringFilter<"CallLog"> | string
+    transcript?: JsonFilter<"CallLog">
+    createdAt?: DateTimeFilter<"CallLog"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    messages?: MessageListRelationFilter
+  }, "id" | "callSid">
+
+  export type CallLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callSid?: SortOrder
+    callerNumber?: SortOrder
+    startedAt?: SortOrder
+    durationSeconds?: SortOrder
+    outcome?: SortOrder
+    transcript?: SortOrder
+    createdAt?: SortOrder
+    _count?: CallLogCountOrderByAggregateInput
+    _avg?: CallLogAvgOrderByAggregateInput
+    _max?: CallLogMaxOrderByAggregateInput
+    _min?: CallLogMinOrderByAggregateInput
+    _sum?: CallLogSumOrderByAggregateInput
+  }
+
+  export type CallLogScalarWhereWithAggregatesInput = {
+    AND?: CallLogScalarWhereWithAggregatesInput | CallLogScalarWhereWithAggregatesInput[]
+    OR?: CallLogScalarWhereWithAggregatesInput[]
+    NOT?: CallLogScalarWhereWithAggregatesInput | CallLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CallLog"> | string
+    tenantId?: StringWithAggregatesFilter<"CallLog"> | string
+    callSid?: StringWithAggregatesFilter<"CallLog"> | string
+    callerNumber?: StringWithAggregatesFilter<"CallLog"> | string
+    startedAt?: DateTimeWithAggregatesFilter<"CallLog"> | Date | string
+    durationSeconds?: IntWithAggregatesFilter<"CallLog"> | number
+    outcome?: StringWithAggregatesFilter<"CallLog"> | string
+    transcript?: JsonWithAggregatesFilter<"CallLog">
+    createdAt?: DateTimeWithAggregatesFilter<"CallLog"> | Date | string
+  }
+
+  export type MessageWhereInput = {
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    id?: StringFilter<"Message"> | string
+    tenantId?: StringFilter<"Message"> | string
+    callLogId?: StringNullableFilter<"Message"> | string | null
+    callerName?: StringFilter<"Message"> | string
+    callbackNumber?: StringFilter<"Message"> | string
+    reason?: StringFilter<"Message"> | string
+    preferredTime?: StringNullableFilter<"Message"> | string | null
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    callLog?: XOR<CallLogNullableScalarRelationFilter, CallLogWhereInput> | null
+  }
+
+  export type MessageOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callLogId?: SortOrderInput | SortOrder
+    callerName?: SortOrder
+    callbackNumber?: SortOrder
+    reason?: SortOrder
+    preferredTime?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    callLog?: CallLogOrderByWithRelationInput
+  }
+
+  export type MessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    tenantId?: StringFilter<"Message"> | string
+    callLogId?: StringNullableFilter<"Message"> | string | null
+    callerName?: StringFilter<"Message"> | string
+    callbackNumber?: StringFilter<"Message"> | string
+    reason?: StringFilter<"Message"> | string
+    preferredTime?: StringNullableFilter<"Message"> | string | null
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    callLog?: XOR<CallLogNullableScalarRelationFilter, CallLogWhereInput> | null
+  }, "id">
+
+  export type MessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callLogId?: SortOrderInput | SortOrder
+    callerName?: SortOrder
+    callbackNumber?: SortOrder
+    reason?: SortOrder
+    preferredTime?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: MessageCountOrderByAggregateInput
+    _max?: MessageMaxOrderByAggregateInput
+    _min?: MessageMinOrderByAggregateInput
+  }
+
+  export type MessageScalarWhereWithAggregatesInput = {
+    AND?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    OR?: MessageScalarWhereWithAggregatesInput[]
+    NOT?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Message"> | string
+    tenantId?: StringWithAggregatesFilter<"Message"> | string
+    callLogId?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    callerName?: StringWithAggregatesFilter<"Message"> | string
+    callbackNumber?: StringWithAggregatesFilter<"Message"> | string
+    reason?: StringWithAggregatesFilter<"Message"> | string
+    preferredTime?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
+  }
+
   export type TenantCreateInput = {
     id?: string
     email: string
@@ -6146,10 +8951,13 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     businessHours?: BusinessHoursCreateNestedManyWithoutTenantInput
+    callLogs?: CallLogCreateNestedManyWithoutTenantInput
     faqs?: FaqCreateNestedManyWithoutTenantInput
+    messages?: MessageCreateNestedManyWithoutTenantInput
     services?: ServiceCreateNestedManyWithoutTenantInput
   }
 
@@ -6166,10 +8974,13 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     businessHours?: BusinessHoursUncheckedCreateNestedManyWithoutTenantInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutTenantInput
     faqs?: FaqUncheckedCreateNestedManyWithoutTenantInput
+    messages?: MessageUncheckedCreateNestedManyWithoutTenantInput
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -6186,10 +8997,13 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     businessHours?: BusinessHoursUpdateManyWithoutTenantNestedInput
+    callLogs?: CallLogUpdateManyWithoutTenantNestedInput
     faqs?: FaqUpdateManyWithoutTenantNestedInput
+    messages?: MessageUpdateManyWithoutTenantNestedInput
     services?: ServiceUpdateManyWithoutTenantNestedInput
   }
 
@@ -6206,10 +9020,13 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     businessHours?: BusinessHoursUncheckedUpdateManyWithoutTenantNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutTenantNestedInput
     faqs?: FaqUncheckedUpdateManyWithoutTenantNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
   }
 
@@ -6226,6 +9043,7 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6243,6 +9061,7 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6260,6 +9079,7 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6436,6 +9256,168 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CallLogCreateInput = {
+    id?: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date | string
+    durationSeconds: number
+    outcome: string
+    transcript: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutCallLogsInput
+    messages?: MessageCreateNestedManyWithoutCallLogInput
+  }
+
+  export type CallLogUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date | string
+    durationSeconds: number
+    outcome: string
+    transcript: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutCallLogInput
+  }
+
+  export type CallLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutCallLogsNestedInput
+    messages?: MessageUpdateManyWithoutCallLogNestedInput
+  }
+
+  export type CallLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutCallLogNestedInput
+  }
+
+  export type CallLogCreateManyInput = {
+    id?: string
+    tenantId: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date | string
+    durationSeconds: number
+    outcome: string
+    transcript: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type CallLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CallLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateInput = {
+    id?: string
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutMessagesInput
+    callLog?: CallLogCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    callLogId?: string | null
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MessageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutMessagesNestedInput
+    callLog?: CallLogUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    callLogId?: NullableStringFieldUpdateOperationsInput | string | null
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateManyInput = {
+    id?: string
+    tenantId: string
+    callLogId?: string | null
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MessageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    callLogId?: NullableStringFieldUpdateOperationsInput | string | null
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6506,10 +9488,22 @@ export namespace Prisma {
     none?: BusinessHoursWhereInput
   }
 
+  export type CallLogListRelationFilter = {
+    every?: CallLogWhereInput
+    some?: CallLogWhereInput
+    none?: CallLogWhereInput
+  }
+
   export type FaqListRelationFilter = {
     every?: FaqWhereInput
     some?: FaqWhereInput
     none?: FaqWhereInput
+  }
+
+  export type MessageListRelationFilter = {
+    every?: MessageWhereInput
+    some?: MessageWhereInput
+    none?: MessageWhereInput
   }
 
   export type ServiceListRelationFilter = {
@@ -6527,7 +9521,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type CallLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type FaqOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6548,6 +9550,7 @@ export namespace Prisma {
     twilioPhoneNumber?: SortOrder
     googleCalendarId?: SortOrder
     googleCredentials?: SortOrder
+    timezone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6564,6 +9567,7 @@ export namespace Prisma {
     voiceId?: SortOrder
     twilioPhoneNumber?: SortOrder
     googleCalendarId?: SortOrder
+    timezone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6580,6 +9584,7 @@ export namespace Prisma {
     voiceId?: SortOrder
     twilioPhoneNumber?: SortOrder
     googleCalendarId?: SortOrder
+    timezone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6779,6 +9784,135 @@ export namespace Prisma {
     startingAt?: SortOrder
     createdAt?: SortOrder
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type CallLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callSid?: SortOrder
+    callerNumber?: SortOrder
+    startedAt?: SortOrder
+    durationSeconds?: SortOrder
+    outcome?: SortOrder
+    transcript?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CallLogAvgOrderByAggregateInput = {
+    durationSeconds?: SortOrder
+  }
+
+  export type CallLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callSid?: SortOrder
+    callerNumber?: SortOrder
+    startedAt?: SortOrder
+    durationSeconds?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CallLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callSid?: SortOrder
+    callerNumber?: SortOrder
+    startedAt?: SortOrder
+    durationSeconds?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CallLogSumOrderByAggregateInput = {
+    durationSeconds?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type CallLogNullableScalarRelationFilter = {
+    is?: CallLogWhereInput | null
+    isNot?: CallLogWhereInput | null
+  }
+
+  export type MessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callLogId?: SortOrder
+    callerName?: SortOrder
+    callbackNumber?: SortOrder
+    reason?: SortOrder
+    preferredTime?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callLogId?: SortOrder
+    callerName?: SortOrder
+    callbackNumber?: SortOrder
+    reason?: SortOrder
+    preferredTime?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    callLogId?: SortOrder
+    callerName?: SortOrder
+    callbackNumber?: SortOrder
+    reason?: SortOrder
+    preferredTime?: SortOrder
+    createdAt?: SortOrder
+  }
 
   export type BusinessHoursCreateNestedManyWithoutTenantInput = {
     create?: XOR<BusinessHoursCreateWithoutTenantInput, BusinessHoursUncheckedCreateWithoutTenantInput> | BusinessHoursCreateWithoutTenantInput[] | BusinessHoursUncheckedCreateWithoutTenantInput[]
@@ -6787,11 +9921,25 @@ export namespace Prisma {
     connect?: BusinessHoursWhereUniqueInput | BusinessHoursWhereUniqueInput[]
   }
 
+  export type CallLogCreateNestedManyWithoutTenantInput = {
+    create?: XOR<CallLogCreateWithoutTenantInput, CallLogUncheckedCreateWithoutTenantInput> | CallLogCreateWithoutTenantInput[] | CallLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CallLogCreateOrConnectWithoutTenantInput | CallLogCreateOrConnectWithoutTenantInput[]
+    createMany?: CallLogCreateManyTenantInputEnvelope
+    connect?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+  }
+
   export type FaqCreateNestedManyWithoutTenantInput = {
     create?: XOR<FaqCreateWithoutTenantInput, FaqUncheckedCreateWithoutTenantInput> | FaqCreateWithoutTenantInput[] | FaqUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: FaqCreateOrConnectWithoutTenantInput | FaqCreateOrConnectWithoutTenantInput[]
     createMany?: FaqCreateManyTenantInputEnvelope
     connect?: FaqWhereUniqueInput | FaqWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutTenantInput = {
+    create?: XOR<MessageCreateWithoutTenantInput, MessageUncheckedCreateWithoutTenantInput> | MessageCreateWithoutTenantInput[] | MessageUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutTenantInput | MessageCreateOrConnectWithoutTenantInput[]
+    createMany?: MessageCreateManyTenantInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
   export type ServiceCreateNestedManyWithoutTenantInput = {
@@ -6808,11 +9956,25 @@ export namespace Prisma {
     connect?: BusinessHoursWhereUniqueInput | BusinessHoursWhereUniqueInput[]
   }
 
+  export type CallLogUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<CallLogCreateWithoutTenantInput, CallLogUncheckedCreateWithoutTenantInput> | CallLogCreateWithoutTenantInput[] | CallLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CallLogCreateOrConnectWithoutTenantInput | CallLogCreateOrConnectWithoutTenantInput[]
+    createMany?: CallLogCreateManyTenantInputEnvelope
+    connect?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+  }
+
   export type FaqUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<FaqCreateWithoutTenantInput, FaqUncheckedCreateWithoutTenantInput> | FaqCreateWithoutTenantInput[] | FaqUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: FaqCreateOrConnectWithoutTenantInput | FaqCreateOrConnectWithoutTenantInput[]
     createMany?: FaqCreateManyTenantInputEnvelope
     connect?: FaqWhereUniqueInput | FaqWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<MessageCreateWithoutTenantInput, MessageUncheckedCreateWithoutTenantInput> | MessageCreateWithoutTenantInput[] | MessageUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutTenantInput | MessageCreateOrConnectWithoutTenantInput[]
+    createMany?: MessageCreateManyTenantInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
   export type ServiceUncheckedCreateNestedManyWithoutTenantInput = {
@@ -6848,6 +10010,20 @@ export namespace Prisma {
     deleteMany?: BusinessHoursScalarWhereInput | BusinessHoursScalarWhereInput[]
   }
 
+  export type CallLogUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<CallLogCreateWithoutTenantInput, CallLogUncheckedCreateWithoutTenantInput> | CallLogCreateWithoutTenantInput[] | CallLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CallLogCreateOrConnectWithoutTenantInput | CallLogCreateOrConnectWithoutTenantInput[]
+    upsert?: CallLogUpsertWithWhereUniqueWithoutTenantInput | CallLogUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: CallLogCreateManyTenantInputEnvelope
+    set?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+    disconnect?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+    delete?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+    connect?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+    update?: CallLogUpdateWithWhereUniqueWithoutTenantInput | CallLogUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: CallLogUpdateManyWithWhereWithoutTenantInput | CallLogUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: CallLogScalarWhereInput | CallLogScalarWhereInput[]
+  }
+
   export type FaqUpdateManyWithoutTenantNestedInput = {
     create?: XOR<FaqCreateWithoutTenantInput, FaqUncheckedCreateWithoutTenantInput> | FaqCreateWithoutTenantInput[] | FaqUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: FaqCreateOrConnectWithoutTenantInput | FaqCreateOrConnectWithoutTenantInput[]
@@ -6860,6 +10036,20 @@ export namespace Prisma {
     update?: FaqUpdateWithWhereUniqueWithoutTenantInput | FaqUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: FaqUpdateManyWithWhereWithoutTenantInput | FaqUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: FaqScalarWhereInput | FaqScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<MessageCreateWithoutTenantInput, MessageUncheckedCreateWithoutTenantInput> | MessageCreateWithoutTenantInput[] | MessageUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutTenantInput | MessageCreateOrConnectWithoutTenantInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutTenantInput | MessageUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: MessageCreateManyTenantInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutTenantInput | MessageUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutTenantInput | MessageUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
   export type ServiceUpdateManyWithoutTenantNestedInput = {
@@ -6890,6 +10080,20 @@ export namespace Prisma {
     deleteMany?: BusinessHoursScalarWhereInput | BusinessHoursScalarWhereInput[]
   }
 
+  export type CallLogUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<CallLogCreateWithoutTenantInput, CallLogUncheckedCreateWithoutTenantInput> | CallLogCreateWithoutTenantInput[] | CallLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CallLogCreateOrConnectWithoutTenantInput | CallLogCreateOrConnectWithoutTenantInput[]
+    upsert?: CallLogUpsertWithWhereUniqueWithoutTenantInput | CallLogUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: CallLogCreateManyTenantInputEnvelope
+    set?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+    disconnect?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+    delete?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+    connect?: CallLogWhereUniqueInput | CallLogWhereUniqueInput[]
+    update?: CallLogUpdateWithWhereUniqueWithoutTenantInput | CallLogUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: CallLogUpdateManyWithWhereWithoutTenantInput | CallLogUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: CallLogScalarWhereInput | CallLogScalarWhereInput[]
+  }
+
   export type FaqUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<FaqCreateWithoutTenantInput, FaqUncheckedCreateWithoutTenantInput> | FaqCreateWithoutTenantInput[] | FaqUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: FaqCreateOrConnectWithoutTenantInput | FaqCreateOrConnectWithoutTenantInput[]
@@ -6902,6 +10106,20 @@ export namespace Prisma {
     update?: FaqUpdateWithWhereUniqueWithoutTenantInput | FaqUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: FaqUpdateManyWithWhereWithoutTenantInput | FaqUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: FaqScalarWhereInput | FaqScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<MessageCreateWithoutTenantInput, MessageUncheckedCreateWithoutTenantInput> | MessageCreateWithoutTenantInput[] | MessageUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutTenantInput | MessageCreateOrConnectWithoutTenantInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutTenantInput | MessageUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: MessageCreateManyTenantInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutTenantInput | MessageUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutTenantInput | MessageUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
   export type ServiceUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -6966,6 +10184,92 @@ export namespace Prisma {
     upsert?: TenantUpsertWithoutServicesInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutServicesInput, TenantUpdateWithoutServicesInput>, TenantUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type TenantCreateNestedOneWithoutCallLogsInput = {
+    create?: XOR<TenantCreateWithoutCallLogsInput, TenantUncheckedCreateWithoutCallLogsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCallLogsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type MessageCreateNestedManyWithoutCallLogInput = {
+    create?: XOR<MessageCreateWithoutCallLogInput, MessageUncheckedCreateWithoutCallLogInput> | MessageCreateWithoutCallLogInput[] | MessageUncheckedCreateWithoutCallLogInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutCallLogInput | MessageCreateOrConnectWithoutCallLogInput[]
+    createMany?: MessageCreateManyCallLogInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutCallLogInput = {
+    create?: XOR<MessageCreateWithoutCallLogInput, MessageUncheckedCreateWithoutCallLogInput> | MessageCreateWithoutCallLogInput[] | MessageUncheckedCreateWithoutCallLogInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutCallLogInput | MessageCreateOrConnectWithoutCallLogInput[]
+    createMany?: MessageCreateManyCallLogInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutCallLogsNestedInput = {
+    create?: XOR<TenantCreateWithoutCallLogsInput, TenantUncheckedCreateWithoutCallLogsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCallLogsInput
+    upsert?: TenantUpsertWithoutCallLogsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCallLogsInput, TenantUpdateWithoutCallLogsInput>, TenantUncheckedUpdateWithoutCallLogsInput>
+  }
+
+  export type MessageUpdateManyWithoutCallLogNestedInput = {
+    create?: XOR<MessageCreateWithoutCallLogInput, MessageUncheckedCreateWithoutCallLogInput> | MessageCreateWithoutCallLogInput[] | MessageUncheckedCreateWithoutCallLogInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutCallLogInput | MessageCreateOrConnectWithoutCallLogInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutCallLogInput | MessageUpsertWithWhereUniqueWithoutCallLogInput[]
+    createMany?: MessageCreateManyCallLogInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutCallLogInput | MessageUpdateWithWhereUniqueWithoutCallLogInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutCallLogInput | MessageUpdateManyWithWhereWithoutCallLogInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutCallLogNestedInput = {
+    create?: XOR<MessageCreateWithoutCallLogInput, MessageUncheckedCreateWithoutCallLogInput> | MessageCreateWithoutCallLogInput[] | MessageUncheckedCreateWithoutCallLogInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutCallLogInput | MessageCreateOrConnectWithoutCallLogInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutCallLogInput | MessageUpsertWithWhereUniqueWithoutCallLogInput[]
+    createMany?: MessageCreateManyCallLogInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutCallLogInput | MessageUpdateWithWhereUniqueWithoutCallLogInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutCallLogInput | MessageUpdateManyWithWhereWithoutCallLogInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<TenantCreateWithoutMessagesInput, TenantUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutMessagesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type CallLogCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<CallLogCreateWithoutMessagesInput, CallLogUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: CallLogCreateOrConnectWithoutMessagesInput
+    connect?: CallLogWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<TenantCreateWithoutMessagesInput, TenantUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutMessagesInput
+    upsert?: TenantUpsertWithoutMessagesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutMessagesInput, TenantUpdateWithoutMessagesInput>, TenantUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type CallLogUpdateOneWithoutMessagesNestedInput = {
+    create?: XOR<CallLogCreateWithoutMessagesInput, CallLogUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: CallLogCreateOrConnectWithoutMessagesInput
+    upsert?: CallLogUpsertWithoutMessagesInput
+    disconnect?: CallLogWhereInput | boolean
+    delete?: CallLogWhereInput | boolean
+    connect?: CallLogWhereUniqueInput
+    update?: XOR<XOR<CallLogUpdateToOneWithWhereWithoutMessagesInput, CallLogUpdateWithoutMessagesInput>, CallLogUncheckedUpdateWithoutMessagesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7126,6 +10430,29 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type BusinessHoursCreateWithoutTenantInput = {
     id?: string
@@ -7151,6 +10478,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CallLogCreateWithoutTenantInput = {
+    id?: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date | string
+    durationSeconds: number
+    outcome: string
+    transcript: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    messages?: MessageCreateNestedManyWithoutCallLogInput
+  }
+
+  export type CallLogUncheckedCreateWithoutTenantInput = {
+    id?: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date | string
+    durationSeconds: number
+    outcome: string
+    transcript: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutCallLogInput
+  }
+
+  export type CallLogCreateOrConnectWithoutTenantInput = {
+    where: CallLogWhereUniqueInput
+    create: XOR<CallLogCreateWithoutTenantInput, CallLogUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CallLogCreateManyTenantInputEnvelope = {
+    data: CallLogCreateManyTenantInput | CallLogCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FaqCreateWithoutTenantInput = {
     id?: string
     question: string
@@ -7172,6 +10533,36 @@ export namespace Prisma {
 
   export type FaqCreateManyTenantInputEnvelope = {
     data: FaqCreateManyTenantInput | FaqCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutTenantInput = {
+    id?: string
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
+    createdAt?: Date | string
+    callLog?: CallLogCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutTenantInput = {
+    id?: string
+    callLogId?: string | null
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutTenantInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutTenantInput, MessageUncheckedCreateWithoutTenantInput>
+  }
+
+  export type MessageCreateManyTenantInputEnvelope = {
+    data: MessageCreateManyTenantInput | MessageCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -7228,6 +10619,37 @@ export namespace Prisma {
     closeTime?: StringNullableFilter<"BusinessHours"> | string | null
   }
 
+  export type CallLogUpsertWithWhereUniqueWithoutTenantInput = {
+    where: CallLogWhereUniqueInput
+    update: XOR<CallLogUpdateWithoutTenantInput, CallLogUncheckedUpdateWithoutTenantInput>
+    create: XOR<CallLogCreateWithoutTenantInput, CallLogUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CallLogUpdateWithWhereUniqueWithoutTenantInput = {
+    where: CallLogWhereUniqueInput
+    data: XOR<CallLogUpdateWithoutTenantInput, CallLogUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type CallLogUpdateManyWithWhereWithoutTenantInput = {
+    where: CallLogScalarWhereInput
+    data: XOR<CallLogUpdateManyMutationInput, CallLogUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type CallLogScalarWhereInput = {
+    AND?: CallLogScalarWhereInput | CallLogScalarWhereInput[]
+    OR?: CallLogScalarWhereInput[]
+    NOT?: CallLogScalarWhereInput | CallLogScalarWhereInput[]
+    id?: StringFilter<"CallLog"> | string
+    tenantId?: StringFilter<"CallLog"> | string
+    callSid?: StringFilter<"CallLog"> | string
+    callerNumber?: StringFilter<"CallLog"> | string
+    startedAt?: DateTimeFilter<"CallLog"> | Date | string
+    durationSeconds?: IntFilter<"CallLog"> | number
+    outcome?: StringFilter<"CallLog"> | string
+    transcript?: JsonFilter<"CallLog">
+    createdAt?: DateTimeFilter<"CallLog"> | Date | string
+  }
+
   export type FaqUpsertWithWhereUniqueWithoutTenantInput = {
     where: FaqWhereUniqueInput
     update: XOR<FaqUpdateWithoutTenantInput, FaqUncheckedUpdateWithoutTenantInput>
@@ -7253,6 +10675,36 @@ export namespace Prisma {
     question?: StringFilter<"Faq"> | string
     answer?: StringFilter<"Faq"> | string
     createdAt?: DateTimeFilter<"Faq"> | Date | string
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutTenantInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutTenantInput, MessageUncheckedUpdateWithoutTenantInput>
+    create: XOR<MessageCreateWithoutTenantInput, MessageUncheckedCreateWithoutTenantInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutTenantInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutTenantInput, MessageUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutTenantInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type MessageScalarWhereInput = {
+    AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    OR?: MessageScalarWhereInput[]
+    NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    id?: StringFilter<"Message"> | string
+    tenantId?: StringFilter<"Message"> | string
+    callLogId?: StringNullableFilter<"Message"> | string | null
+    callerName?: StringFilter<"Message"> | string
+    callbackNumber?: StringFilter<"Message"> | string
+    reason?: StringFilter<"Message"> | string
+    preferredTime?: StringNullableFilter<"Message"> | string | null
+    createdAt?: DateTimeFilter<"Message"> | Date | string
   }
 
   export type ServiceUpsertWithWhereUniqueWithoutTenantInput = {
@@ -7296,9 +10748,12 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    callLogs?: CallLogCreateNestedManyWithoutTenantInput
     faqs?: FaqCreateNestedManyWithoutTenantInput
+    messages?: MessageCreateNestedManyWithoutTenantInput
     services?: ServiceCreateNestedManyWithoutTenantInput
   }
 
@@ -7315,9 +10770,12 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutTenantInput
     faqs?: FaqUncheckedCreateNestedManyWithoutTenantInput
+    messages?: MessageUncheckedCreateNestedManyWithoutTenantInput
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -7350,9 +10808,12 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    callLogs?: CallLogUpdateManyWithoutTenantNestedInput
     faqs?: FaqUpdateManyWithoutTenantNestedInput
+    messages?: MessageUpdateManyWithoutTenantNestedInput
     services?: ServiceUpdateManyWithoutTenantNestedInput
   }
 
@@ -7369,9 +10830,12 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    callLogs?: CallLogUncheckedUpdateManyWithoutTenantNestedInput
     faqs?: FaqUncheckedUpdateManyWithoutTenantNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
   }
 
@@ -7388,9 +10852,12 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     businessHours?: BusinessHoursCreateNestedManyWithoutTenantInput
+    callLogs?: CallLogCreateNestedManyWithoutTenantInput
+    messages?: MessageCreateNestedManyWithoutTenantInput
     services?: ServiceCreateNestedManyWithoutTenantInput
   }
 
@@ -7407,9 +10874,12 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     businessHours?: BusinessHoursUncheckedCreateNestedManyWithoutTenantInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutTenantInput
+    messages?: MessageUncheckedCreateNestedManyWithoutTenantInput
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -7442,9 +10912,12 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     businessHours?: BusinessHoursUpdateManyWithoutTenantNestedInput
+    callLogs?: CallLogUpdateManyWithoutTenantNestedInput
+    messages?: MessageUpdateManyWithoutTenantNestedInput
     services?: ServiceUpdateManyWithoutTenantNestedInput
   }
 
@@ -7461,9 +10934,12 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     businessHours?: BusinessHoursUncheckedUpdateManyWithoutTenantNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutTenantNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
   }
 
@@ -7480,10 +10956,13 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     businessHours?: BusinessHoursCreateNestedManyWithoutTenantInput
+    callLogs?: CallLogCreateNestedManyWithoutTenantInput
     faqs?: FaqCreateNestedManyWithoutTenantInput
+    messages?: MessageCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServicesInput = {
@@ -7499,10 +10978,13 @@ export namespace Prisma {
     twilioPhoneNumber: string
     googleCalendarId?: string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     businessHours?: BusinessHoursUncheckedCreateNestedManyWithoutTenantInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutTenantInput
     faqs?: FaqUncheckedCreateNestedManyWithoutTenantInput
+    messages?: MessageUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServicesInput = {
@@ -7534,10 +11016,13 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     businessHours?: BusinessHoursUpdateManyWithoutTenantNestedInput
+    callLogs?: CallLogUpdateManyWithoutTenantNestedInput
     faqs?: FaqUpdateManyWithoutTenantNestedInput
+    messages?: MessageUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServicesInput = {
@@ -7553,10 +11038,331 @@ export namespace Prisma {
     twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
     googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessHours?: BusinessHoursUncheckedUpdateManyWithoutTenantNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutTenantNestedInput
+    faqs?: FaqUncheckedUpdateManyWithoutTenantNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutCallLogsInput = {
+    id?: string
+    email: string
+    businessName: string
+    agentName?: string
+    greeting: string
+    description: string
+    escalationMessage?: string
+    afterHoursMessage?: string | null
+    voiceId?: string
+    twilioPhoneNumber: string
+    googleCalendarId?: string | null
+    googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessHours?: BusinessHoursCreateNestedManyWithoutTenantInput
+    faqs?: FaqCreateNestedManyWithoutTenantInput
+    messages?: MessageCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutCallLogsInput = {
+    id?: string
+    email: string
+    businessName: string
+    agentName?: string
+    greeting: string
+    description: string
+    escalationMessage?: string
+    afterHoursMessage?: string | null
+    voiceId?: string
+    twilioPhoneNumber: string
+    googleCalendarId?: string | null
+    googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessHours?: BusinessHoursUncheckedCreateNestedManyWithoutTenantInput
+    faqs?: FaqUncheckedCreateNestedManyWithoutTenantInput
+    messages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutCallLogsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutCallLogsInput, TenantUncheckedCreateWithoutCallLogsInput>
+  }
+
+  export type MessageCreateWithoutCallLogInput = {
+    id?: string
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutCallLogInput = {
+    id?: string
+    tenantId: string
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutCallLogInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutCallLogInput, MessageUncheckedCreateWithoutCallLogInput>
+  }
+
+  export type MessageCreateManyCallLogInputEnvelope = {
+    data: MessageCreateManyCallLogInput | MessageCreateManyCallLogInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutCallLogsInput = {
+    update: XOR<TenantUpdateWithoutCallLogsInput, TenantUncheckedUpdateWithoutCallLogsInput>
+    create: XOR<TenantCreateWithoutCallLogsInput, TenantUncheckedCreateWithoutCallLogsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutCallLogsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutCallLogsInput, TenantUncheckedUpdateWithoutCallLogsInput>
+  }
+
+  export type TenantUpdateWithoutCallLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    agentName?: StringFieldUpdateOperationsInput | string
+    greeting?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    escalationMessage?: StringFieldUpdateOperationsInput | string
+    afterHoursMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceId?: StringFieldUpdateOperationsInput | string
+    twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessHours?: BusinessHoursUpdateManyWithoutTenantNestedInput
+    faqs?: FaqUpdateManyWithoutTenantNestedInput
+    messages?: MessageUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutCallLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    agentName?: StringFieldUpdateOperationsInput | string
+    greeting?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    escalationMessage?: StringFieldUpdateOperationsInput | string
+    afterHoursMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceId?: StringFieldUpdateOperationsInput | string
+    twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     businessHours?: BusinessHoursUncheckedUpdateManyWithoutTenantNestedInput
     faqs?: FaqUncheckedUpdateManyWithoutTenantNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutCallLogInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutCallLogInput, MessageUncheckedUpdateWithoutCallLogInput>
+    create: XOR<MessageCreateWithoutCallLogInput, MessageUncheckedCreateWithoutCallLogInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutCallLogInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutCallLogInput, MessageUncheckedUpdateWithoutCallLogInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutCallLogInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutCallLogInput>
+  }
+
+  export type TenantCreateWithoutMessagesInput = {
+    id?: string
+    email: string
+    businessName: string
+    agentName?: string
+    greeting: string
+    description: string
+    escalationMessage?: string
+    afterHoursMessage?: string | null
+    voiceId?: string
+    twilioPhoneNumber: string
+    googleCalendarId?: string | null
+    googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessHours?: BusinessHoursCreateNestedManyWithoutTenantInput
+    callLogs?: CallLogCreateNestedManyWithoutTenantInput
+    faqs?: FaqCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    email: string
+    businessName: string
+    agentName?: string
+    greeting: string
+    description: string
+    escalationMessage?: string
+    afterHoursMessage?: string | null
+    voiceId?: string
+    twilioPhoneNumber: string
+    googleCalendarId?: string | null
+    googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessHours?: BusinessHoursUncheckedCreateNestedManyWithoutTenantInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutTenantInput
+    faqs?: FaqUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutMessagesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutMessagesInput, TenantUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type CallLogCreateWithoutMessagesInput = {
+    id?: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date | string
+    durationSeconds: number
+    outcome: string
+    transcript: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutCallLogsInput
+  }
+
+  export type CallLogUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    tenantId: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date | string
+    durationSeconds: number
+    outcome: string
+    transcript: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type CallLogCreateOrConnectWithoutMessagesInput = {
+    where: CallLogWhereUniqueInput
+    create: XOR<CallLogCreateWithoutMessagesInput, CallLogUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type TenantUpsertWithoutMessagesInput = {
+    update: XOR<TenantUpdateWithoutMessagesInput, TenantUncheckedUpdateWithoutMessagesInput>
+    create: XOR<TenantCreateWithoutMessagesInput, TenantUncheckedCreateWithoutMessagesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutMessagesInput, TenantUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type TenantUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    agentName?: StringFieldUpdateOperationsInput | string
+    greeting?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    escalationMessage?: StringFieldUpdateOperationsInput | string
+    afterHoursMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceId?: StringFieldUpdateOperationsInput | string
+    twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessHours?: BusinessHoursUpdateManyWithoutTenantNestedInput
+    callLogs?: CallLogUpdateManyWithoutTenantNestedInput
+    faqs?: FaqUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    agentName?: StringFieldUpdateOperationsInput | string
+    greeting?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    escalationMessage?: StringFieldUpdateOperationsInput | string
+    afterHoursMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceId?: StringFieldUpdateOperationsInput | string
+    twilioPhoneNumber?: StringFieldUpdateOperationsInput | string
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCredentials?: NullableJsonNullValueInput | InputJsonValue
+    timezone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessHours?: BusinessHoursUncheckedUpdateManyWithoutTenantNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutTenantNestedInput
+    faqs?: FaqUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type CallLogUpsertWithoutMessagesInput = {
+    update: XOR<CallLogUpdateWithoutMessagesInput, CallLogUncheckedUpdateWithoutMessagesInput>
+    create: XOR<CallLogCreateWithoutMessagesInput, CallLogUncheckedCreateWithoutMessagesInput>
+    where?: CallLogWhereInput
+  }
+
+  export type CallLogUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: CallLogWhereInput
+    data: XOR<CallLogUpdateWithoutMessagesInput, CallLogUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type CallLogUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutCallLogsNestedInput
+  }
+
+  export type CallLogUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BusinessHoursCreateManyTenantInput = {
@@ -7566,10 +11372,31 @@ export namespace Prisma {
     closeTime?: string | null
   }
 
+  export type CallLogCreateManyTenantInput = {
+    id?: string
+    callSid: string
+    callerNumber: string
+    startedAt: Date | string
+    durationSeconds: number
+    outcome: string
+    transcript: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
   export type FaqCreateManyTenantInput = {
     id?: string
     question: string
     answer: string
+    createdAt?: Date | string
+  }
+
+  export type MessageCreateManyTenantInput = {
+    id?: string
+    callLogId?: string | null
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
     createdAt?: Date | string
   }
 
@@ -7602,6 +11429,41 @@ export namespace Prisma {
     closeTime?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type CallLogUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUpdateManyWithoutCallLogNestedInput
+  }
+
+  export type CallLogUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutCallLogNestedInput
+  }
+
+  export type CallLogUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callSid?: StringFieldUpdateOperationsInput | string
+    callerNumber?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationSeconds?: IntFieldUpdateOperationsInput | number
+    outcome?: StringFieldUpdateOperationsInput | string
+    transcript?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FaqUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
@@ -7620,6 +11482,36 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    callLog?: CallLogUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callLogId?: NullableStringFieldUpdateOperationsInput | string | null
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callLogId?: NullableStringFieldUpdateOperationsInput | string | null
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7644,6 +11536,46 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     startingAt?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateManyCallLogInput = {
+    id?: string
+    tenantId: string
+    callerName: string
+    callbackNumber: string
+    reason: string
+    preferredTime?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MessageUpdateWithoutCallLogInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutCallLogInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutCallLogInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    callerName?: StringFieldUpdateOperationsInput | string
+    callbackNumber?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

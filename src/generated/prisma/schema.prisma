@@ -20,11 +20,14 @@ model Tenant {
   twilioPhoneNumber String   @unique
   googleCalendarId  String?
   googleCredentials Json?
+  timezone          String   @default("America/New_York")
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
   businessHours BusinessHours[]
+  callLogs      CallLog[]
   faqs          Faq[]
+  messages      Message[]
   services      Service[]
 }
 
@@ -56,4 +59,36 @@ model Service {
   description String
   startingAt  String?
   createdAt   DateTime @default(now())
+}
+
+model CallLog {
+  id              String   @id @default(cuid())
+  tenantId        String
+  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  callSid         String   @unique
+  callerNumber    String
+  startedAt       DateTime
+  durationSeconds Int
+  outcome         String
+  transcript      Json
+  createdAt       DateTime @default(now())
+
+  messages Message[]
+
+  @@index([tenantId, startedAt])
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  tenantId       String
+  tenant         Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  callLogId      String?
+  callLog        CallLog? @relation(fields: [callLogId], references: [id], onDelete: SetNull)
+  callerName     String
+  callbackNumber String
+  reason         String
+  preferredTime  String?
+  createdAt      DateTime @default(now())
+
+  @@index([tenantId, createdAt])
 }
