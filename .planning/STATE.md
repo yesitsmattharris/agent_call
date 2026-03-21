@@ -17,15 +17,15 @@
 ## Current Position
 
 **Current phase:** Phase 3 - Call Resolution + Visibility
-**Current plan:** Not yet planned
-**Status:** Phase 2 complete, Phase 3 planning needed
-**Progress:** Phases 1-2 complete (14/22 requirements delivered)
+**Current plan:** 3-02
+**Status:** Plan 3-01 complete, proceeding to 3-02
+**Progress:** Phases 1-2 complete, Phase 3 in progress (18/22 requirements delivered)
 
 ```
-[==========          ] 67%
+[============        ] 82%
 Phase 1: Working Call      [COMPLETE]
 Phase 2: Tenant Identity   [COMPLETE]
-Phase 3: Call Resolution   [Not started]
+Phase 3: Call Resolution   [In Progress - 1/2 plans done]
 ```
 
 ---
@@ -35,7 +35,7 @@ Phase 3: Call Resolution   [Not started]
 | Metric | Target | Actual |
 |--------|--------|--------|
 | Phases complete | 3 | 2 |
-| Requirements delivered | 22 | 14 |
+| Requirements delivered | 22 | 18 |
 | Calls handled end-to-end | 1+ | 1+ |
 
 ---
@@ -69,6 +69,9 @@ Phase 3: Call Resolution   [Not started]
 | Separate delete/save forms to avoid nested HTML forms | Nested forms are invalid HTML; delete form placed as sibling after save form |
 | Controlled state for business hours grid | Closed checkbox toggles disable and clear time inputs; submitted values reflect visual state |
 | Dev-only password login for local testing | Magic link requires email delivery; password toggle hidden behind NODE_ENV check |
+| RunContext.context for tool context (not .state.context) | Verified from SDK types: RunContext<RealtimeContextData<T>> has .context which merges T + history |
+| Create CallLog at call start, finalize on cleanup | Tools need callLogId mid-call; placeholder record created on start event, updated with duration/outcome/transcript on cleanup |
+| Mutable outcomeFlagsRef shared between tools and cleanup | Simple boolean flags object passed by reference via CallContext; tools set flags, cleanup reads them to determine outcome |
 
 ### Critical Implementation Notes
 
@@ -81,6 +84,8 @@ Phase 3: Call Resolution   [Not started]
 - **end_call tool:** Triggers `client.calls(callSid).update({ status: 'completed' })` via Twilio REST API.
 - **pendingConfigs Map pattern:** Webhook stores tenant config by CallSid, media-stream retrieves and deletes on start event. No module-level config caching.
 - **vitest mock hoisting:** Use `vi.hoisted()` to declare mock functions that are referenced inside `vi.mock()` factory functions. The factory is hoisted above all imports.
+- **Tool context accessor:** In `@openai/agents` realtime, tool execute handlers receive `RunContext<RealtimeContextData<TContext>>`. Access custom context via `context!.context` (not `.state.context` as some docs suggest). Cast with `as unknown as CallContext`.
+- **CallLog lifecycle:** Created at call start (start event) with outcome="in_progress", finalized in cleanup() with actual duration, outcome, and transcript. DB errors in cleanup are caught and logged but don't prevent session teardown.
 
 ### Research Flags
 
@@ -102,13 +107,13 @@ None currently.
 ### Last Session
 
 **Date:** 2026-03-21
-**Completed:** Phase 2 complete. Plan 2-04 verified and approved. All 4 Phase 2 plans done.
-**Left off:** Phase 2 complete, ready for Phase 3 planning
+**Completed:** Plan 3-01 (Call Log Persistence + Outcome Tracking). CallLog/Message models, call-logger module, tool context wiring, outcome tracking.
+**Left off:** Plan 3-01 complete, ready for Plan 3-02
 
 ### Next Session Should
 
-1. Research and plan Phase 3 (Call Resolution + Visibility)
-2. Consider a research spike for Google Calendar service account integration
+1. Execute Plan 3-02 (Google Calendar integration + admin call history UI)
+2. Run prisma db push when database is available to apply schema changes
 
 ---
 
