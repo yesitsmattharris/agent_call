@@ -80,7 +80,12 @@ Plans:
 4. Every call appears in the admin UI with timestamp, duration, caller number, outcome, and the full conversation transcript
 5. A business owner can search and browse call history from the admin UI
 
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 3-01-PLAN.md -- Schema updates (CallLog, Message models), call logging, transcript extraction, message persistence
+- [ ] 3-02-PLAN.md -- Google Calendar integration (check_availability, book_appointment tools), booking prompt instructions
+- [ ] 3-03-PLAN.md -- Admin UI call history, transcript viewer, messages list, dashboard navigation
 
 ---
 
@@ -90,7 +95,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Working Call | 3/3 | Complete | 2026-03-20 |
 | 2. Tenant Identity | 4/4 | Complete | 2026-03-21 |
-| 3. Call Resolution + Visibility | 0/? | Not started | - |
+| 3. Call Resolution + Visibility | 0/3 | In progress | - |
 
 ---
 
@@ -126,4 +131,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-19*
-*Last updated: 2026-03-21 after Phase 2 completion*
+*Last updated: 2026-03-21 after Phase 3 planning*
