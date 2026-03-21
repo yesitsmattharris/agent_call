@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Call Handling
 
-- [ ] **CALL-01**: AI agent answers inbound calls with a natural-sounding voice
-- [ ] **CALL-02**: Agent greets caller using the business name and context from configuration
-- [ ] **CALL-03**: Agent answers caller questions using FAQ content from business configuration without hallucinating
-- [ ] **CALL-04**: Agent adjusts behavior based on configured business hours (in-hours vs after-hours)
-- [ ] **CALL-05**: Agent gracefully escalates when it cannot handle a request (takes a message rather than dead-ending)
+- [x] **CALL-01**: AI agent answers inbound calls with a natural-sounding voice
+- [x] **CALL-02**: Agent greets caller using the business name and context from configuration
+- [x] **CALL-03**: Agent answers caller questions using FAQ content from business configuration without hallucinating
+- [x] **CALL-04**: Agent adjusts behavior based on configured business hours (in-hours vs after-hours)
+- [x] **CALL-05**: Agent gracefully escalates when it cannot handle a request (takes a message rather than dead-ending)
 
 ### Booking
 
@@ -28,12 +28,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Agent Configuration
 
-- [ ] **CFG-01**: Business owner can set business name, description, and greeting via admin UI
-- [ ] **CFG-02**: Business owner can configure business hours (open/close times per day of week)
-- [ ] **CFG-03**: Business owner can add FAQ entries (question/answer pairs) that the agent uses
-- [ ] **CFG-04**: Business owner can list services offered by the business
-- [ ] **CFG-05**: Business owner can connect their Google Calendar for appointment booking
-- [ ] **CFG-06**: Agent behavior updates immediately when configuration changes (no redeployment)
+- [x] **CFG-01**: Business owner can set business name, description, and greeting via admin UI
+- [x] **CFG-02**: Business owner can configure business hours (open/close times per day of week)
+- [x] **CFG-03**: Business owner can add FAQ entries (question/answer pairs) that the agent uses
+- [x] **CFG-04**: Business owner can list services offered by the business
+- [x] **CFG-05**: Business owner can connect their Google Calendar for appointment booking
+- [x] **CFG-06**: Agent behavior updates immediately when configuration changes (no redeployment)
 
 ### Call History
 
@@ -43,9 +43,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Each business gets a dedicated Twilio phone number
-- [ ] **INFRA-02**: System handles barge-in (caller interruptions) cleanly without audio desync
-- [ ] **INFRA-03**: Voice server deployed to a real WSS endpoint (not ngrok)
+- [x] **INFRA-01**: Each business gets a dedicated Twilio phone number
+- [x] **INFRA-02**: System handles barge-in (caller interruptions) cleanly without audio desync
+- [x] **INFRA-03**: Voice server deployed to a real WSS endpoint (not ngrok)
 
 ## v2 Requirements
 
@@ -88,28 +88,28 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CALL-01 | Phase 1 | Pending |
-| CALL-02 | Phase 1 | Pending |
-| CALL-03 | Phase 2 | Pending |
-| CALL-04 | Phase 2 | Pending |
-| CALL-05 | Phase 1 | Pending |
+| CALL-01 | Phase 1 | Complete |
+| CALL-02 | Phase 1 | Complete |
+| CALL-03 | Phase 2 | Complete |
+| CALL-04 | Phase 2 | Complete |
+| CALL-05 | Phase 1 | Complete |
 | BOOK-01 | Phase 3 | Pending |
 | BOOK-02 | Phase 3 | Pending |
 | BOOK-03 | Phase 3 | Pending |
 | MSG-01 | Phase 3 | Pending |
 | MSG-02 | Phase 3 | Pending |
-| CFG-01 | Phase 2 | Pending |
-| CFG-02 | Phase 2 | Pending |
-| CFG-03 | Phase 2 | Pending |
-| CFG-04 | Phase 2 | Pending |
-| CFG-05 | Phase 2 | Pending |
-| CFG-06 | Phase 2 | Pending |
+| CFG-01 | Phase 2 | Complete |
+| CFG-02 | Phase 2 | Complete |
+| CFG-03 | Phase 2 | Complete |
+| CFG-04 | Phase 2 | Complete |
+| CFG-05 | Phase 2 | Complete |
+| CFG-06 | Phase 2 | Complete |
 | HIST-01 | Phase 3 | Pending |
 | HIST-02 | Phase 3 | Pending |
 | HIST-03 | Phase 3 | Pending |
-| INFRA-01 | Phase 1 | Pending |
-| INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete |
+| INFRA-02 | Phase 1 | Complete |
+| INFRA-03 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 22 total
@@ -118,4 +118,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-19*
-*Last updated: 2026-03-19 after roadmap creation*
+*Last updated: 2026-03-21 after Phase 2 completion*

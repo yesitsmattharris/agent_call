@@ -16,15 +16,15 @@
 
 ## Current Position
 
-**Current phase:** Phase 2 - Tenant Identity
-**Current plan:** Plan 04 (awaiting human verification)
-**Status:** Checkpoint - human-verify
-**Progress:** Phase 1 complete, Phase 2 plan 4/4 code complete (pending verification)
+**Current phase:** Phase 3 - Call Resolution + Visibility
+**Current plan:** Not yet planned
+**Status:** Phase 2 complete, Phase 3 planning needed
+**Progress:** Phases 1-2 complete (14/22 requirements delivered)
 
 ```
-[========  ] 80%
+[==========          ] 67%
 Phase 1: Working Call      [COMPLETE]
-Phase 2: Tenant Identity   [4/4 plans code complete, awaiting verification]
+Phase 2: Tenant Identity   [COMPLETE]
 Phase 3: Call Resolution   [Not started]
 ```
 
@@ -34,8 +34,8 @@ Phase 3: Call Resolution   [Not started]
 
 | Metric | Target | Actual |
 |--------|--------|--------|
-| Phases complete | 3 | 1 |
-| Requirements delivered | 22 | 6 |
+| Phases complete | 3 | 2 |
+| Requirements delivered | 22 | 14 |
 | Calls handled end-to-end | 1+ | 1+ |
 
 ---
@@ -68,6 +68,7 @@ Phase 3: Call Resolution   [Not started]
 | vi.hoisted() for vitest mock declarations | vi.mock factory is hoisted above variable declarations; vi.hoisted() ensures mock fns are available during hoisting |
 | Separate delete/save forms to avoid nested HTML forms | Nested forms are invalid HTML; delete form placed as sibling after save form |
 | Controlled state for business hours grid | Closed checkbox toggles disable and clear time inputs; submitted values reflect visual state |
+| Dev-only password login for local testing | Magic link requires email delivery; password toggle hidden behind NODE_ENV check |
 
 ### Critical Implementation Notes
 
@@ -100,16 +101,16 @@ None currently.
 
 ### Last Session
 
-**Date:** 2026-03-20
-**Completed:** Plan 2-04 code tasks (Admin UI config forms). 2 tasks, 2 commits (7712dc5, eba85ce).
-**Left off:** Plan 2-04 checkpoint: awaiting human verification of config forms
+**Date:** 2026-03-21
+**Completed:** Phase 2 complete. Plan 2-04 verified and approved. All 4 Phase 2 plans done.
+**Left off:** Phase 2 complete, ready for Phase 3 planning
 
 ### Next Session Should
 
-1. Complete Plan 2-04 human verification checkpoint (test all config forms in browser)
-2. If approved, mark Phase 2 complete and begin Phase 3 planning
+1. Research and plan Phase 3 (Call Resolution + Visibility)
+2. Consider a research spike for Google Calendar service account integration
 
 ---
 
 *State initialized: 2026-03-19*
-*Last updated: 2026-03-20 after completing Plan 2-04 code tasks*
+*Last updated: 2026-03-21 after completing Phase 2*

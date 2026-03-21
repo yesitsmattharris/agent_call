@@ -10,7 +10,7 @@
 ## Phases
 
 - [x] **Phase 1: Working Call** - A real caller can reach the AI agent via a dedicated phone number, have a bidirectional voice conversation, and the call ends cleanly
-- [ ] **Phase 2: Tenant Identity** - The agent knows who it's working for, answers FAQs correctly, respects business hours, and can be reconfigured without redeployment
+- [x] **Phase 2: Tenant Identity** - The agent knows who it's working for, answers FAQs correctly, respects business hours, and can be reconfigured without redeployment
 - [ ] **Phase 3: Call Resolution + Visibility** - The agent can book appointments, take messages, and business owners can review every call in the admin UI
 
 ---
@@ -59,9 +59,9 @@ Plans:
 
 Plans:
 - [x] 2-01-PLAN.md -- Prisma schema, database models, vitest setup, test scaffolds
-- [ ] 2-02-PLAN.md -- Voice server DB integration: per-call config loading, prompt builder with FAQs/services/hours
-- [ ] 2-03-PLAN.md -- Admin UI scaffold: Next.js project, Supabase magic link auth, dashboard shell
-- [ ] 2-04-PLAN.md -- Admin UI config forms: business info, hours, FAQs, services, calendar placeholder
+- [x] 2-02-PLAN.md -- Voice server DB integration: per-call config loading, prompt builder with FAQs/services/hours
+- [x] 2-03-PLAN.md -- Admin UI scaffold: Next.js project, Supabase magic link auth, dashboard shell
+- [x] 2-04-PLAN.md -- Admin UI config forms: business info, hours, FAQs, services, calendar placeholder
 
 ---
 
@@ -89,7 +89,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Working Call | 3/3 | Complete | 2026-03-20 |
-| 2. Tenant Identity | 1/4 | In progress | - |
+| 2. Tenant Identity | 4/4 | Complete | 2026-03-21 |
 | 3. Call Resolution + Visibility | 0/? | Not started | - |
 
 ---
@@ -126,4 +126,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-19*
-*Last updated: 2026-03-20 after Phase 2 planning*
+*Last updated: 2026-03-21 after Phase 2 completion*

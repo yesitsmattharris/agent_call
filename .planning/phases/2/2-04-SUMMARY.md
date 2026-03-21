@@ -27,9 +27,9 @@ decisions:
   - "Used crypto.randomUUID() for temporary keys on new FAQ/service rows"
 metrics:
   duration: 258s
-  completed: 2026-03-20T20:54:04Z
-  tasks_completed: 2
-  tasks_total: 2
+  completed: 2026-03-21T00:00:00Z
+  tasks_completed: 3
+  tasks_total: 3
 ---
 
 # Phase 2 Plan 04: Admin UI Config Forms Summary
@@ -58,9 +58,29 @@ All config forms with 6 Server Actions (saveBusinessInfo, saveBusinessHours, sav
 - CalendarSection: placeholder message for Phase 3, shows googleCalendarId as read-only if set
 - Updated dashboard page.tsx: imports all components, renders in CollapsibleSection wrappers in order (Business Info, Hours, Services, FAQs, Calendar)
 
+### Task 3: Dev password login and error logging improvements
+**Commit:** d390d1c
+
+- Added dev-only password login toggle to login page (magic link remains default for production)
+- Added `console.error` with actual error object in dashboard database catch block for debugging
+
 ## Deviations from Plan
 
-None - plan executed exactly as written.
+### Auto-fixed Issues
+
+**1. [Rule 2 - Missing Critical Functionality] Dev password login on login page**
+- **Found during:** Checkpoint verification
+- **Issue:** Magic link auth requires email delivery, making local dev testing cumbersome
+- **Fix:** Added dev-only password auth toggle (hidden behind `NODE_ENV === "development"` check)
+- **Files modified:** admin/app/page.tsx
+- **Commit:** d390d1c
+
+**2. [Rule 1 - Bug] Silent error swallowing in dashboard**
+- **Found during:** Checkpoint verification
+- **Issue:** Database errors caught but not logged, making debugging impossible
+- **Fix:** Added console.error with actual error object
+- **Files modified:** admin/app/dashboard/page.tsx
+- **Commit:** d390d1c
 
 ## Verification Results
 
