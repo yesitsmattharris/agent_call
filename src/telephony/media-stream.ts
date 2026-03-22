@@ -160,14 +160,18 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
           });
         }
 
-        // Use transport events to track Twilio session metadata and
-        // initialize the agent once we have the callSid for config lookup.
-        // The transport emits all Twilio messages on the "*" handler with
-        // { type: "twilio_message", message: <twilio-data> } structure.
-        transport.on("*", async (event: Record<string, unknown>) => {
-          if (event["type"] !== "twilio_message") return;
-          const msg = event["message"] as Record<string, unknown>;
-          if (!msg) return;
+        // Listen to raw socket messages to capture the Twilio `start` event.
+        // The transport's message listener is only registered during connect(),
+        // but we need the callSid from the start event to look up tenant config
+        // before we can create the session and call connect(). So we listen on
+        // the raw socket for the start event, then hand off to the transport.
+        socket.on("message", async (data: Buffer | string) => {
+          let msg: Record<string, unknown>;
+          try {
+            msg = JSON.parse(typeof data === "string" ? data : data.toString());
+          } catch {
+            return;
+          }
 
           switch (msg["event"]) {
             case "start": {
@@ -224,7 +228,9 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
 
               setupSessionListeners(session);
 
-              // Connect to OpenAI and trigger greeting
+              // Connect to OpenAI and trigger greeting.
+              // This also registers the transport's Twilio message listener,
+              // which handles media/mark events going forward.
               const apiKey = process.env["OPENAI_API_KEY"] ?? "";
               session
                 .connect({ apiKey })
