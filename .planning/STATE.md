@@ -75,6 +75,8 @@ Phase 3: Call Resolution   [In Progress - 3/3 plans done (pending verification)]
 | Admin Prisma schema must stay synced with voice server schema | Both apps share the same database; models added in voice server (CallLog, Message) must be replicated in admin schema for Prisma client generation |
 | vi.clearAllMocks vs mockReset for vitest | clearAllMocks does NOT reset mockResolvedValue/mockReturnValue; use mockReset() per-mock when tests need clean implementation state |
 | Extract tool execute logic into exported functions for testing | FunctionTool.invoke wraps execute in closure; export bare functions for direct unit testing |
+| Re-emit start event after connect() for transport streamSid | Transport registers listener in connect(), but start event fires before connect() is called; socket.emit replay is the least invasive fix |
+| TwiML `<Parameter>` elements for From/To | Twilio `<Stream>` does not auto-forward webhook fields; explicit params needed for caller info in media stream |
 
 ### Critical Implementation Notes
 
@@ -92,6 +94,8 @@ Phase 3: Call Resolution   [In Progress - 3/3 plans done (pending verification)]
 - **Admin Prisma schema sync:** The admin app has its own `admin/prisma/schema.prisma` with output to `admin/app/generated/prisma`. When adding models to the voice server schema, the admin schema must be updated too and `npx prisma generate` re-run in the admin directory.
 - **vitest mockReset vs clearAllMocks:** `vi.clearAllMocks()` does NOT clear `mockResolvedValue`/`mockReturnValue` implementation. Use `mockFn.mockReset()` per-mock when tests need a clean slate between test cases.
 - **Nullish coalescing (??) with intentional null:** `null ?? "default"` yields `"default"`. When test helpers need to preserve explicit `null`, use `"key" in overrides ? overrides.key : default` instead.
+- **Transport start event replay:** The transport's Twilio listener is registered inside `connect()`, but the `start` event fires before `connect()` is called. The transport needs `streamSid` from the start event to send audio back. Fix: save the raw start message, re-emit via `socket.emit("message", savedData, false)` after `connect()` resolves. Guard the raw socket handler with a `startHandled` flag to prevent re-processing.
+- **TwiML `<Parameter>` for caller info:** Twilio `<Stream>` does not forward webhook fields to WebSocket. Pass `From`/`To` explicitly via `<Parameter>` elements so they appear in `start.customParameters`.
 
 ### Research Flags
 

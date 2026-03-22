@@ -35,12 +35,13 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
         let goodbyeTimer: ReturnType<typeof setTimeout> | null = null;
         let isCleanedUp = false;
         let callLogId: string | null = null;
+        let startHandled = false;
         const outcomeFlags = { messageTaken: false, bookingMade: false };
         let lastHistory: unknown[] = [];
 
-        // Create transport immediately so its message listener is registered
-        // BEFORE any Twilio events arrive. The transport needs to see the
-        // `start` event to extract the streamSid for outgoing audio.
+        // Create transport up front. Note: its Twilio message listener is
+        // only registered inside connect(), so it will miss the `start` event.
+        // We save the raw start message and re-emit it after connect() resolves.
         const transport = new TwilioRealtimeTransportLayer({
           twilioWebSocket: socket,
         });
@@ -163,8 +164,11 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
         // Listen to raw socket messages to capture the Twilio `start` event.
         // The transport's message listener is only registered during connect(),
         // but we need the callSid from the start event to look up tenant config
-        // before we can create the session and call connect(). So we listen on
-        // the raw socket for the start event, then hand off to the transport.
+        // before we can create the session and call connect(). After connect()
+        // resolves, we re-emit the saved start message so the transport captures
+        // the streamSid it needs to send audio back to Twilio.
+        let savedStartData: Buffer | string | null = null;
+
         socket.on("message", async (data: Buffer | string) => {
           let msg: Record<string, unknown>;
           try {
@@ -175,6 +179,11 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
 
           switch (msg["event"]) {
             case "start": {
+              // Guard against re-processing when we re-emit below
+              if (startHandled) break;
+              startHandled = true;
+              savedStartData = data;
+
               const start = msg["start"] as Record<string, unknown>;
               streamSid = start["streamSid"] as string;
               callSid = start["callSid"] as string;
@@ -182,15 +191,15 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
               const from = params["From"] ?? "unknown";
               const to = params["To"] ?? "unknown";
 
+              // Retrieve tenant config stored by the incoming-call webhook
+              const config = pendingConfigs.get(callSid);
+              pendingConfigs.delete(callSid);
+
               app.log.info(
                 { streamSid, callSid, from, to },
                 "Twilio media stream started",
               );
               sessionManager.createSession(streamSid, callSid, from, to);
-
-              // Retrieve tenant config stored by the incoming-call webhook
-              const config = pendingConfigs.get(callSid);
-              pendingConfigs.delete(callSid);
 
               if (!config) {
                 app.log.error(
@@ -228,14 +237,22 @@ export function registerMediaStreamRoute(app: FastifyInstance): void {
 
               setupSessionListeners(session);
 
-              // Connect to OpenAI and trigger greeting.
-              // This also registers the transport's Twilio message listener,
-              // which handles media/mark events going forward.
+              // Connect to OpenAI, replay the start event for the transport,
+              // then trigger the greeting.
               const apiKey = process.env["OPENAI_API_KEY"] ?? "";
               session
                 .connect({ apiKey })
                 .then(() => {
                   app.log.info("Realtime session connected to OpenAI");
+
+                  // Re-emit the start message so the transport's listener
+                  // captures the streamSid for outgoing audio.
+                  if (savedStartData) {
+                    socket.emit("message", savedStartData, false);
+                    savedStartData = null;
+                    app.log.info({ streamSid }, "Replayed start event to transport");
+                  }
+
                   session!.sendMessage(
                     "A new caller has just connected. Greet them now.",
                     {},

@@ -69,7 +69,7 @@ export function registerWebhookRoutes(app: FastifyInstance): void {
 
         const publicUrl = process.env["PUBLIC_URL"] ?? "http://localhost:3001";
         const wsUrl = `${publicUrl.replace(/^http/, "ws")}/media-stream`;
-        const twiml = buildStreamResponse(wsUrl);
+        const twiml = buildStreamResponse(wsUrl, { From, To });
 
         reply.type("text/xml").send(twiml);
       } catch (err) {
