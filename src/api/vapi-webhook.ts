@@ -64,7 +64,6 @@ export async function handleAssistantRequest(
     },
   };
 
-  console.log("[vapi] assistant-request response:", JSON.stringify(response, null, 2));
   return response;
 }
 

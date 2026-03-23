@@ -15,8 +15,8 @@ model Tenant {
   description        String
   escalationMessage  String          @default("I'll have someone call you back.")
   afterHoursMessage  String?
-  voiceId            String          @default("ash")
-  voiceProvider      String          @default("11labs")
+  voiceId            String          @default("nova")
+  voiceProvider      String          @default("openai")
   phoneNumber        String
   vapiPhoneNumberId  String?         @unique
   googleCalendarId   String?
