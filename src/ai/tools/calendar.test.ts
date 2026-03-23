@@ -14,44 +14,47 @@ vi.mock("../../calendar/client.js", () => ({
 }));
 
 import {
-  checkAvailabilityTool,
-  bookAppointmentTool,
   executeCheckAvailability,
   executeBookAppointment,
 } from "./calendar.js";
 
-function makeContext(overrides: Partial<{
+function makeTenant(overrides: Partial<{
   googleCalendarId: string | null;
   googleCredentials: unknown | null;
   timezone: string;
-  outcomeFlagsRef: { messageTaken: boolean; bookingMade: boolean };
 }> = {}) {
   return {
-    context: {
-      tenantId: "tenant-1",
-      callLogId: "call-log-1",
-      googleCalendarId: "googleCalendarId" in overrides
-        ? overrides.googleCalendarId
-        : "cal-123",
-      googleCredentials: "googleCredentials" in overrides
-        ? overrides.googleCredentials
-        : {
-            client_email: "test@project.iam.gserviceaccount.com",
-            private_key: "fake-key",
-            project_id: "test-project",
-          },
-      timezone: overrides.timezone ?? "America/New_York",
-      callSid: "CA123",
-      streamSid: "MZ456",
-      outcomeFlagsRef: overrides.outcomeFlagsRef ?? {
-        messageTaken: false,
-        bookingMade: false,
-      },
+    googleCalendarId: "googleCalendarId" in overrides
+      ? overrides.googleCalendarId
+      : "cal-123",
+    googleCredentials: "googleCredentials" in overrides
+      ? overrides.googleCredentials
+      : {
+          client_email: "test@project.iam.gserviceaccount.com",
+          private_key: "fake-key",
+          project_id: "test-project",
+        },
+    timezone: overrides.timezone ?? "America/New_York",
+  } as any;
+}
+
+function makeToolContext(overrides: Partial<{
+  googleCalendarId: string | null;
+  googleCredentials: unknown | null;
+  timezone: string;
+  outcomeFlags: { messageTaken: boolean; bookingMade: boolean };
+}> = {}) {
+  return {
+    tenant: makeTenant(overrides),
+    callLogId: "call-log-1",
+    outcomeFlags: overrides.outcomeFlags ?? {
+      messageTaken: false,
+      bookingMade: false,
     },
   };
 }
 
-describe("checkAvailabilityTool", () => {
+describe("executeCheckAvailability", () => {
   beforeEach(() => {
     mockCreateCalendarClient.mockReset();
     mockCheckAvailability.mockReset();
@@ -59,20 +62,16 @@ describe("checkAvailabilityTool", () => {
     mockCreateCalendarClient.mockReturnValue("mock-calendar-instance");
   });
 
-  it("exports a tool with name check_availability", () => {
-    expect(checkAvailabilityTool.name).toBe("check_availability");
-  });
-
-  it("extracts credentials from context and calls checkAvailability", async () => {
+  it("extracts credentials from tenant and calls checkAvailability", async () => {
     const busySlots = [
       { start: "2026-03-25T10:00:00Z", end: "2026-03-25T11:00:00Z" },
     ];
     mockCheckAvailability.mockResolvedValue(busySlots);
 
-    const ctx = makeContext();
+    const tenant = makeTenant();
     const result = await executeCheckAvailability(
       { date: "2026-03-25" },
-      ctx,
+      tenant,
     );
 
     expect(mockCreateCalendarClient).toHaveBeenCalledWith({
@@ -91,10 +90,10 @@ describe("checkAvailabilityTool", () => {
   });
 
   it("returns error message when googleCalendarId is not configured", async () => {
-    const ctx = makeContext({ googleCalendarId: null });
+    const tenant = makeTenant({ googleCalendarId: null });
     const result = await executeCheckAvailability(
       { date: "2026-03-25" },
-      ctx,
+      tenant,
     );
 
     expect(result).toContain("not configured");
@@ -102,10 +101,10 @@ describe("checkAvailabilityTool", () => {
   });
 
   it("returns error message when googleCredentials is null", async () => {
-    const ctx = makeContext({ googleCredentials: null });
+    const tenant = makeTenant({ googleCredentials: null });
     const result = await executeCheckAvailability(
       { date: "2026-03-25" },
-      ctx,
+      tenant,
     );
 
     expect(result).toContain("not configured");
@@ -113,7 +112,7 @@ describe("checkAvailabilityTool", () => {
   });
 });
 
-describe("bookAppointmentTool", () => {
+describe("executeBookAppointment", () => {
   beforeEach(() => {
     mockCreateCalendarClient.mockReset();
     mockCheckAvailability.mockReset();
@@ -121,11 +120,7 @@ describe("bookAppointmentTool", () => {
     mockCreateCalendarClient.mockReturnValue("mock-calendar-instance");
   });
 
-  it("exports a tool with name book_appointment", () => {
-    expect(bookAppointmentTool.name).toBe("book_appointment");
-  });
-
-  it("sets outcomeFlagsRef.bookingMade to true on success", async () => {
+  it("sets outcomeFlags.bookingMade to true on success", async () => {
     mockBookAppointment.mockResolvedValue({
       success: true,
       eventId: "event-1",
@@ -133,7 +128,7 @@ describe("bookAppointmentTool", () => {
     });
 
     const flags = { messageTaken: false, bookingMade: false };
-    const ctx = makeContext({ outcomeFlagsRef: flags });
+    const ctx = makeToolContext({ outcomeFlags: flags });
 
     await executeBookAppointment(
       {
@@ -156,7 +151,7 @@ describe("bookAppointmentTool", () => {
     });
 
     const flags = { messageTaken: false, bookingMade: false };
-    const ctx = makeContext({ outcomeFlagsRef: flags });
+    const ctx = makeToolContext({ outcomeFlags: flags });
 
     const result = await executeBookAppointment(
       {
@@ -179,7 +174,7 @@ describe("bookAppointmentTool", () => {
       htmlLink: "https://calendar.google.com/event/1",
     });
 
-    const ctx = makeContext();
+    const ctx = makeToolContext();
 
     await executeBookAppointment(
       {

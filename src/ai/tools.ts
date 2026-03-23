@@ -1,61 +1,56 @@
-import { z } from "zod";
-import { tool } from "@openai/agents";
-import type { FunctionTool } from "@openai/agents";
 import { prisma } from "../db/prisma.js";
-import type { CallContext } from "../config/schema.js";
-import { checkAvailabilityTool, bookAppointmentTool } from "./tools/calendar.js";
+import type { TenantConfig } from "../config/schema.js";
+import { executeCheckAvailability, executeBookAppointment } from "./tools/calendar.js";
 
-const takeMessageTool = tool({
-  name: "take_message",
-  description: "Record a message from the caller for a callback",
-  parameters: z.object({
-    callerName: z.string(),
-    callbackNumber: z.string(),
-    reason: z.string(),
-    preferredTime: z.string().optional(),
-  }),
-  execute: async (input, context) => {
-    const { tenantId, callLogId, outcomeFlagsRef } =
-      context!.context as unknown as CallContext;
+export type OutcomeFlags = { messageTaken: boolean; bookingMade: boolean };
 
-    await prisma.message.create({
-      data: {
-        tenantId,
-        callLogId: callLogId ?? null,
-        callerName: input.callerName,
-        callbackNumber: input.callbackNumber,
-        reason: input.reason,
-        preferredTime: input.preferredTime ?? null,
-      },
-    });
+export interface ToolContext {
+  tenant: TenantConfig;
+  callLogId: string;
+  outcomeFlags: OutcomeFlags;
+}
 
-    outcomeFlagsRef.messageTaken = true;
-    console.log("[tool:take_message]", JSON.stringify({
-      type: "message_taken",
-      callerName: input.callerName,
-      callbackNumber: input.callbackNumber,
-      tenantId,
-      callLogId,
-    }));
+export async function executeTakeMessage(
+  args: { callerName: string; callbackNumber: string; reason: string; preferredTime?: string },
+  ctx: ToolContext,
+): Promise<string> {
+  await prisma.message.create({
+    data: {
+      tenantId: ctx.tenant.id,
+      callLogId: ctx.callLogId ?? null,
+      callerName: args.callerName,
+      callbackNumber: args.callbackNumber,
+      reason: args.reason,
+      preferredTime: args.preferredTime ?? null,
+    },
+  });
 
-    return `Message recorded for ${input.callerName}. We will call back at ${input.callbackNumber}.`;
-  },
-});
+  ctx.outcomeFlags.messageTaken = true;
+  console.log("[tool:take_message]", JSON.stringify({
+    type: "message_taken",
+    callerName: args.callerName,
+    callbackNumber: args.callbackNumber,
+    tenantId: ctx.tenant.id,
+    callLogId: ctx.callLogId,
+  }));
 
-const endCallTool = tool({
-  name: "end_call",
-  description: "End the current phone call",
-  parameters: z.object({}),
-  execute: async () => {
-    console.log("[tool:end_call] Agent requested call end");
-    return "Call ending.";
-  },
-});
+  return `Message recorded for ${args.callerName}. We will call back at ${args.callbackNumber}.`;
+}
 
-// Export as an array for easy consumption by the RealtimeAgent
-export const agentTools: FunctionTool<any, any, any>[] = [
-  takeMessageTool,
-  endCallTool,
-  checkAvailabilityTool,
-  bookAppointmentTool,
-];
+// Tool router: maps tool names to executor functions
+export async function executeToolCall(
+  toolName: string,
+  args: Record<string, unknown>,
+  ctx: ToolContext,
+): Promise<string> {
+  switch (toolName) {
+    case "take_message":
+      return executeTakeMessage(args as any, ctx);
+    case "check_availability":
+      return executeCheckAvailability(args as any, ctx.tenant);
+    case "book_appointment":
+      return executeBookAppointment(args as any, ctx);
+    default:
+      return `Unknown tool: ${toolName}`;
+  }
+}
