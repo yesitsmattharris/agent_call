@@ -25,9 +25,10 @@ function getOrCreateFlags(callId: string): OutcomeFlags {
 export async function handleAssistantRequest(
   message: Record<string, any>,
 ): Promise<Record<string, any>> {
-  const phoneNumber: string = message.call.phoneNumber.number;
-  const callerNumber: string = message.call.customer.number;
-  const callId: string = message.call.id;
+  console.log("[vapi] assistant-request call object:", JSON.stringify(message.call, null, 2));
+  const phoneNumber: string = message.call?.phoneNumber?.number;
+  const callerNumber: string = message.call?.customer?.number;
+  const callId: string = message.call?.id;
 
   let tenant;
   try {
