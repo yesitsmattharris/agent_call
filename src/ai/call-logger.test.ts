@@ -17,9 +17,7 @@ vi.mock("../db/prisma.js", () => ({
 
 import {
   createCallLog,
-  finalizeCallLog,
   finalizeCallLogWithReport,
-  extractTranscript,
   determineOutcome,
 } from "./call-logger.js";
 
@@ -51,28 +49,6 @@ describe("createCallLog", () => {
   });
 });
 
-describe("finalizeCallLog", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("updates the record with durationSeconds, outcome, and transcript JSON", async () => {
-    const transcript = [{ role: "user", content: "Hello" }];
-    mockUpdate.mockResolvedValue({ id: "cl-1" });
-
-    await finalizeCallLog("cl-1", 120, "completed", transcript);
-
-    expect(mockUpdate).toHaveBeenCalledWith({
-      where: { id: "cl-1" },
-      data: {
-        durationSeconds: 120,
-        outcome: "completed",
-        transcript,
-      },
-    });
-  });
-});
-
 describe("finalizeCallLogWithReport", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -93,91 +69,6 @@ describe("finalizeCallLogWithReport", () => {
         recordingUrl: "https://storage.vapi.ai/recording.wav",
       },
     });
-  });
-});
-
-describe("extractTranscript", () => {
-  it("converts RealtimeItem[] messages into [{role, content}] array", () => {
-    const history = [
-      {
-        type: "message",
-        role: "user",
-        content: [{ type: "input_audio", transcript: "Hello there" }],
-      },
-      {
-        type: "message",
-        role: "assistant",
-        content: [{ type: "output_text", text: "Hi, how can I help?" }],
-      },
-    ];
-
-    const result = extractTranscript(history);
-    expect(result).toEqual([
-      { role: "user", content: "Hello there" },
-      { role: "assistant", content: "Hi, how can I help?" },
-    ]);
-  });
-
-  it("skips function_call items", () => {
-    const history = [
-      {
-        type: "function_call",
-        name: "take_message",
-        arguments: "{}",
-        output: "done",
-      },
-      {
-        type: "message",
-        role: "assistant",
-        content: [{ type: "output_text", text: "Got it" }],
-      },
-    ];
-
-    const result = extractTranscript(history);
-    expect(result).toEqual([{ role: "assistant", content: "Got it" }]);
-  });
-
-  it("skips items with empty content", () => {
-    const history = [
-      {
-        type: "message",
-        role: "user",
-        content: [{ type: "input_audio", transcript: "" }],
-      },
-      {
-        type: "message",
-        role: "assistant",
-        content: [{ type: "output_text", text: "Hello" }],
-      },
-    ];
-
-    const result = extractTranscript(history);
-    expect(result).toEqual([{ role: "assistant", content: "Hello" }]);
-  });
-
-  it("handles input_audio.transcript and output_text.text content types", () => {
-    const history = [
-      {
-        type: "message",
-        role: "user",
-        content: [
-          { type: "input_audio", transcript: "I need an appointment" },
-        ],
-      },
-      {
-        type: "message",
-        role: "assistant",
-        content: [
-          { type: "output_text", text: "Sure, let me check availability" },
-        ],
-      },
-    ];
-
-    const result = extractTranscript(history);
-    expect(result).toEqual([
-      { role: "user", content: "I need an appointment" },
-      { role: "assistant", content: "Sure, let me check availability" },
-    ]);
   });
 });
 

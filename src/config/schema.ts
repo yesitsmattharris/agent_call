@@ -64,13 +64,3 @@ export type Faq = z.infer<typeof faqSchema>;
 export type Service = z.infer<typeof serviceSchema>;
 export type BusinessHoursEntry = z.infer<typeof businessHoursSchema>;
 export type TenantConfig = z.infer<typeof tenantConfigSchema>;
-
-export type CallContext = {
-  tenantId: string;
-  callLogId: string;
-  googleCalendarId: string | null;
-  googleCredentials: unknown | null;
-  timezone: string;
-  callId: string;
-  outcomeFlagsRef: { messageTaken: boolean; bookingMade: boolean };
-};
