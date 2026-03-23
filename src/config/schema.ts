@@ -48,7 +48,8 @@ export const tenantConfigSchema = z.object({
   escalationMessage: z.string(),
   afterHoursMessage: z.string().nullable(),
   voiceId: z.string(),
-  twilioPhoneNumber: z.string(),
+  phoneNumber: z.string(),
+  voiceProvider: z.string(),
   googleCalendarId: z.string().nullable(),
   googleCredentials: z.unknown().nullable(),
   timezone: z.string(),
@@ -70,7 +71,6 @@ export type CallContext = {
   googleCalendarId: string | null;
   googleCredentials: unknown | null;
   timezone: string;
-  callSid: string;
-  streamSid: string;
+  callId: string;
   outcomeFlagsRef: { messageTaken: boolean; bookingMade: boolean };
 };
