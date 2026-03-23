@@ -23,8 +23,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Message Taking
 
-- [ ] **MSG-01**: Agent captures caller's name, phone number, reason for calling, and preferred callback time
-- [ ] **MSG-02**: Message is stored and visible to business owner in the admin interface
+- [x] **MSG-01**: Agent captures caller's name, phone number, reason for calling, and preferred callback time
+- [x] **MSG-02**: Message is stored and visible to business owner in the admin interface
 
 ### Agent Configuration
 
@@ -37,9 +37,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Call History
 
-- [ ] **HIST-01**: Every call is logged with timestamp, duration, caller number, and outcome
-- [ ] **HIST-02**: Full conversation transcript is stored and viewable for each call
-- [ ] **HIST-03**: Business owner can browse and search call history in admin UI
+- [x] **HIST-01**: Every call is logged with timestamp, duration, caller number, and outcome
+- [x] **HIST-02**: Full conversation transcript is stored and viewable for each call
+- [x] **HIST-03**: Business owner can browse and search call history in admin UI
 
 ### Infrastructure
 
@@ -96,17 +96,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BOOK-01 | Phase 3 | Complete |
 | BOOK-02 | Phase 3 | Complete |
 | BOOK-03 | Phase 3 | Complete |
-| MSG-01 | Phase 3 | Pending |
-| MSG-02 | Phase 3 | Pending |
+| MSG-01 | Phase 3 | Complete |
+| MSG-02 | Phase 3 | Complete |
 | CFG-01 | Phase 2 | Complete |
 | CFG-02 | Phase 2 | Complete |
 | CFG-03 | Phase 2 | Complete |
 | CFG-04 | Phase 2 | Complete |
 | CFG-05 | Phase 2 | Complete |
 | CFG-06 | Phase 2 | Complete |
-| HIST-01 | Phase 3 | Pending |
-| HIST-02 | Phase 3 | Pending |
-| HIST-03 | Phase 3 | Pending |
+| HIST-01 | Phase 3 | Complete |
+| HIST-02 | Phase 3 | Complete |
+| HIST-03 | Phase 3 | Complete |
 | INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |

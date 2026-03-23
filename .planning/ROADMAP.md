@@ -11,7 +11,7 @@
 
 - [x] **Phase 1: Working Call** - A real caller can reach the AI agent via a dedicated phone number, have a bidirectional voice conversation, and the call ends cleanly
 - [x] **Phase 2: Tenant Identity** - The agent knows who it's working for, answers FAQs correctly, respects business hours, and can be reconfigured without redeployment
-- [ ] **Phase 3: Call Resolution + Visibility** - The agent can book appointments, take messages, and business owners can review every call in the admin UI
+- [x] **Phase 3: Call Resolution + Visibility** - The agent can book appointments, take messages, and business owners can review every call in the admin UI
 
 ---
 
@@ -83,9 +83,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 3-01-PLAN.md -- Schema updates (CallLog, Message models), call logging, transcript extraction, message persistence
-- [ ] 3-02-PLAN.md -- Google Calendar integration (check_availability, book_appointment tools), booking prompt instructions
-- [ ] 3-03-PLAN.md -- Admin UI call history, transcript viewer, messages list, dashboard navigation
+- [x] 3-01-PLAN.md -- Schema updates (CallLog, Message models), call logging, transcript extraction, message persistence
+- [x] 3-02-PLAN.md -- Google Calendar integration (check_availability, book_appointment tools), booking prompt instructions
+- [x] 3-03-PLAN.md -- Admin UI call history, transcript viewer, messages list, dashboard navigation
 
 ---
 
@@ -95,7 +95,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Working Call | 3/3 | Complete | 2026-03-20 |
 | 2. Tenant Identity | 4/4 | Complete | 2026-03-21 |
-| 3. Call Resolution + Visibility | 0/3 | In progress | - |
+| 3. Call Resolution + Visibility | 3/3 | Complete | 2026-03-22 |
 
 ---
 

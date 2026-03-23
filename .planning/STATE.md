@@ -16,16 +16,15 @@
 
 ## Current Position
 
-**Current phase:** Phase 3 - Call Resolution + Visibility
-**Current plan:** 3-02 complete
-**Status:** Plans 3-01, 3-02, 3-03 complete
-**Progress:** Phases 1-2 complete, Phase 3 in progress (22/22 requirements delivered)
+**Current phase:** v1 Complete
+**Status:** All 3 phases complete, all 22 requirements delivered and verified
+**Progress:** v1 milestone closed 2026-03-22
 
 ```
 [====================] 100%
-Phase 1: Working Call      [COMPLETE]
-Phase 2: Tenant Identity   [COMPLETE]
-Phase 3: Call Resolution   [In Progress - 3/3 plans done (pending verification)]
+Phase 1: Working Call      [COMPLETE - 2026-03-20]
+Phase 2: Tenant Identity   [COMPLETE - 2026-03-21]
+Phase 3: Call Resolution   [COMPLETE - 2026-03-22]
 ```
 
 ---
@@ -34,8 +33,8 @@ Phase 3: Call Resolution   [In Progress - 3/3 plans done (pending verification)]
 
 | Metric | Target | Actual |
 |--------|--------|--------|
-| Phases complete | 3 | 2 |
-| Requirements delivered | 22 | 20 |
+| Phases complete | 3 | 3 |
+| Requirements delivered | 22 | 22 |
 | Calls handled end-to-end | 1+ | 1+ |
 
 ---
@@ -101,6 +100,10 @@ Phase 3: Call Resolution   [In Progress - 3/3 plans done (pending verification)]
 
 - **Phase 3 (Booking):** Google Calendar service account setup, `freebusy` API usage, and refresh token lifecycle in multi-tenant context may warrant a targeted research spike before planning.
 
+### Todos
+
+- [ ] Migrate from Twilio to Vapi (`.planning/todos/migrate-twilio-to-vapi.md`)
+
 ### Blockers
 
 None currently.
@@ -116,15 +119,13 @@ None currently.
 
 ### Last Session
 
-**Date:** 2026-03-21
-**Completed:** Plan 3-02 (Google Calendar Integration). Calendar client with JWT auth, check_availability and book_appointment tools, booking instructions in prompt builder, all 42 tests passing.
-**Left off:** Plan 3-02 complete, all Phase 3 plans done
+**Date:** 2026-03-22
+**Completed:** Phase 3 verified with live call. Jeff Bailey called, agent took message correctly, call logged at 64s with outcome `message_taken`, admin UI shows call history and message detail. All 22 v1 requirements confirmed. Milestone closed.
 
 ### Next Session Should
 
-1. Run prisma db push when database is available to apply schema changes
-2. Verify full Phase 3 end-to-end with live call testing
-3. Consider Phase 3 verification and close-out
+1. Begin v2 planning if desired (transfers, enhanced booking, post-call intelligence)
+2. Or pick up the "Migrate from Twilio to Vapi" todo
 
 ---
 
