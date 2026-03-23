@@ -96,14 +96,14 @@ describe("handleAssistantRequest", () => {
       type: "assistant-request",
       call: {
         id: "call-1",
-        phoneNumber: { number: "+15550001111" },
+        phoneNumberId: "pn-abc-123",
         customer: { number: "+15559999999" },
       },
     };
 
     const result = await handleAssistantRequest(message);
 
-    expect(mockLoadTenantConfig).toHaveBeenCalledWith("+15550001111");
+    expect(mockLoadTenantConfig).toHaveBeenCalledWith("pn-abc-123");
     expect(mockCreateCallLog).toHaveBeenCalledWith("t-1", "call-1", "+15559999999");
     expect(mockBuildSystemPrompt).toHaveBeenCalledWith(fakeTenant);
     expect(mockGetToolDefsForTenant).toHaveBeenCalledWith(false);
@@ -136,7 +136,7 @@ describe("handleAssistantRequest", () => {
       type: "assistant-request",
       call: {
         id: "call-2",
-        phoneNumber: { number: "+15550001111" },
+        phoneNumberId: "pn-abc-123",
         customer: { number: "+15558888888" },
       },
     };
@@ -178,7 +178,7 @@ describe("handleToolCalls", () => {
       type: "tool-calls",
       call: {
         id: "call-1",
-        phoneNumber: { number: "+15550001111" },
+        phoneNumberId: "pn-abc-123",
         customer: { number: "+15559999999" },
       },
       toolCallList: [
@@ -192,7 +192,7 @@ describe("handleToolCalls", () => {
 
     const result = await handleToolCalls(message);
 
-    expect(mockLoadTenantConfig).toHaveBeenCalledWith("+15550001111");
+    expect(mockLoadTenantConfig).toHaveBeenCalledWith("pn-abc-123");
     expect(mockFindUnique).toHaveBeenCalledWith({
       where: { callId: "call-1" },
       select: { id: true },

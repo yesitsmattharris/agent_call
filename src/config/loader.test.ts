@@ -49,14 +49,14 @@ describe("loadTenantConfig", () => {
 
     mockFindUnique.mockResolvedValue(mockTenant);
 
-    const result = await loadTenantConfig("+15551234567");
+    const result = await loadTenantConfig("pn-abc-123");
 
     expect(result).toEqual(mockTenant);
     expect(result.faqs).toHaveLength(1);
     expect(result.services).toHaveLength(1);
     expect(result.businessHours).toHaveLength(1);
     expect(mockFindUnique).toHaveBeenCalledWith({
-      where: { phoneNumber: "+15551234567" },
+      where: { vapiPhoneNumberId: "pn-abc-123" },
       include: { faqs: true, services: true, businessHours: true },
     });
   });
@@ -64,8 +64,8 @@ describe("loadTenantConfig", () => {
   it("throws for unknown phone number (CFG-06)", async () => {
     mockFindUnique.mockResolvedValue(null);
 
-    await expect(loadTenantConfig("+10000000000")).rejects.toThrow(
-      "No tenant for number: +10000000000"
+    await expect(loadTenantConfig("pn-unknown")).rejects.toThrow(
+      "No tenant for Vapi phone number ID: pn-unknown"
     );
   });
 });

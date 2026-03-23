@@ -25,14 +25,13 @@ function getOrCreateFlags(callId: string): OutcomeFlags {
 export async function handleAssistantRequest(
   message: Record<string, any>,
 ): Promise<Record<string, any>> {
-  console.log("[vapi] assistant-request call object:", JSON.stringify(message.call, null, 2));
-  const phoneNumber: string = message.call?.phoneNumber?.number;
+  const vapiPhoneNumberId: string = message.call?.phoneNumberId;
   const callerNumber: string = message.call?.customer?.number;
   const callId: string = message.call?.id;
 
   let tenant;
   try {
-    tenant = await loadTenantConfig(phoneNumber);
+    tenant = await loadTenantConfig(vapiPhoneNumberId);
   } catch (err: any) {
     return { error: err.message };
   }
@@ -69,12 +68,12 @@ export async function handleAssistantRequest(
 export async function handleToolCalls(
   message: Record<string, any>,
 ): Promise<Record<string, any>> {
-  const phoneNumber: string = message.call.phoneNumber.number;
+  const vapiPhoneNumberId: string = message.call.phoneNumberId;
   const callId: string = message.call.id;
   const toolCallList: Array<{ id: string; name: string; arguments: Record<string, unknown> }> =
     message.toolCallList;
 
-  const tenant = await loadTenantConfig(phoneNumber);
+  const tenant = await loadTenantConfig(vapiPhoneNumberId);
 
   const callLog = await prisma.callLog.findUnique({
     where: { callId },
