@@ -7,9 +7,9 @@ services:
     envVars:
       - key: OPENAI_API_KEY
         sync: false
-      - key: TWILIO_ACCOUNT_SID
+      - key: VAPI_API_KEY
         sync: false
-      - key: TWILIO_AUTH_TOKEN
+      - key: VAPI_WEBHOOK_SECRET
         sync: false
       - key: PUBLIC_URL
         sync: false

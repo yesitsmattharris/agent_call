@@ -2,7 +2,7 @@
 title: Migrate from Twilio to Vapi
 area: infrastructure
 priority: normal
-status: pending
+status: complete
 created: 2026-03-22
 ---
 

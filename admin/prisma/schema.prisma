@@ -17,7 +17,8 @@ model Tenant {
   escalationMessage  String          @default("I'll have someone call you back.")
   afterHoursMessage  String?
   voiceId            String          @default("ash")
-  twilioPhoneNumber  String          @unique
+  voiceProvider      String          @default("11labs")
+  phoneNumber        String          @unique
   googleCalendarId   String?
   googleCredentials  Json?
   timezone           String          @default("America/New_York")
@@ -65,12 +66,13 @@ model CallLog {
   id              String   @id @default(cuid())
   tenantId        String
   tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  callSid         String   @unique
+  callId          String   @unique
   callerNumber    String
   startedAt       DateTime
   durationSeconds Int
   outcome         String
   transcript      Json
+  recordingUrl    String?
   createdAt       DateTime @default(now())
 
   messages        Message[]

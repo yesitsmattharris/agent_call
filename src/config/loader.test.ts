@@ -31,7 +31,7 @@ describe("loadTenantConfig", () => {
       escalationMessage: "I'll have someone call you back.",
       afterHoursMessage: null,
       voiceId: "ash",
-      twilioPhoneNumber: "+15551234567",
+      phoneNumber: "+15551234567",
       googleCalendarId: null,
       googleCredentials: null,
       createdAt: new Date(),
@@ -56,7 +56,7 @@ describe("loadTenantConfig", () => {
     expect(result.services).toHaveLength(1);
     expect(result.businessHours).toHaveLength(1);
     expect(mockFindUnique).toHaveBeenCalledWith({
-      where: { twilioPhoneNumber: "+15551234567" },
+      where: { phoneNumber: "+15551234567" },
       include: { faqs: true, services: true, businessHours: true },
     });
   });
