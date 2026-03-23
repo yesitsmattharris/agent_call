@@ -2,13 +2,13 @@ import { prisma } from "../db/prisma.js";
 
 export async function createCallLog(
   tenantId: string,
-  callSid: string,
+  callId: string,
   callerNumber: string,
 ) {
   return prisma.callLog.create({
     data: {
       tenantId,
-      callSid,
+      callId,
       callerNumber,
       startedAt: new Date(),
       durationSeconds: 0,
@@ -30,6 +30,24 @@ export async function finalizeCallLog(
       durationSeconds,
       outcome,
       transcript,
+    },
+  });
+}
+
+export async function finalizeCallLogWithReport(
+  callId: string,
+  durationSeconds: number,
+  outcome: string,
+  transcript: Array<{ role: string; content: string }>,
+  recordingUrl: string | null,
+) {
+  return prisma.callLog.update({
+    where: { callId },
+    data: {
+      durationSeconds,
+      outcome,
+      transcript,
+      recordingUrl,
     },
   });
 }

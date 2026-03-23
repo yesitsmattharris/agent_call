@@ -18,6 +18,7 @@ vi.mock("../db/prisma.js", () => ({
 import {
   createCallLog,
   finalizeCallLog,
+  finalizeCallLogWithReport,
   extractTranscript,
   determineOutcome,
 } from "./call-logger.js";
@@ -27,16 +28,16 @@ describe("createCallLog", () => {
     vi.clearAllMocks();
   });
 
-  it("creates a CallLog record with tenantId, callSid, callerNumber, startedAt, outcome=in_progress", async () => {
-    const fakeLog = { id: "cl-1", tenantId: "t-1", callSid: "CA123", outcome: "in_progress" };
+  it("creates a CallLog record with tenantId, callId, callerNumber, startedAt, outcome=in_progress", async () => {
+    const fakeLog = { id: "cl-1", tenantId: "t-1", callId: "call-uuid-123", outcome: "in_progress" };
     mockCreate.mockResolvedValue(fakeLog);
 
-    const result = await createCallLog("t-1", "CA123", "+15551234567");
+    const result = await createCallLog("t-1", "call-uuid-123", "+15551234567");
 
     expect(mockCreate).toHaveBeenCalledWith({
       data: expect.objectContaining({
         tenantId: "t-1",
-        callSid: "CA123",
+        callId: "call-uuid-123",
         callerNumber: "+15551234567",
         durationSeconds: 0,
         outcome: "in_progress",
@@ -67,6 +68,29 @@ describe("finalizeCallLog", () => {
         durationSeconds: 120,
         outcome: "completed",
         transcript,
+      },
+    });
+  });
+});
+
+describe("finalizeCallLogWithReport", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("updates by callId with duration, outcome, transcript, and recordingUrl", async () => {
+    const transcript = [{ role: "user", content: "Hello" }];
+    mockUpdate.mockResolvedValue({ id: "cl-1" });
+
+    await finalizeCallLogWithReport("call-uuid-123", 120, "completed", transcript, "https://storage.vapi.ai/recording.wav");
+
+    expect(mockUpdate).toHaveBeenCalledWith({
+      where: { callId: "call-uuid-123" },
+      data: {
+        durationSeconds: 120,
+        outcome: "completed",
+        transcript,
+        recordingUrl: "https://storage.vapi.ai/recording.wav",
       },
     });
   });
