@@ -44,7 +44,7 @@ export async function handleAssistantRequest(
   const systemPrompt = buildSystemPrompt(tenant);
   const toolDefs = getToolDefsForTenant(!!tenant.googleCalendarId);
 
-  return {
+  const response = {
     assistant: {
       name: tenant.agentName,
       firstMessage: tenant.greeting,
@@ -63,6 +63,9 @@ export async function handleAssistantRequest(
       serverUrl: process.env["PUBLIC_URL"] + "/api/vapi/webhook",
     },
   };
+
+  console.log("[vapi] assistant-request response:", JSON.stringify(response, null, 2));
+  return response;
 }
 
 export async function handleToolCalls(
