@@ -79,7 +79,10 @@ export async function handleToolCalls(
     where: { callId },
     select: { id: true },
   });
-  const callLogId = callLog?.id ?? "";
+  if (!callLog) {
+    console.warn("[vapi] Call log not found for callId:", callId);
+  }
+  const callLogId = callLog?.id ?? null;
 
   const outcomeFlags = getOrCreateFlags(callId);
 
@@ -121,7 +124,15 @@ export async function handleEndOfCallReport(
 }
 
 export function registerVapiWebhookRoute(app: FastifyInstance) {
-  app.post("/api/vapi/webhook", async (request, reply) => {
+  app.post("/api/vapi/webhook", {
+    preHandler: async (request, reply) => {
+      const secret = process.env["VAPI_WEBHOOK_SECRET"];
+      if (secret && request.headers["x-vapi-secret"] !== secret) {
+        console.warn("[vapi] Invalid webhook secret");
+        return reply.status(401).send({ error: "Unauthorized" });
+      }
+    },
+  }, async (request, reply) => {
     const body = request.body as Record<string, any>;
     const message = body.message;
 

@@ -6,7 +6,7 @@ export type OutcomeFlags = { messageTaken: boolean; bookingMade: boolean };
 
 export interface ToolContext {
   tenant: TenantConfig;
-  callLogId: string;
+  callLogId: string | null;
   outcomeFlags: OutcomeFlags;
 }
 
