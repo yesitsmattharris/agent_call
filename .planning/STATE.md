@@ -89,6 +89,9 @@ Phase 3: Call Resolution   [COMPLETE - 2026-03-22]
 ### Todos
 
 - [x] Migrate from Twilio to Vapi (`.planning/todos/migrate-twilio-to-vapi.md`)
+- [x] Set up proper VAPI_WEBHOOK_SECRET (mandatory in production, warns in dev)
+- [x] Deploy admin app to Vercel (vercel.json added, ready for dashboard import)
+- [x] Improve AI call agent to sound as human as possible (filler injection, backchannel, smart endpointing, prompt tuning)
 
 ### Blockers
 
@@ -105,17 +108,16 @@ None currently.
 
 ### Last Session
 
-**Date:** 2026-03-23
-**Completed:** Vapi migration merged to main. Replaced Twilio Media Streams + OpenAI Realtime with Vapi webhook-based architecture. 12 commits, 41 tests passing.
+**Date:** 2026-03-25
+**Completed:** Completed all 3 outstanding todos: (1) VAPI_WEBHOOK_SECRET now mandatory in production, warns in dev. (2) Admin app ready for Vercel deploy (vercel.json added). (3) Voice quality tuned with filler injection, backchannel, smart endpointing (LiveKit), background denoising, and improved conversational system prompt.
 
 ### Next Session Should
 
-1. Run `prisma migrate dev` to generate rename migration (twilioPhoneNumber -> phoneNumber, callSid -> callId)
-2. Deploy to Render with Vapi environment variables configured
-3. Configure Vapi phone number to point webhook at deployed server
-4. Run end-to-end test call to verify full flow
+1. Actually deploy admin app to Vercel via dashboard (config is ready)
+2. Test voice quality improvements with a live call
+3. Plan v2 milestone (transfers, OAuth calendar, multi-tenant scaling)
 
 ---
 
 *State initialized: 2026-03-19*
-*Last updated: 2026-03-23 after completing Vapi migration*
+*Last updated: 2026-03-25 after completing operational todos (webhook secret, Vercel prep, voice tuning)*

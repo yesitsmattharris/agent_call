@@ -55,8 +55,22 @@ export async function handleAssistantRequest(
         tools: toolDefs,
       },
       voice: {
-        provider: tenant.voiceProvider ?? "11labs",
+        provider: tenant.voiceProvider ?? "openai",
         voiceId: tenant.voiceId,
+      },
+      // Natural speech: filler words ("um", "like") and backchannel ("yeah", "uh-huh")
+      fillerInjectionEnabled: true,
+      backchannel: true,
+      backgroundDenoisingEnabled: true,
+      // Voice pipeline tuning for responsive, natural conversation
+      startSpeakingPlan: {
+        waitSeconds: 0.4,
+        smartEndpointingPlan: { provider: "livekit" },
+      },
+      stopSpeakingPlan: {
+        numWords: 0,
+        voiceSeconds: 0.2,
+        backoffSeconds: 1.0,
       },
       silenceTimeoutSeconds: 15,
       maxDurationSeconds: 600,
@@ -126,9 +140,17 @@ export async function handleEndOfCallReport(
 }
 
 export function registerVapiWebhookRoute(app: FastifyInstance) {
+  const secret = process.env["VAPI_WEBHOOK_SECRET"];
+  if (!secret) {
+    const isProduction = process.env["NODE_ENV"] === "production";
+    if (isProduction) {
+      throw new Error("VAPI_WEBHOOK_SECRET is required in production");
+    }
+    console.warn("[vapi] VAPI_WEBHOOK_SECRET not set, webhook auth disabled (dev only)");
+  }
+
   app.post("/api/vapi/webhook", {
     preHandler: async (request, reply) => {
-      const secret = process.env["VAPI_WEBHOOK_SECRET"];
       if (secret && request.headers["x-vapi-secret"] !== secret) {
         console.warn("[vapi] Invalid webhook secret");
         return reply.status(401).send({ error: "Unauthorized" });

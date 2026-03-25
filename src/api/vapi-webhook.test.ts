@@ -119,6 +119,18 @@ describe("handleAssistantRequest", () => {
           tools: [{ type: "function", function: { name: "take_message" } }],
         },
         voice: { provider: "11labs", voiceId: "voice-123" },
+        fillerInjectionEnabled: true,
+        backchannel: true,
+        backgroundDenoisingEnabled: true,
+        startSpeakingPlan: {
+          waitSeconds: 0.4,
+          smartEndpointingPlan: { provider: "livekit" },
+        },
+        stopSpeakingPlan: {
+          numWords: 0,
+          voiceSeconds: 0.2,
+          backoffSeconds: 1.0,
+        },
         silenceTimeoutSeconds: 15,
         maxDurationSeconds: 600,
         serverUrl: "https://example.com/api/vapi/webhook",
